@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -124,4 +125,22 @@ public class Player : MonoBehaviour
         else
             return false;
     }
+
+
+
+
+    void OnTriggerStay2D(Collider2D other) 
+    {
+        if(other.gameObject.tag.Equals("Portal"))   //포탈
+        {
+            if(Input.GetKeyDown(KeyCode.W))
+            {
+                GameManager.instance.currentStage++;
+                GameManager.instance.SaveUserData();
+                SceneManager.LoadScene(GameManager.instance.currentStage);
+            }
+        }
+    }
+
+
 }
