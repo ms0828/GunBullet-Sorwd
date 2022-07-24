@@ -3,12 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ITakeDamage
 {
     public Rigidbody2D rb;
     public Animator am;
-    public float speed = 5.0f;        //이동속도
-    public float jumpPower = 5.0f;     //점프 힘
+
+    public Transform hitBox;    //공격 범위
+
+    //-----스탯 관련-----
+    public int maxHp;
+    public int currentHp;
+
+    public float speed;
+    public float jumpPower;
+
+    //-----상태 관련-----
+    public bool isDead = false;
+    public bool isHolding = false;
+
+
 
     //-----움직임 방향 관련----
     private Vector3 lScale = new Vector3(-3,3,1);
@@ -22,6 +35,23 @@ public class Player : MonoBehaviour
     public Transform muzzlePos;
     public GameObject bulletPrefeb;
 
+        
+
+    public int holdingGauge = 0;
+   
+    public void Awake()
+    {
+
+    }
+
+    public void Start()
+    {
+        maxHp = 5000;
+        currentHp = 5000;
+        speed = 5.0f;
+        jumpPower = 5.0f;
+    }
+
     public void Update()
     {
         PlayerControll();
@@ -33,6 +63,17 @@ public class Player : MonoBehaviour
 
     public void PlayerControll()
     {
+        
+        if(isHolding)       //홀딩 상태면 컨트롤 불가
+        {
+            if(Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.D))
+            {
+                holdingGauge += 10;
+            }
+
+            return;
+        }
+        
 
         //---------플레이어 좌우 움직임-----------
         if(Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftArrow))    //오른쪽 달리기
@@ -142,5 +183,78 @@ public class Player : MonoBehaviour
         }
     }
 
+
+
+    public void TakeDamage(Transform attacker, int damage)
+    {
+        isHolding = false;      //피격 시, 홀딩 해제
+        am.SetBool("Holding",false);
+
+
+
+        if(currentHp - damage > 0)      //히트
+        {
+            currentHp = currentHp - damage;
+            am.SetTrigger("Hit");
+
+            //넉백
+            if(transform.position.x - attacker.position.x > 0)  //대상이 왼쪽에서 공격했다면
+            {
+                rb.AddForce(new Vector2(3f,0f), ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
+            }
+            else      //대상이 오른쪽에서 공격했다면
+            {
+                rb.AddForce(new Vector2(-3f,0f), ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
+            }
+
+        }
+        else       //사망
+        {
+            if(!isDead)     //이미 죽은 상태에서 피격 방지
+            {
+                currentHp = 0;
+                isDead = true;
+                //am.SetTrigger("Dead");
+    
+                Destroy(gameObject, 2f);        //2초 후 사라짐
+            }
+        }
+    }
+
+
+    public IEnumerator Holding(HeadMachine attacker)   //HeadMachine이 잡기 공격을 했을 때 실행되는 함수
+    {
+
+        isHolding = true;
+        am.SetBool("Holding",true);
+        holdingGauge = 0;
+
+        for(int i=0; i<20; i++)
+        {
+            if(holdingGauge >= 100)
+            {
+                am.SetBool("Holding",false);
+                isHolding = false;
+                attacker.TakeDamage(this.transform, 0);        //탈출 성공하면 적 밀쳐냄
+                yield break;
+            }
+
+            holdingGauge -= 10;
+            if(holdingGauge <= 0)
+                holdingGauge = 0;
+
+
+            yield return new WaitForSeconds(0.2f);
+        }
+        
+    }
+
+
+    //-------히트박스 나타내기-------(인게임에서는 안보임) (히트박스 크기 조절하기 위해 만든 함수)
+    private void OnDrawGizmos()     
+    {                               
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(hitBox.position,hitBox.localScale);
+    }
 
 }

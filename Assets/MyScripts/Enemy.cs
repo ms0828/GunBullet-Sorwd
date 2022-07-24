@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour     //적 추상클래스 (적은 이 클래스를 상속받아 추상 함수 구현해야함)
+public abstract class Enemy : MonoBehaviour, ITakeDamage    //적 추상클래스 (적은 이 클래스를 상속받아 추상 함수 구현해야함)
 {
     public int maxHp;
     public int currentHp;
     public int shortAttackPower;
     public int longAttackPower;
 
+    public float speed;
+
     //-----기본 컴포넌트-----
-    private Animator am;            // 에니메이터
+    public Animator am;            // 에니메이터
     private Rigidbody2D rb;         // Rigidbody
     private SpriteRenderer sr;      //스프라이트 렌더러 (x축 filp 설정 위해)
     public Transform hitBox;    //공격 범위    (자식으로 빈 오브젝트(히트박스) 크기 설정한다음 인스펙터로 할당해주세요)
@@ -18,6 +20,7 @@ public abstract class Enemy : MonoBehaviour     //적 추상클래스 (적은 �
 
     //-----상태 관련 bool-----
     private bool isDead = false;
+    
 
     //-----움직임 방향 관련----
     public int nextMove = 0;       //0 정지, -1 왼쪽, 1 오른쪽
@@ -66,6 +69,7 @@ public abstract class Enemy : MonoBehaviour     //적 추상클래스 (적은 �
 
     void Move()     //몬스터 움직임 함수
     {   
+
         //몬스터의 앞 방향 벡터 (낭떨어지 체크)
         Vector2 frontVec = new Vector2(rb.position.x + nextMove * 0.3f, rb.position.y);
         Debug.DrawRay(frontVec, Vector2.down, new Color(0, 1, 0));
@@ -99,7 +103,7 @@ public abstract class Enemy : MonoBehaviour     //적 추상클래스 (적은 �
         //움직이는 에니메이션 실행 중에 이동방향으로 이동처리
         if(am.GetCurrentAnimatorStateInfo(0).IsName("Run")) //달리는 에니메이션 진행중이면
         {
-            transform.Translate(new Vector2(nextMove * Time.deltaTime * 0.6f ,0));
+            transform.Translate(new Vector2(nextMove * Time.deltaTime * speed ,0));
         }
         
     }
@@ -148,6 +152,39 @@ public abstract class Enemy : MonoBehaviour     //적 추상클래스 (적은 �
         nextMove *= -1;
     }
 
+
+    public void TakeDamage(Transform attacker, int damage)
+    {
+        am.SetBool("Grab", false);
+
+        if(currentHp - damage > 0)      //히트
+        {
+            currentHp = currentHp - damage;
+            am.SetTrigger("Hit");
+
+            //넉백
+            if(transform.position.x - attacker.position.x > 0)  //대상이 왼쪽에서 공격했다면
+            {
+                rb.AddForce(new Vector2(3f,0f), ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
+            }
+            else      //대상이 오른쪽에서 공격했다면
+            {
+                rb.AddForce(new Vector2(-3f,0f), ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
+            }
+
+        }
+        else       //사망
+        {
+            if(!isDead)     //이미 죽은 상태에서 피격 방지
+            {
+                currentHp = 0;
+                isDead = true;
+                //am.SetTrigger("Dead");
+    
+                Destroy(gameObject, 2f);        //2초 후 사라짐
+            }
+        }
+    }
 
     
     
