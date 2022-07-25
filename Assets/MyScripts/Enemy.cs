@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, ITakeDamage    //적 추상클래스 (적은 이 클래스를 상속받아 추상 함수 구현해야함)
+public abstract class Enemy : MonoBehaviour    //적 추상클래스 (적은 이 클래스를 상속받아 추상 함수 구현해야함)
 {
     public int maxHp;
     public int currentHp;
@@ -13,13 +13,13 @@ public abstract class Enemy : MonoBehaviour, ITakeDamage    //적 추상클래�
 
     //-----기본 컴포넌트-----
     public Animator am;            // 에니메이터
-    private Rigidbody2D rb;         // Rigidbody
-    private SpriteRenderer sr;      //스프라이트 렌더러 (x축 filp 설정 위해)
+    public Rigidbody2D rb;         // Rigidbody
+    public SpriteRenderer sr;      //스프라이트 렌더러 (x축 filp 설정 위해)
     public Transform hitBox;    //공격 범위    (자식으로 빈 오브젝트(히트박스) 크기 설정한다음 인스펙터로 할당해주세요)
 
 
     //-----상태 관련 bool-----
-    private bool isDead = false;
+    public bool isDead = false;
     
 
     //-----움직임 방향 관련----
@@ -153,38 +153,7 @@ public abstract class Enemy : MonoBehaviour, ITakeDamage    //적 추상클래�
     }
 
 
-    public void TakeDamage(Transform attacker, int damage)
-    {
-        am.SetBool("Grab", false);
-
-        if(currentHp - damage > 0)      //히트
-        {
-            currentHp = currentHp - damage;
-            am.SetTrigger("Hit");
-
-            //넉백
-            if(transform.position.x - attacker.position.x > 0)  //대상이 왼쪽에서 공격했다면
-            {
-                rb.AddForce(new Vector2(3f,0f), ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
-            }
-            else      //대상이 오른쪽에서 공격했다면
-            {
-                rb.AddForce(new Vector2(-3f,0f), ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
-            }
-
-        }
-        else       //사망
-        {
-            if(!isDead)     //이미 죽은 상태에서 피격 방지
-            {
-                currentHp = 0;
-                isDead = true;
-                //am.SetTrigger("Dead");
     
-                Destroy(gameObject, 2f);        //2초 후 사라짐
-            }
-        }
-    }
 
     
     

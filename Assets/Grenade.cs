@@ -9,6 +9,11 @@ public class Grenade : MonoBehaviour
     public Animator am;
     private Vector2 direction;
 
+    public Transform explosionHitBox;
+
+    private Vector2 explosionScale = new Vector2(5,5);
+
+
 
     public void SetGrenade(int direction)
     {
@@ -22,17 +27,33 @@ public class Grenade : MonoBehaviour
         Invoke("Explosion", 3f);
     }
 
-    /*void OnTriggerEnter2D(Collider2D other) 
+    private void OnCollisionEnter2D(Collision2D other) 
     {
         if(other.gameObject.tag.Equals("Player"))
         {
             Explosion();
         }
-    }*/
+    }
 
     public void Explosion()
     {
         am.SetTrigger("Explosion");
-        Destroy(gameObject, 1f);
+        transform.localScale = explosionScale;
+        Destroy(gameObject, 0.5f);
+
+        Collider2D collider = Physics2D.OverlapBox(explosionHitBox.position, explosionHitBox.localScale,0, 1 << LayerMask.NameToLayer("Player"));
+
+        if(collider != null)
+        {
+            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);
+        }
+    }
+
+    
+
+    private void OnDrawGizmos() 
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(explosionHitBox.position, explosionHitBox.localScale);
     }
 }

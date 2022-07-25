@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 244913097}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.12, y: 0, z: 0}
-  m_LocalScale: {x: 1.7, y: 1.5, z: 1}
+  m_LocalScale: {x: 2, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3120414944801458188}
@@ -192,6 +192,7 @@ MonoBehaviour:
   playerDirection: 1
   muzzlePos: {fileID: 3120414946345827154}
   bulletPrefeb: {fileID: 7118730206389760424, guid: 516ebef030a650f4b88da5a069322987, type: 3}
+  holdingGauge: 0
 --- !u!95 &3120414944801458227
 Animator:
   serializedVersion: 4
