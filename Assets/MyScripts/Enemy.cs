@@ -50,6 +50,7 @@ public abstract class Enemy : MonoBehaviour    //적 추상클래스 (적은 이
 
     public void FixedUpdate()
     {
+        
         if(isDead)
             return;
 

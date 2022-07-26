@@ -23,6 +23,7 @@ public class ArmMachine : Enemy
 
         maxHp = 100;
         currentHp = 100;
+        speed = 1f;
         shortAttackPower = 15;
         longAttackPower = 20;
 
@@ -31,10 +32,14 @@ public class ArmMachine : Enemy
 
     }
 
-    void Update()
+    new void FixedUpdate()
     {
+        base.FixedUpdate();
+
         ShortAttack();
     }
+
+
 
     // ----- 적 근거리 공격 후 넉백 관련 -----
     void Knockback(float dir)

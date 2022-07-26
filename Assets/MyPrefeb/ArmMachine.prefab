@@ -225,7 +225,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6306880153147198475}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -252,12 +252,18 @@ MonoBehaviour:
   longAttackPower: 0
   speed: 0
   am: {fileID: 0}
+  rb: {fileID: 0}
+  sr: {fileID: 0}
   hitBox: {fileID: 6306880154263893014}
+  isDead: 0
   nextMove: 0
+  player: {fileID: 3120414944801458188, guid: 5b8a2d74e60373b45a138dd9e0c68312, type: 3}
   SnipingScope: {fileID: 6079313028326170612}
   knockbackSpeed: 3
   knockbackTime: 0.2
+  snipingTime: 3
   isknockback: 0
+  isSniping: 0
 --- !u!95 &5673842281005151617
 Animator:
   serializedVersion: 4
