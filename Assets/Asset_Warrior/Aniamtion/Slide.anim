@@ -77,4 +77,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.2
+    functionName: ThrustAttack
+    data: 
+    objectReferenceParameter: {fileID: 3120414944801458190, guid: 5b8a2d74e60373b45a138dd9e0c68312, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

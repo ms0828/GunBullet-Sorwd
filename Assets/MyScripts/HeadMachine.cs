@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeadMachine : Enemy
+public class HeadMachine : Enemy, ITakeDamage
 {
-    private Player player;      //최초 잡기 시전 때, collider를 통해 캐싱해서 사용  (연산 줄이기 위해)
+    public Player player;      //최초 잡기 시전 때, collider를 통해 캐싱해서 사용  (연산 줄이기 위해)
 
     int playerLayer;
 
@@ -22,8 +22,8 @@ public class HeadMachine : Enemy
     {
         base.Start();
         
-        maxHp = 120;
-        currentHp = 120;
+        maxHp = 12000;
+        currentHp = 12000;
         speed = 1f;
         shortAttackPower = 20;
         longAttackPower = 15;
@@ -192,10 +192,62 @@ public class HeadMachine : Enemy
     }
 
 
+
+    public void TakeDamage(Transform attacker, int damage)
+    {
+        
+        //잡는 도중에 맞으면 잡기 상태 풀고, 플레이어도 홀딩 상태 해제
+        if(isGrab == true)
+        {
+            isGrab = false;
+            am.SetBool("Grab", false);
+
+            if(player == null)
+            {
+                player = GameObject.Find("Player").GetComponent<Player>();
+            }
+            player.isHolding = false;
+            player.am.SetBool("Holding",false);
+        }
+        //-------
+         
+
+
+        if(currentHp - damage > 0)      //히트
+        {
+            currentHp = currentHp - damage;
+            am.SetTrigger("Hit");
+
+            //넉백
+            if(transform.position.x - attacker.position.x > 0)  //대상이 왼쪽에서 공격했다면
+            {
+                rb.AddForce(new Vector2(3f,0f), ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
+            }
+            else      //대상이 오른쪽에서 공격했다면
+            {
+                rb.AddForce(new Vector2(-3f,0f), ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
+            }
+
+        }
+        else       //사망
+        {
+            if(!isDead)     //이미 죽은 상태에서 피격 방지
+            {
+                currentHp = 0;
+                isDead = true;
+                //am.SetTrigger("Dead");
+    
+                Destroy(gameObject, 2f);        //2초 후 사라짐
+            }
+        }
+    }
+
+    /*
     //-------수류탄 투척 범위 나타내기-------(인게임에서는 안보임) (크기 조절하기 위해 만든 함수)
     private void OnDrawGizmos()     
     {                               
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(throwScope.position,throwScope.localScale);
     }
+    */
 }

@@ -141,6 +141,40 @@ public class Player : MonoBehaviour, ITakeDamage
 
     }
 
+    void DownAttack()
+    {
+        Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,1 << LayerMask.NameToLayer("Enemy"));
+        
+        if(collider != null)    //적이 있으면
+        {   
+            //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
+            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 15);     //대상의 TakeDamage 함수 실행
+        }
+    }
+
+    void UpAttack()
+    {
+        Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,1 << LayerMask.NameToLayer("Enemy"));
+        
+        if(collider != null)    //적이 있으면
+        {   
+            //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
+            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);     //대상의 TakeDamage 함수 실행
+        }
+    }
+
+    void ThrustAttack()
+    {
+        Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,1 << LayerMask.NameToLayer("Enemy"));
+        
+        if(collider != null)    //적이 있으면
+        {   
+            //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
+            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);     //대상의 TakeDamage 함수 실행
+        }
+    }
+
+
     void Shooting()     //포격 에니메이션에서 호출됨 (에니메이션 이벤트 함수)   -> 총알 발사
     {
         Bullet bullet = Instantiate(bulletPrefeb, muzzlePos.position, muzzlePos.rotation).GetComponent<Bullet>();
@@ -224,14 +258,13 @@ public class Player : MonoBehaviour, ITakeDamage
 
     public IEnumerator Holding(HeadMachine attacker)   //HeadMachine이 잡기 공격을 했을 때 실행되는 함수
     {
-
         isHolding = true;
         am.SetBool("Holding",true);
         holdingGauge = 0;
 
         for(int i=0; i<20; i++)
         {
-            if(holdingGauge >= 100)
+            if(holdingGauge >= 100 || isHolding == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
             {
                 am.SetBool("Holding",false);
                 isHolding = false;
