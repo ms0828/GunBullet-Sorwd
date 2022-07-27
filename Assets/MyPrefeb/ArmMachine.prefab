@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 5332198364919386604}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 2, z: 1}
+  m_LocalScale: {x: 6, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6306880153147198473}
@@ -257,13 +257,14 @@ MonoBehaviour:
   hitBox: {fileID: 6306880154263893014}
   isDead: 0
   nextMove: 0
-  player: {fileID: 3120414944801458188, guid: 5b8a2d74e60373b45a138dd9e0c68312, type: 3}
+  player: {fileID: 0}
   SnipingScope: {fileID: 6079313028326170612}
-  knockbackSpeed: 3
   knockbackTime: 0.2
   snipingTime: 3
   isknockback: 0
   isSniping: 0
+  isKnifeCoolTime: 0
+  isSnipingCoolTime: 0
 --- !u!95 &5673842281005151617
 Animator:
   serializedVersion: 4
@@ -274,7 +275,7 @@ Animator:
   m_GameObject: {fileID: 6306880153147198475}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 310919959ed42cb409dd9b7ee6b1ca81, type: 2}
+  m_Controller: {fileID: 9100000, guid: fb880b4ad093d1c49b5e812844f320c8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

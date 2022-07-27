@@ -35,7 +35,7 @@ public class ArmMachine : Enemy
     {
         base.FixedUpdate();
 
-        // ShortAttack();
+        //ShortAttack();
         LongAttack(); 
     }
 
@@ -45,23 +45,17 @@ public class ArmMachine : Enemy
     void Knockback()
     {
         isknockback = true;
-        float time = 0;
-
         
-        Debug.Log(transform.position.x - player.position.x);
-
-        while (time < knockbackTime)
-        {
-            if(transform.position.x - player.position.x > 0)    // 플레이어 위치의 반대 방향으로 넉백                    
-                rb.AddForce(new Vector2(0.4f,0f), ForceMode2D.Impulse);
-            else
-                rb.AddForce(new Vector2(-0.4f,0f), ForceMode2D.Impulse);  
+        if(transform.position.x - player.position.x > 0)    // 플레이어 위치의 반대 방향으로 넉백                    
+            rb.AddForce(new Vector2(3f,2f), ForceMode2D.Impulse);
+        else
+            rb.AddForce(new Vector2(-3f,2f), ForceMode2D.Impulse);  
         
-            time += Time.deltaTime;
-        }
 
         isknockback = false;
     }
+
+
     // ----- 적 원거리 공격 관련 -----
     void Sniping()
     {
@@ -107,7 +101,7 @@ public class ArmMachine : Enemy
             StartCoroutine(KnifeCoolTime());
             am.SetTrigger("KnifeAttack");
             collider1.GetComponent<ITakeDamage>().TakeDamage(player.transform, shortAttackPower);
-            Knockback();            
+         
         }
     }
 
