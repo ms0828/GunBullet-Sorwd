@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701374813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.98, y: -0.07, z: 0}
-  m_LocalScale: {x: 1.65, y: 0.02, z: 1}
+  m_LocalPosition: {x: 1.29, y: -0.07, z: 0}
+  m_LocalScale: {x: 2.35, y: 0.02, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6306880153147198473}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1316837324}
   m_Layer: 0
-  m_Name: AimStartPoint
+  m_Name: MuzzlePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316837323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.08, y: -0.04, z: 0}
+  m_LocalPosition: {x: 0.08, y: -0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -244,7 +244,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3db1f94c2a9c4456ca0c885b6b8736cb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1dec2db829040784aa64ad7067e9f51e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -316,23 +316,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 0
   currentHp: 0
-  shortAttackPower: 0
-  longAttackPower: 0
   speed: 0
   am: {fileID: 0}
   rb: {fileID: 0}
   sr: {fileID: 0}
-  hitBox: {fileID: 6306880154263893014}
   isDead: 0
   nextMove: 0
+  leftDirection: {x: -3, y: 3, z: 1}
+  rightDirection: {x: 3, y: 3, z: 1}
   player: {fileID: 0}
-  aimStartPoint: {fileID: 1316837324}
-  aimLaser: {fileID: 701374813}
-  knockbackTime: 0.2
+  playerLayer: 0
+  knifePower: 20
+  shootPower: 30
+  aimDistance: 7
   isknockback: 0
   isKnifeCoolTime: 0
   isSnipingCoolTime: 0
   isAiming: 0
+  muzzlePos: {fileID: 1316837324}
+  aimLaser: {fileID: 701374813}
+  bulletPrefeb: {fileID: 1848119528010915611, guid: 63fcfe2620f6b454787a006f7d821b97, type: 3}
+  knockbackTime: 0.2
+  knifeScope: {fileID: 6306880154263893014}
 --- !u!95 &5673842281005151617
 Animator:
   serializedVersion: 4
@@ -363,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6306880154263893014}
   m_Layer: 0
-  m_Name: HitBox
+  m_Name: KnifeScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

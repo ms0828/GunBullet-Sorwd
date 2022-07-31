@@ -45,8 +45,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.040505573, y: -0.0067512556}
-  m_Size: {x: 2, y: 0.7}
+  m_Offset: {x: 0.028278677, y: 0.04327361}
+  m_Size: {x: 1.8624346, y: 0.5499282}
   m_Direction: 1
 --- !u!1 &786886409
 GameObject:
@@ -120,7 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1808142128296007199}
   m_Layer: 0
-  m_Name: HitBox
+  m_Name: GrabScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,8 +134,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808142128296007198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.087, y: -0.03, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.7, z: 1}
+  m_LocalPosition: {x: 0.13, y: 0.01, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1808142129395953152}
@@ -222,12 +222,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3db1f94c2a9c4456ca0c885b6b8736cb, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: f374107ba66790641b6b7c9d0d9a49d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.96, y: 0.63}
+  m_Size: {x: 1.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -267,18 +267,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.030073874, y: -0.13306093}
+  m_Offset: {x: -0.0034922734, y: -0.01651103}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.96, y: 0.63}
-    newSize: {x: 0.96, y: 0.63}
+    oldSize: {x: 1.5, y: 1.5}
+    newSize: {x: 1.5, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1739007, y: 0.4045887}
+  m_Size: {x: 0.22706388, y: 0.36778343}
   m_EdgeRadius: 0
 --- !u!114 &1808142129395953156
 MonoBehaviour:
@@ -294,22 +294,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 0
   currentHp: 0
-  shortAttackPower: 0
-  longAttackPower: 0
   speed: 0
   am: {fileID: 0}
   rb: {fileID: 0}
   sr: {fileID: 0}
-  hitBox: {fileID: 1808142128296007199}
   isDead: 0
   nextMove: 0
+  leftDirection: {x: -3, y: 3, z: 1}
+  rightDirection: {x: 3, y: 3, z: 1}
   player: {fileID: 0}
+  playerLayer: 0
+  grabAttackPower: 20
   isGrab: 0
   isGrabCoolTime: 0
   isThrowCoolTime: 0
   throwPos: {fileID: 1960817422}
   throwScope: {fileID: 786886410}
   grenadePrefeb: {fileID: 8544337211782725708, guid: 249052b99d23e62408a0934974be8198, type: 3}
+  grabScope: {fileID: 1808142128296007199}
 --- !u!95 &-9210761995530545272
 Animator:
   serializedVersion: 4

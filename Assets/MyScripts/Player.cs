@@ -268,7 +268,10 @@ public class Player : MonoBehaviour, ITakeDamage
             {
                 am.SetBool("Holding",false);
                 isHolding = false;
-                attacker.TakeDamage(this.transform, 0);        //탈출 성공하면 적 밀쳐냄
+
+                if(holdingGauge >= 100)
+                    attacker.TakeDamage(this.transform, 0);        //게이지 채워서 탈출 성공하면 적 밀쳐냄
+
                 yield break;
             }
 

@@ -4,47 +4,146 @@ using UnityEngine;
 
 public class HeadMachine : Enemy, ITakeDamage
 {
-    public Player player;      //최초 잡기 시전 때, collider를 통해 캐싱해서 사용  (연산 줄이기 위해)
 
-    int playerLayer;
+    //------스탯 관련------
+    public int grabAttackPower = 20;
 
+
+    //------상태 관련 bool-------
     public bool isGrab = false;
     public bool isGrabCoolTime = false;
     public bool isThrowCoolTime = false;
 
+
+    //------필요 Object or Transform------
     public Transform throwPos;
-
     public Transform throwScope;
-
     public GameObject grenadePrefeb;
+    public Transform grabScope;    //잡기 범위
 
-    new void Start()
+
+    //------쿨타임 코루틴 캐싱------
+    public WaitForSeconds grabCoolTime = new WaitForSeconds(5.0f);
+    public WaitForSeconds throwCoolTime = new WaitForSeconds(8.0f);
+
+    void Start()
     {
-        base.Start();
-        
         maxHp = 12000;
         currentHp = 12000;
         speed = 1f;
-        shortAttackPower = 20;
-        longAttackPower = 15;
-        
-        playerLayer = 1 << LayerMask.NameToLayer("Player");
+
+        Invoke("SetMoveDirection", 0.5f);
     }
+
+
+    void FixedUpdate()
+    {
+        if(isDead)
+            return;
+
+        Move();
+        ObservePlayer();
+    }
+
+
+
+
+    //-----------움직임 방향 설정 관련---------------
+    void SetMoveDirection()     //몬스터 움직임 방향을 3초마다 설정
+    {
+        nextMove = Random.Range(-1,2);      //-1~1까지 
+
+        int time = Random.Range(1,5);
+        Invoke("SetMoveDirection", time);       //다음 방향 설정
+    }
+
+    IEnumerator GoBack()    //반대로 가는 함수
+    {
+        yield return new WaitForSeconds(1.0f);
+        nextMove *= -1;
+    }
+
+    //플레이어 추적 이동을 트리거로 구현
+    void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.gameObject.tag.Equals("Player"))
+        {
+            CancelInvoke("SetMoveDirection");       //랜덤 방향 설정 취소하고
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)      //캐릭터 위치 추적
+    {
+        if(other.gameObject.tag.Equals("Player"))
+        {
+            if(other.transform.position.x - transform.position.x > 0)   //캐릭터가 오른쪽에 있다면
+            {
+                nextMove = 1;
+            }
+            else
+            {
+                nextMove = -1;
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.gameObject.tag.Equals("Player"))   //플레이어가 인식 범위에서 벗어나면
+        {
+            if(am.GetCurrentAnimatorStateInfo(0).IsName("Run"))
+            {
+                //StartCoroutine("GoBack");   //1초 후 반대 방향으로 감
+            }
+            Invoke("SetMoveDirection",3f);      //3초후 랜덤 방향 다시 설정
+        }
+    }
+    //-----------------------------------------------
 
 
     
 
-    void Update()
-    {
+
+    void Move()     //몬스터 움직임 함수
+    {   
+        //몬스터의 앞 방향 벡터 (낭떨어지 체크)
+        Vector2 frontVec = new Vector2(rb.position.x + nextMove * 0.3f, rb.position.y);
+
+        //몬스터의 앞에서 아래로 레이캐스트를 쏴서 아래가 낭떨어지인지 확인함
+        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 2f ,LayerMask.GetMask("Block"));
+        if(rayHit.collider == null)  //낭떨어지이면
+        {
+            nextMove *= -1;     //다음 움직임 방향을 반대 방향으로
+            CancelInvoke("SetMoveDirection");
+            Invoke("SetMoveDirection",3);       //3초후, 움직임 방향 다시 설정 
+        }
+
+        
+        if(nextMove == 0)       //정지
+        {
+            am.SetBool("Run",false);
+        }
+        else if(nextMove == -1)   //왼쪽으로 갈 때
+        {
+            am.SetBool("Run",true);
+            transform.localScale = leftDirection;  //-----이미지 방향 처리-----
+        }
+        else     //오른쪽으로 갈 때
+        {
+            am.SetBool("Run",true);
+            transform.localScale = rightDirection;  //-----이미지 방향 처리-----
+        }
+
+
+        //움직이는 에니메이션 실행 중에 이동방향으로 이동처리
+        if(am.GetCurrentAnimatorStateInfo(0).IsName("Run")) //달리는 에니메이션 진행중이면
+        {
+            transform.Translate(new Vector2(nextMove * Time.deltaTime * speed ,0));
+        }
         
     }
 
-    new void FixedUpdate()
-    {
-        base.FixedUpdate();
 
-        ObservePlayer();
-    }
 
 
     //공격 루트 : ObervePlayer -> Grab -> GrabAttack (홀딩을 풀지 못하면)
@@ -52,7 +151,7 @@ public class HeadMachine : Enemy, ITakeDamage
     {
         //-----근접 공격(잡기)------
         //플레이어의 레이어(인덱스)를 가져온 후, 히트박스 내 해당 레이어를 가진 충돌체(몬스터)들을 배열로 가져옴
-        Collider2D collider1 = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,playerLayer);
+        Collider2D collider1 = Physics2D.OverlapBox(grabScope.position,grabScope.localScale,0,playerLayer);
         
         if(collider1 != null && isGrabCoolTime == false)    //플레이어가 있으면
         {   
@@ -77,15 +176,10 @@ public class HeadMachine : Enemy, ITakeDamage
     public void Grab()      //잡기 에니메이션에서 실행
     {
         
-        Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,playerLayer);
+        Collider2D collider = Physics2D.OverlapBox(grabScope.position,grabScope.localScale,0,playerLayer);
         
         if(collider != null)    //플레이어가 있으면
         {   
-            if(player == null)  //최초 잡기 시전 때 플레이어 캐싱
-            {
-                player = collider.GetComponent<Player>();   
-            }
-
             if(player.isHolding == false)
             {
                 StartCoroutine(player.Holding(this));       //플레이어 홀딩 함수 발동
@@ -107,10 +201,9 @@ public class HeadMachine : Enemy, ITakeDamage
 
     IEnumerator GrabAttack()    
     {
-
         for(int i=0; i<3; i++)
         {
-            Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,playerLayer);
+            Collider2D collider = Physics2D.OverlapBox(grabScope.position,grabScope.localScale,0,playerLayer);
             
             if(collider == null || player.isHolding == false)    //범위 내 플레이어가 없으면 잡기 종료
             {
@@ -154,12 +247,24 @@ public class HeadMachine : Enemy, ITakeDamage
     }
 
 
+    public void ShortAttack()      //근거리 공격       //잡기 공격 에니메이션에서 실행됨
+    {
+        Collider2D collider = Physics2D.OverlapBox(grabScope.position,grabScope.localScale,0,playerLayer);
+        
+        if(collider != null)    //플레이어가 있으면
+        {   
+            //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
+            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, grabAttackPower);     //대상의 TakeDamage 함수 실행
+        }
+    }
+
+
     //------------쿨타임 관련-------------
     IEnumerator GrabCoolTime()
     {
         isGrabCoolTime = true;
 
-        yield return new WaitForSeconds(5.0f);
+        yield return grabCoolTime;
 
         isGrabCoolTime = false;
     }
@@ -168,51 +273,27 @@ public class HeadMachine : Enemy, ITakeDamage
     {
         isThrowCoolTime = true;
 
-        yield return new WaitForSeconds(7.0f);
+        yield return throwCoolTime;
 
         isThrowCoolTime = false;
     }
 
 
 
-    public override void ShortAttack()      //근거리 공격       //잡기 공격 에니메이션에서 실행됨
-    {
-        Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,playerLayer);
-        
-        if(collider != null)    //플레이어가 있으면
-        {   
-            //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
-            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, shortAttackPower);     //대상의 TakeDamage 함수 실행
-        }
-    }
-
-    public override void LongAttack()      //원거리 공격
-    {
-
-    }
-
-
 
     public void TakeDamage(Transform attacker, int damage)
     {
-        
         //잡는 도중에 맞으면 잡기 상태 풀고, 플레이어도 홀딩 상태 해제
         if(isGrab == true)
         {
             isGrab = false;
             am.SetBool("Grab", false);
 
-            if(player == null)
-            {
-                player = GameObject.Find("Player").GetComponent<Player>();
-            }
             player.isHolding = false;
             player.am.SetBool("Holding",false);
         }
         //-------
          
-
-
         if(currentHp - damage > 0)      //히트
         {
             currentHp = currentHp - damage;
@@ -250,4 +331,15 @@ public class HeadMachine : Enemy, ITakeDamage
         Gizmos.DrawWireCube(throwScope.position,throwScope.localScale);
     }
     */
+
+
+
+    //-------히트박스 나타내기-------(인게임에서는 안보임) (히트박스 크기 조절하기 위해 만든 함수)
+    private void OnDrawGizmos()     
+    {                               
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(grabScope.position,grabScope.localScale);
+    }
+
+
 }

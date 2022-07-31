@@ -5,93 +5,148 @@ using UnityEngine.UI;
 
 public class ArmMachine : Enemy, ITakeDamage
 {
-    public Transform player;
-    public Transform aimStartPoint;
-    public GameObject aimLaser;
-
-    int playerLayer;
-    float direct;
-    public float knockbackTime = 1.0f;       // 넉백 시간 조절
+    //-------스탯 관련-------
+    public int knifePower = 20;
+    public int shootPower = 30;
+    public float aimDistance = 7f;
 
 
+    //------상태 관련 bool-------
     public bool isknockback = false;
     public bool isKnifeCoolTime = false;
     public bool isSnipingCoolTime = false;
-    
     public bool isAiming = false;
 
-    new void Start()
+
+    //------필요 Object or Transform------
+    public Transform muzzlePos;
+    public GameObject aimLaser;
+    public GameObject bulletPrefeb;
+    public Transform knifeScope;    //칼 공격 범위
+
+
+    //------쿨타임 코루틴 캐싱------
+    public WaitForSeconds knifeCoolTime = new WaitForSeconds(3.0f);
+    public WaitForSeconds shootCoolTime = new WaitForSeconds(7.0f);
+
+
+
+    void Start()
     {
-        base.Start();   //Enemy의 Start 먼저 실행
-
-        maxHp = 100;
-        currentHp = 100;
+        maxHp = 10000;
+        currentHp = 10000;
         speed = 1f;
-        shortAttackPower = 15;
-        longAttackPower = 10;
 
-        playerLayer = 1 << LayerMask.NameToLayer("Player");
+        Invoke("SetMoveDirection", 0.5f);
     }
 
-    new void FixedUpdate()
+    void FixedUpdate()
     {
-        base.FixedUpdate();
+        if(isDead)
+            return;
 
-        //ShortAttack();
+        Move();
         ObservePlayer();
     }
 
 
 
-    // ----- 적 근거리 공격 후 넉백 관련 -----
-    void Knockback()
+    //-----------움직임 방향 설정 관련---------------
+    void SetMoveDirection()     //몬스터 움직임 방향을 3초마다 설정
     {
-        isknockback = true;
-        
-        if(transform.position.x - player.position.x > 0)    // 플레이어 위치의 반대 방향으로 넉백                    
-            rb.AddForce(new Vector2(3f,2f), ForceMode2D.Impulse);
-        else
-            rb.AddForce(new Vector2(-3f,2f), ForceMode2D.Impulse);  
-        
+        nextMove = Random.Range(-1,2);      //-1~1까지 
 
-        isknockback = false;
+        int time = Random.Range(1,5);
+        Invoke("SetMoveDirection", time);       //다음 방향 설정
     }
 
-
-
-    // ----- 쿨타임 관련 -----
-    IEnumerator KnifeCoolTime()
+    IEnumerator GoBack()    //반대로 가는 함수
     {
-        isKnifeCoolTime = true;
-
-        yield return new WaitForSeconds(5.0f);
-
-        isKnifeCoolTime = false;
-    }
-    IEnumerator SnipingCoolTime()
-    {
-        isSnipingCoolTime = true;
-
-        yield return new WaitForSeconds(5.0f);
-
-        isSnipingCoolTime = false;
+        yield return new WaitForSeconds(1.0f);
+        nextMove *= -1;
     }
 
-    public override void ShortAttack()     // 근접 공격
+    //플레이어 추적 이동을 트리거로 구현
+    void OnTriggerEnter2D(Collider2D other) 
     {
-        Collider2D collider1 = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,playerLayer);
-        
-        if(collider1 != null && isKnifeCoolTime == false)    // 히트박스 범위 내에 플레이어가 있으면 
-        {   
-            StartCoroutine(KnifeCoolTime());
-            am.SetTrigger("KnifeAttack");
-            collider1.GetComponent<ITakeDamage>().TakeDamage(player.transform, shortAttackPower);
-         
+        if(other.gameObject.tag.Equals("Player"))
+        {
+            CancelInvoke("SetMoveDirection");       //랜덤 방향 설정 취소하고
         }
     }
 
-    public override void LongAttack()      // 원거리 공격 (저격 후, 총 발사)
+    void OnTriggerStay2D(Collider2D other)      //캐릭터 위치 추적
     {
+        if(other.gameObject.tag.Equals("Player"))
+        {
+            if(other.transform.position.x - transform.position.x > 0)   //캐릭터가 오른쪽에 있다면
+            {
+                nextMove = 1;
+            }
+            else
+            {
+                nextMove = -1;
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.gameObject.tag.Equals("Player"))   //플레이어가 인식 범위에서 벗어나면
+        {
+            if(am.GetCurrentAnimatorStateInfo(0).IsName("Run"))
+            {
+                //StartCoroutine("GoBack");   //1초 후 반대 방향으로 감
+            }
+            Invoke("SetMoveDirection",3f);      //3초후 랜덤 방향 다시 설정
+        }
+    }
+    //-----------------------------------------------
+
+
+    void Move()     //몬스터 움직임 함수
+    {   
+        if(isAiming == true)        //조준 중에는 방향 전환 x
+        {
+            CancelInvoke("SetMoveDirection");
+            return;
+        }
+
+
+        //몬스터의 앞 방향 벡터 (낭떨어지 체크)
+        Vector2 frontVec = new Vector2(rb.position.x + nextMove * 0.3f, rb.position.y);
+
+        //몬스터의 앞에서 아래로 레이캐스트를 쏴서 아래가 낭떨어지인지 확인함
+        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 2f ,LayerMask.GetMask("Block"));
+        if(rayHit.collider == null)  //낭떨어지이면
+        {
+            nextMove *= -1;     //다음 움직임 방향을 반대 방향으로
+            CancelInvoke("SetMoveDirection");
+            Invoke("SetMoveDirection",3);       //3초후, 움직임 방향 다시 설정 
+        }
+
+        
+        if(nextMove == 0)       //정지
+        {
+            am.SetBool("Run",false);
+        }
+        else if(nextMove == -1)   //왼쪽으로 갈 때
+        {
+            am.SetBool("Run",true);
+            transform.localScale = leftDirection;  //-----이미지 방향 처리-----
+        }
+        else     //오른쪽으로 갈 때
+        {
+            am.SetBool("Run",true);
+            transform.localScale = rightDirection;  //-----이미지 방향 처리-----
+        }
+
+
+        //움직이는 에니메이션 실행 중에 이동방향으로 이동처리
+        if(am.GetCurrentAnimatorStateInfo(0).IsName("Run")) //달리는 에니메이션 진행중이면
+        {
+            transform.Translate(new Vector2(nextMove * Time.deltaTime * speed ,0));
+        }
         
     }
 
@@ -102,39 +157,74 @@ public class ArmMachine : Enemy, ITakeDamage
             return;
 
 
-        RaycastHit2D rayHit = Physics2D.Raycast(aimStartPoint.position, new Vector2(nextMove, 0), 5f, LayerMask.GetMask("Player"));
+        //-----적이 가까이 오면 근접 공격 발동------
+        Collider2D collider = Physics2D.OverlapBox(knifeScope.position,knifeScope.localScale,0,playerLayer);
 
-        Debug.DrawRay(aimStartPoint.position, new Vector2(nextMove * 5f,0), Color.yellow);
+        if(collider != null && isKnifeCoolTime == false)    // 공격 범위 내에 플레이어가 있으면 
+        {   
+            am.SetTrigger("KnifeAttack");
+            StartCoroutine(KnifeCoolTime());
 
-
-        if(rayHit.collider == null)
             return;
-        else    //일직선 방향으로 레이캐스트를 쏴서 플레이어가 감지되면
+        }
+        //------------------------------------------
+
+
+
+        //-----적이 멀리있으면 원거리 저격 조준------
+        RaycastHit2D rayHit;
+        if(transform.localScale.x > 0)
+            rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(1, 0), aimDistance, LayerMask.GetMask("Player"));
+        else
+            rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), aimDistance, LayerMask.GetMask("Player"));
+        
+
+        if(rayHit.collider != null && isSnipingCoolTime == false)     //현재 바라보는 방향 일직선에서 플레이어가 감지되면
         {
-            if(isSnipingCoolTime == false)
-            {
-                StartCoroutine(AimingPlayer());
-            }
+            isAiming = true;
+            am.SetBool("Aim", true);        //조준 애니메이션
+            aimLaser.SetActive(true);       //레이저 오브젝트 활성화
+
+            StartCoroutine(AimingPlayer());
+            StartCoroutine(SnipingCoolTime());
         }
 
+    }
+
+    //-------------근접 공격 관련--------------
+    void KnifeAttack()
+    {
+        Collider2D collider = Physics2D.OverlapBox(knifeScope.position,knifeScope.localScale,0,playerLayer);
         
+        if(collider != null)    //플레이어가 있으면
+        {   
+            //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
+            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, knifePower);     //대상의 TakeDamage 함수 실행
+        }
+    }
+
+    //근거리 공격 후 백스탭
+    void BackStep()
+    {
+        if(transform.position.x - player.transform.position.x > 0)    // 플레이어 위치의 반대 방향으로 넉백                    
+            rb.AddForce(new Vector2(3f,2f), ForceMode2D.Impulse);
+        else
+            rb.AddForce(new Vector2(-3f,2f), ForceMode2D.Impulse);
     }
 
     IEnumerator AimingPlayer()  //플레이어 조준
     {
-        StartCoroutine(SnipingCoolTime());
-
-        isAiming = true;
-        am.SetBool("Aim", true);
-        aimLaser.SetActive(true);
-
         for(int i=0; i<10; i++)
         {
             //플레이어가 공격 범위 안에 있는지 0.3초 단위로 반복 검사
-            Vector2 currentVec = transform.position;
-            RaycastHit2D rayHit = Physics2D.Raycast(currentVec,new Vector2(nextMove,0),5f,LayerMask.GetMask("Player"));
+            RaycastHit2D rayHit;
+            if(transform.localScale.x > 0)
+                rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(1, 0), aimDistance, LayerMask.GetMask("Player"));
+            else
+                rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), aimDistance, LayerMask.GetMask("Player"));
+        
 
-            if(rayHit.collider == null || isAiming == false)        //피격 시 isAiming => false  -> 조준 해제
+            if(isAiming == false || rayHit.collider == null)        //피격 시 isAiming => false  -> 조준 해제
             {
                 aimLaser.SetActive(false);
                 isAiming = false;
@@ -149,8 +239,8 @@ public class ArmMachine : Enemy, ITakeDamage
         {
             aimLaser.SetActive(false);
             isAiming = false;
-            am.SetBool("Aim", false);
             am.SetTrigger("Shoot");
+            am.SetBool("Aim", false);
         }
       
     }
@@ -158,9 +248,39 @@ public class ArmMachine : Enemy, ITakeDamage
 
     void Shoot()        //조준 후, 발사 Shoot 에니메이션에서 발동 (에니메이션 이벤트 함수)
     {
-        
+        AmBullet bullet = Instantiate(bulletPrefeb, muzzlePos.position, muzzlePos.rotation).GetComponent<AmBullet>();
+        if(transform.localScale.x > 0)    //오른쪽 보고 있으면
+        {
+            bullet.SetBullet(rightDirection);
+        }
+        else    //왼쪽 보고 있으면
+        {
+            bullet.SetBullet(leftDirection);
+        }
     }
 
+
+
+
+
+
+    // ----- 쿨타임 관련 -----
+    IEnumerator KnifeCoolTime()
+    {
+        isKnifeCoolTime = true;
+
+        yield return knifeCoolTime;
+
+        isKnifeCoolTime = false;
+    }
+    IEnumerator SnipingCoolTime()
+    {
+        isSnipingCoolTime = true;
+
+        yield return shootCoolTime;
+
+        isSnipingCoolTime = false;
+    }
 
 
     public void TakeDamage(Transform attacker, int damage)
