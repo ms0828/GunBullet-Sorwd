@@ -206,6 +206,7 @@ public class ArmMachine : Enemy, ITakeDamage
     //근거리 공격 후 백스탭
     void BackStep()
     {
+        am.SetTrigger("BackStep");
         if(transform.position.x - player.transform.position.x > 0)    // 플레이어 위치의 반대 방향으로 넉백                    
             rb.AddForce(new Vector2(3f,2f), ForceMode2D.Impulse);
         else
