@@ -6,7 +6,7 @@ public class HeadMachine : Enemy, ITakeDamage
 {
 
     //------스탯 관련------
-    public int grabAttackPower = 20;
+    public int grabAttackPower = 50;
 
 
     //------상태 관련 bool-------
@@ -28,8 +28,8 @@ public class HeadMachine : Enemy, ITakeDamage
 
     void Start()
     {
-        maxHp = 12000;
-        currentHp = 12000;
+        maxHp = 250;
+        currentHp = 250;
         speed = 1f;
 
         Invoke("SetMoveDirection", 0.5f);

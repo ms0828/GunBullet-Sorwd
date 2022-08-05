@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class ArmMachine : Enemy, ITakeDamage
 {
     //-------스탯 관련-------
-    public int knifePower = 20;
-    public int shootPower = 30;
+    public int knifePower = 10;
+    public int shootPower = 50;
     public float aimDistance = 7f;
 
 
@@ -33,8 +33,8 @@ public class ArmMachine : Enemy, ITakeDamage
 
     void Start()
     {
-        maxHp = 10000;
-        currentHp = 10000;
+        maxHp = 150;
+        currentHp = 150;
         speed = 1f;
 
         Invoke("SetMoveDirection", 0.5f);

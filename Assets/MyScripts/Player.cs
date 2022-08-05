@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, ITakeDamage
 {
+    public PlayerUICanvas playerUICanvas;
+
     public Rigidbody2D rb;
     public Animator am;
 
@@ -34,6 +36,11 @@ public class Player : MonoBehaviour, ITakeDamage
     //-----사격 관련-----
     public Transform muzzlePos;
     public GameObject bulletPrefeb;
+    public int maxBulletCnt = 3;
+    public int currentBulletCnt;
+    public WaitForSeconds reloadTime = new WaitForSeconds(3.0f);
+
+    private bool isAttack = false;
 
         
 
@@ -41,15 +48,19 @@ public class Player : MonoBehaviour, ITakeDamage
    
     public void Awake()
     {
-
+        playerUICanvas = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUICanvas>();
     }
 
     public void Start()
     {
-        maxHp = 5000;
-        currentHp = 5000;
+        maxHp = 200;
+        currentHp = 200;
         speed = 5.0f;
         jumpPower = 5.0f;
+        currentBulletCnt = 3;
+
+        playerUICanvas.SetPlayerHpBar(currentHp);
+        playerUICanvas.SetPlayerBulletCount(currentBulletCnt);
     }
 
     public void Update()
@@ -82,6 +93,7 @@ public class Player : MonoBehaviour, ITakeDamage
             am.SetBool("Run",true);     //달리는 에니메이션
             playerDirection = 1;
 
+            
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));        
         }
         else if(Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.RightArrow))   //왼쪽 달리기
@@ -90,6 +102,7 @@ public class Player : MonoBehaviour, ITakeDamage
             am.SetBool("Run",true);
             playerDirection = 0;
 
+            
             transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
         }
         else if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))   //가만히 있을 때
@@ -121,20 +134,24 @@ public class Player : MonoBehaviour, ITakeDamage
 
 
         //----------플레이어 공격 관련-----
-        if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.W))
+        if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.W) && isAttack == false)
         {
+            isAttack = true;
             am.SetTrigger("UpAttack");
         }
-        else if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.E))
+        else if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.E) && isAttack == false)
         {
+            isAttack = true;
             am.SetTrigger("ThrustAttack");
         }
-        else if(Input.GetMouseButtonDown(0))
+        else if(Input.GetMouseButtonDown(0) && isAttack == false)
         {
+            isAttack = true;
             am.SetTrigger("DownAttack");
         }
-        else if(Input.GetMouseButtonDown(1))
+        else if(Input.GetMouseButtonDown(1) && currentBulletCnt > 0 && isAttack == false)
         {
+            isAttack = true;
             am.SetTrigger("ShootAttack");
         }
        
@@ -150,6 +167,7 @@ public class Player : MonoBehaviour, ITakeDamage
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
             collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 15);     //대상의 TakeDamage 함수 실행
         }
+        isAttack = false;
     }
 
     void UpAttack()
@@ -161,6 +179,7 @@ public class Player : MonoBehaviour, ITakeDamage
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
             collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);     //대상의 TakeDamage 함수 실행
         }
+        isAttack = false;
     }
 
     void ThrustAttack()
@@ -172,6 +191,7 @@ public class Player : MonoBehaviour, ITakeDamage
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
             collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);     //대상의 TakeDamage 함수 실행
         }
+        isAttack = false;
     }
 
 
@@ -187,6 +207,24 @@ public class Player : MonoBehaviour, ITakeDamage
             bullet.SetBullet(leftDirection);
         }
         
+        currentBulletCnt--;
+        playerUICanvas.SetPlayerBulletCount(currentBulletCnt);
+
+        if(currentBulletCnt <= 0)
+        {
+            StartCoroutine(Reload());
+        }
+
+        isAttack = false;
+    }
+
+    IEnumerator Reload()
+    {
+        Debug.Log("재장전 중입니다");
+        yield return reloadTime;
+        Debug.Log("재장전 완료!");
+        currentBulletCnt = 3;
+        playerUICanvas.SetPlayerBulletCount(currentBulletCnt);
     }
 
 
@@ -221,14 +259,17 @@ public class Player : MonoBehaviour, ITakeDamage
 
     public void TakeDamage(Transform attacker, int damage)
     {
-        isHolding = false;      //피격 시, 홀딩 해제
-        am.SetBool("Holding",false);
-
-
-
-        if(currentHp - damage > 0)      //히트
+        if(isHolding == true)
         {
-            currentHp = currentHp - damage;
+            isHolding = false;      //피격 시, 홀딩 해제
+            am.SetBool("Holding",false);
+        }
+        
+        currentHp = currentHp - damage;
+        playerUICanvas.SetPlayerHpBar(currentHp);
+
+        if(currentHp > 0)      //히트
+        {
             am.SetTrigger("Hit");
 
             //넉백
@@ -241,6 +282,7 @@ public class Player : MonoBehaviour, ITakeDamage
                 rb.AddForce(new Vector2(-3f,0f), ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
             }
 
+            
         }
         else       //사망
         {

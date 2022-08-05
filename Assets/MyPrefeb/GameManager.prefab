@@ -44,3 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f6d6fa27748f84187fbd3dd532bb1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userData:
+    stage: 0
+  currentStage: 0
+  loadGameButton: {fileID: 0}
+  pauseCanvas: {fileID: 0}

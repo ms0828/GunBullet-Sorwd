@@ -19,8 +19,6 @@ public class UserData   //유저 데이터
 }
 
 
-
-
 public class GameManager : MonoBehaviour
 {
 
@@ -29,10 +27,6 @@ public class GameManager : MonoBehaviour
     //-----유저 데이터-----
     public UserData userData;
     public int currentStage;
-    
-    //타이틀 버튼
-    public Button loadGameButton;
-
 
 
     void Awake()
@@ -50,20 +44,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        //세이브 파일이 없다면, 불러오기 비활성화
-        if(!File.Exists(Application.dataPath + "/DataBase/UserData.txt"))
-        {
-            loadGameButton.interactable = false;
-        }
-
-
-
-    }
-
-
-
+    //-----------타이틀 화면 관련--------------
     public void CreateUserData()
     {
         userData = new UserData(1);
@@ -87,23 +68,5 @@ public class GameManager : MonoBehaviour
         string jdata = JsonConvert.SerializeObject(userData);
         File.WriteAllText(Application.dataPath + "/DataBase/UserData.txt",jdata);
     }
-
-
-    public void NewGameButton()
-    {
-        CreateUserData();
-        SceneManager.LoadScene(currentStage);
-    }
-    
-    public void LoadGameButton()
-    {
-        LoadUserData();
-        SceneManager.LoadScene(currentStage);
-    }
-    
-    public void ExitButton()
-    {
-        Application.Quit();
-    } 
 
 }

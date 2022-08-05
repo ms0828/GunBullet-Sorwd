@@ -34,7 +34,7 @@ public class AmBullet : MonoBehaviour
     {
         if(other.gameObject.tag.Equals("Player"))
         {
-            other.gameObject.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);
+            other.gameObject.GetComponent<ITakeDamage>().TakeDamage(this.transform, 50);
             Destroy(gameObject);
         
         }
