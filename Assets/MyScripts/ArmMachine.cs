@@ -30,6 +30,18 @@ public class ArmMachine : Enemy, ITakeDamage
     public WaitForSeconds shootCoolTime = new WaitForSeconds(7.0f);
 
 
+    //------오디오-------
+    public AudioSource attackAudio;
+    public AudioSource behaviorAudio;
+
+
+    new void Awake()
+    {
+        base.Awake();
+
+        attackAudio = transform.Find("AttackAudio").GetComponent<AudioSource>();
+        behaviorAudio = transform.Find("BehaviorAudio").GetComponent<AudioSource>();
+    }
 
     void Start()
     {
@@ -194,6 +206,8 @@ public class ArmMachine : Enemy, ITakeDamage
     //-------------근접 공격 관련--------------
     void KnifeAttack()
     {
+        SoundManager.instance.EnemySfxSound(attackAudio,"ArmMachineKnife");
+
         Collider2D collider = Physics2D.OverlapBox(knifeScope.position,knifeScope.localScale,0,playerLayer);
         
         if(collider != null)    //플레이어가 있으면
@@ -249,6 +263,8 @@ public class ArmMachine : Enemy, ITakeDamage
 
     void Shoot()        //조준 후, 발사 Shoot 에니메이션에서 발동 (에니메이션 이벤트 함수)
     {
+        SoundManager.instance.EnemySfxSound(attackAudio,"ArmMachineShoot");
+
         AmBullet bullet = Instantiate(bulletPrefeb, muzzlePos.position, muzzlePos.rotation).GetComponent<AmBullet>();
         if(transform.localScale.x > 0)    //오른쪽 보고 있으면
         {
@@ -291,6 +307,13 @@ public class ArmMachine : Enemy, ITakeDamage
             isAiming = false;
         
 
+        if(Random.Range(0,2) == 0)
+            SoundManager.instance.EnemySfxSound(behaviorAudio,"ArmMachineHit1");
+        else
+            SoundManager.instance.EnemySfxSound(behaviorAudio,"ArmMachineHit2");
+
+
+
         if(currentHp - damage > 0)      //히트
         {
             currentHp = currentHp - damage;
@@ -311,6 +334,8 @@ public class ArmMachine : Enemy, ITakeDamage
         {
             if(!isDead)     //이미 죽은 상태에서 피격 방지
             {
+                SoundManager.instance.EnemySfxSound(behaviorAudio,"ArmMachineDie");
+
                 currentHp = 0;
                 isDead = true;
                 //am.SetTrigger("Dead");

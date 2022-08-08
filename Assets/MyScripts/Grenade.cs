@@ -13,10 +13,14 @@ public class Grenade : MonoBehaviour
 
     private Vector2 explosionScale = new Vector2(5,5);
 
-
+    //------오디오-------
+    public AudioSource attackAudio;
+    
 
     public void SetGrenade(int direction)
     {
+        attackAudio = transform.Find("AttackAudio").GetComponent<AudioSource>();
+
         if(direction > 0)    //오른쪽 방향이면 이미지 좌우 반전 적용
         {
             sr.flipX = true;
@@ -37,6 +41,8 @@ public class Grenade : MonoBehaviour
 
     public void Explosion()
     {
+        SoundManager.instance.EnemySfxSound(attackAudio,"HeadMachineGrenade");
+
         am.SetTrigger("Explosion");
         transform.localScale = explosionScale;
         Destroy(gameObject, 0.5f);

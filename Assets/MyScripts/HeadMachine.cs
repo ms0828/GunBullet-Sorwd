@@ -26,6 +26,20 @@ public class HeadMachine : Enemy, ITakeDamage
     public WaitForSeconds grabCoolTime = new WaitForSeconds(5.0f);
     public WaitForSeconds throwCoolTime = new WaitForSeconds(8.0f);
 
+
+    //------오디오-------
+    public AudioSource attackAudio;
+    public AudioSource behaviorAudio;
+
+
+    new void Awake()
+    {
+        base.Awake();
+        
+        attackAudio = transform.Find("AttackAudio").GetComponent<AudioSource>();
+        behaviorAudio = transform.Find("BehaviorAudio").GetComponent<AudioSource>();
+    }
+
     void Start()
     {
         maxHp = 250;
@@ -249,6 +263,8 @@ public class HeadMachine : Enemy, ITakeDamage
 
     public void ShortAttack()      //근거리 공격       //잡기 공격 에니메이션에서 실행됨
     {
+        SoundManager.instance.EnemySfxSound(attackAudio,"HeadMachineShoot");
+
         Collider2D collider = Physics2D.OverlapBox(grabScope.position,grabScope.localScale,0,playerLayer);
         
         if(collider != null)    //플레이어가 있으면
@@ -283,6 +299,13 @@ public class HeadMachine : Enemy, ITakeDamage
 
     public void TakeDamage(Transform attacker, int damage)
     {
+
+        if(Random.Range(0,2) == 0)
+            SoundManager.instance.EnemySfxSound(behaviorAudio,"HeadMachineHit1");
+        else
+            SoundManager.instance.EnemySfxSound(behaviorAudio,"HeadMachineHit2");
+
+
         //잡는 도중에 맞으면 잡기 상태 풀고, 플레이어도 홀딩 상태 해제
         if(isGrab == true)
         {
@@ -314,6 +337,8 @@ public class HeadMachine : Enemy, ITakeDamage
         {
             if(!isDead)     //이미 죽은 상태에서 피격 방지
             {
+                SoundManager.instance.EnemySfxSound(behaviorAudio,"HeadMachineDie");
+
                 currentHp = 0;
                 isDead = true;
                 //am.SetTrigger("Dead");

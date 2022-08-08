@@ -40,15 +40,23 @@ public class Player : MonoBehaviour, ITakeDamage
     public int currentBulletCnt;
     public WaitForSeconds reloadTime = new WaitForSeconds(3.0f);
 
-    private bool isAttack = false;
+    public bool isAttack = false;
 
         
 
     public int holdingGauge = 0;
+
+
+
+    //---------사운드 관련----------
+    public AudioSource attackAudio;
+    public AudioSource behaviorAudio;
    
     public void Awake()
     {
         playerUICanvas = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUICanvas>();
+        attackAudio = transform.Find("AttackAudio").GetComponent<AudioSource>();
+        behaviorAudio = transform.Find("BehaviorAudio").GetComponent<AudioSource>();
     }
 
     public void Start()
@@ -65,6 +73,9 @@ public class Player : MonoBehaviour, ITakeDamage
 
     public void Update()
     {
+        if(isDead)
+            return;
+
         PlayerControll();
     }
 
@@ -123,10 +134,11 @@ public class Player : MonoBehaviour, ITakeDamage
             am.SetBool("Jump",false);
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))    
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             if(!IsJump())       //현재 공중에 있지 않으면 (땅에 닿아있으면)
             {
+                SoundManager.instance.PlayerSfxSound(behaviorAudio,"PlayerJump");
                 rb.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
             }
         }
@@ -150,7 +162,7 @@ public class Player : MonoBehaviour, ITakeDamage
             am.SetTrigger("DownAttack");
         }
         else if(Input.GetMouseButtonDown(1) && currentBulletCnt > 0 && isAttack == false)
-        {
+        {   
             isAttack = true;
             am.SetTrigger("ShootAttack");
         }
@@ -160,6 +172,7 @@ public class Player : MonoBehaviour, ITakeDamage
 
     void DownAttack()
     {
+        SoundManager.instance.PlayerSfxSound(attackAudio,"PlayerDownAttack");
         Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,1 << LayerMask.NameToLayer("Enemy"));
         
         if(collider != null)    //적이 있으면
@@ -172,6 +185,7 @@ public class Player : MonoBehaviour, ITakeDamage
 
     void UpAttack()
     {
+        SoundManager.instance.PlayerSfxSound(attackAudio,"PlayerUpAttack");
         Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,1 << LayerMask.NameToLayer("Enemy"));
         
         if(collider != null)    //적이 있으면
@@ -184,6 +198,7 @@ public class Player : MonoBehaviour, ITakeDamage
 
     void ThrustAttack()
     {
+        SoundManager.instance.PlayerSfxSound(attackAudio,"PlayerThrustAttack");
         Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,1 << LayerMask.NameToLayer("Enemy"));
         
         if(collider != null)    //적이 있으면
@@ -197,6 +212,8 @@ public class Player : MonoBehaviour, ITakeDamage
 
     void Shooting()     //포격 에니메이션에서 호출됨 (에니메이션 이벤트 함수)   -> 총알 발사
     {
+        SoundManager.instance.PlayerSfxSound(attackAudio,"PlayerShoot", 0.4f);
+
         Bullet bullet = Instantiate(bulletPrefeb, muzzlePos.position, muzzlePos.rotation).GetComponent<Bullet>();
         if(playerDirection == 1)    //오른쪽 보고 있으면
         {
@@ -220,9 +237,9 @@ public class Player : MonoBehaviour, ITakeDamage
 
     IEnumerator Reload()
     {
-        Debug.Log("재장전 중입니다");
         yield return reloadTime;
-        Debug.Log("재장전 완료!");
+
+        SoundManager.instance.PlayerSfxSound(attackAudio,"PlayerReload", 1f);
         currentBulletCnt = 3;
         playerUICanvas.SetPlayerBulletCount(currentBulletCnt);
     }
@@ -259,11 +276,22 @@ public class Player : MonoBehaviour, ITakeDamage
 
     public void TakeDamage(Transform attacker, int damage)
     {
+
+        if(Random.Range(0,2) == 0)
+            SoundManager.instance.PlayerSfxSound(behaviorAudio,"PlayerHit1");
+        else
+            SoundManager.instance.PlayerSfxSound(behaviorAudio,"PlayerHit2");
+        
+
         if(isHolding == true)
         {
             isHolding = false;      //피격 시, 홀딩 해제
             am.SetBool("Holding",false);
         }
+        if(isAttack == true)
+            isAttack = false;
+
+
         
         currentHp = currentHp - damage;
         playerUICanvas.SetPlayerHpBar(currentHp);
@@ -288,10 +316,12 @@ public class Player : MonoBehaviour, ITakeDamage
         {
             if(!isDead)     //이미 죽은 상태에서 피격 방지
             {
+                SoundManager.instance.PlayerSfxSound(behaviorAudio,"PlayerDie");
+
                 currentHp = 0;
                 isDead = true;
                 //am.SetTrigger("Dead");
-    
+
                 Destroy(gameObject, 2f);        //2초 후 사라짐
             }
         }
@@ -306,7 +336,7 @@ public class Player : MonoBehaviour, ITakeDamage
 
         for(int i=0; i<20; i++)
         {
-            if(holdingGauge >= 100 || isHolding == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
+            if(holdingGauge >= 100 || isHolding == false || attacker.isGrab == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
             {
                 am.SetBool("Holding",false);
                 isHolding = false;
