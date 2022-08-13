@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 3120414944801458224}
   - component: {fileID: 3120414944801458227}
   - component: {fileID: 5390351151909199959}
-  - component: {fileID: 1523150029}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -111,8 +110,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 516304999
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9923c0f5a47791344a541da78ebf06ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -138,7 +137,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03501422, y: -0.02736684}
+  m_Offset: {x: -0.03501422, y: -0.01586207}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -149,7 +148,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23785059, y: 0.34050906}
+  m_Size: {x: 0.23785059, y: 0.31749952}
   m_EdgeRadius: 0
 --- !u!50 &3120414944801458226
 Rigidbody2D:
@@ -231,19 +230,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3120414944801458190}
   m_Enabled: 1
---- !u!114 &1523150029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3120414944801458190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25beb0ff427f9024c9c1190a0250384b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpZoneForce: 4.5
 --- !u!1 &3120414946345827117
 GameObject:
   m_ObjectHideFlags: 0

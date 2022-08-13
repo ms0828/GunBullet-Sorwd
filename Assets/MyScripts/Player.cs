@@ -31,6 +31,12 @@ public class Player : MonoBehaviour, ITakeDamage
     private Vector2 leftDirection = new Vector2(-1,0);
     private Vector2 rightDirection = new Vector2(1,0);
     public int playerDirection = 1;     //오른쪽 보고 있을 때 1, 왼쪽 보고 있을 때 0
+
+
+    //----움직임 제한----
+    float minX, maxX, minY, maxY;
+
+    BoxCollider2D mapBoundary;
     
 
     //-----사격 관련-----
@@ -42,8 +48,8 @@ public class Player : MonoBehaviour, ITakeDamage
 
     public bool isAttack = false;
 
-        
-
+    
+    //-----잡기 상태 관련-------
     public int holdingGauge = 0;
 
 
@@ -57,6 +63,8 @@ public class Player : MonoBehaviour, ITakeDamage
         playerUICanvas = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUICanvas>();
         attackAudio = transform.Find("AttackAudio").GetComponent<AudioSource>();
         behaviorAudio = transform.Find("BehaviorAudio").GetComponent<AudioSource>();
+
+        mapBoundary = GameObject.Find("MapBoundary").GetComponent<BoxCollider2D>();
     }
 
     public void Start()
@@ -69,6 +77,8 @@ public class Player : MonoBehaviour, ITakeDamage
 
         playerUICanvas.SetPlayerHpBar(currentHp);
         playerUICanvas.SetPlayerBulletCount(currentBulletCnt);
+
+        SetLimits();    //움직임 영역 제한 설정
     }
 
     public void Update()
@@ -79,7 +89,13 @@ public class Player : MonoBehaviour, ITakeDamage
         PlayerControll();
     }
 
+    void LateUpdate()   //움직임 영역 제한
+    {
+        float xClamp = Mathf.Clamp(transform.position.x, minX, maxX);
+        float yClamp = Mathf.Clamp(transform.position.y, minY, maxY);
 
+        transform.position = new Vector3(xClamp, yClamp, transform.position.z);
+    }
 
 
 
@@ -364,5 +380,15 @@ public class Player : MonoBehaviour, ITakeDamage
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(hitBox.position,hitBox.localScale);
     }
+
+
+    void SetLimits()
+    {
+        minX = mapBoundary.transform.position.x - mapBoundary.bounds.size.x * 0.5f;
+        maxX = mapBoundary.transform.position.x + mapBoundary.bounds.size.x * 0.5f;
+        minY = mapBoundary.transform.position.y - mapBoundary.bounds.size.y * 0.5f;
+        maxY = mapBoundary.transform.position.y + mapBoundary.bounds.size.y * 0.5f;
+    }
+
 
 }

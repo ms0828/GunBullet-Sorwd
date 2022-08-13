@@ -10,6 +10,9 @@ TagManager:
   - DamageZone
   - ShortJumpZone
   - LongJumpZone
+  - GKey
+  - InterfaceObject
+  - ConversationObject
   layers:
   - Default
   - TransparentFX
@@ -46,4 +49,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3283558017
+    locked: 0
+  - name: Ground
+    uniqueID: 3471172181
+    locked: 0
+  - name: Environment
+    uniqueID: 1434719965
+    locked: 0
+  - name: Character
+    uniqueID: 516304999
+    locked: 0
+  - name: Ui
+    uniqueID: 93378337
     locked: 0
