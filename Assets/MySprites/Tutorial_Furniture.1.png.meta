@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -76,9 +76,957 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 672
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 753f9e85051e6c0429bc39b601533aa7
+      internalID: 370336281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_1
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 672
+        width: 29
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5239b1c977b9cd64fb6b171dda700738
+      internalID: 2030056192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_2
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 672
+        width: 29
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6364bab21d1fbc41aaf7b9fe0d6bd01
+      internalID: 1238352034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_3
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 672
+        width: 38
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd56fb2a11a008f4d801db54e4ec0038
+      internalID: 1803345738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_4
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 672
+        width: 38
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d57df16124795c048a0b4e9215920f67
+      internalID: 2100235514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_5
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 672
+        width: 100
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 036b2f65ed64a9c4d8856149404eb302
+      internalID: 553633819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_6
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 672
+        width: 100
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b88da0322fa71547bfc68a85ceb7197
+      internalID: -446570784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_7
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 602
+        width: 82
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95b0681188e2bb9419ac73075142de2d
+      internalID: -1502978611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_8
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 602
+        width: 82
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 999f034412c0eea4b80bacf4c3d95a3d
+      internalID: 805195439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_9
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 584
+        width: 39
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fb4d4fc43e5ad54bb3042a4033f0ef9
+      internalID: -519799403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_10
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 584
+        width: 39
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 590c9a01ac592664f80385c088907931
+      internalID: -606754728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_11
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 604
+        width: 96
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63b9bc61a3968d74ebd6dfa5604d6167
+      internalID: 642091396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_12
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 576
+        width: 92
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0798cdb86c765354693f545c9bc62149
+      internalID: 54426097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_13
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 576
+        width: 36
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02dc8fc9c805e7f4496ba160f5862c11
+      internalID: -1539531561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_14
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 548
+        width: 104
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a500269d95630948a7096e5031058fb
+      internalID: 1308429506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_15
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 486
+        width: 170
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c613f450b0397f4996d915f10ef6b36
+      internalID: 1583550585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_16
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 486
+        width: 170
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82d79783d786df940857b28654f1d02d
+      internalID: 921252344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_17
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 480
+        width: 303
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e53daba008dd8ad4599df2ecb11514f0
+      internalID: 1780526276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 49
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 49, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 005f6fb3372a2f64dbe3dbad3ea1bab1
+      internalID: -1812312319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_19
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 413
+        width: 82
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08595333666d4f84aab248ebf9462443
+      internalID: 935754923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_20
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 384
+        width: 130
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 336fb83b0538806409633f39ec1af8d0
+      internalID: 1892261953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_21
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 397
+        width: 72
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6702dba132a573a47a66b82e787cc6fa
+      internalID: -406489855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_22
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 394
+        width: 96
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21b2109229720db428e43cb30d4fc60d
+      internalID: 1345970946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_23
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 344
+        width: 82
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5bacfdba484a7e45a068909d50b0642
+      internalID: -2096588700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 96
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c4bd599dd283874ca1808b482f3b988
+      internalID: 1717987065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_25
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 264
+        width: 27
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4b206a5ce14425489d3aa3a95b5b8e5
+      internalID: -1735582063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_26
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 265
+        width: 27
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e7681f07967ebb42ba701a0a12dd2d7
+      internalID: 2136205937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_27
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 192
+        width: 144
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2542565e6f0185a41ba471ed640859b4
+      internalID: -1951305409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_28
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 124
+        width: 72
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca962fc683438544c812b78da7d708a8
+      internalID: -1085680222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_29
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 192
+        width: 144
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64585e6664c751346a089813680ba08f
+      internalID: 799318960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_30
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 0
+        width: 98
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caff4fb740581ac4a9f9406e123dcd39
+      internalID: 340303355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_31
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 96
+        width: 98
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e312ecb5ee5132542a7ac7bbd2ddc841
+      internalID: -1940859345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_32
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 160
+        width: 40
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9079be2fb6e5e364f9691aec1abad7c8
+      internalID: -249219612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_33
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 103
+        width: 44
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ef694d40b4dece448efe0857c5b9052
+      internalID: -1345673404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_34
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 1
+        width: 67
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a20753224d59a841b6cfd42044a39ff
+      internalID: 1292259518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_35
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 1
+        width: 67
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01103b5644b248a45a6e7eb138e1a99f
+      internalID: -272330066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_36
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 1
+        width: 67
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20411c145679461499403209407ed1ec
+      internalID: 1846907750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_37
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 0
+        width: 138
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93062928337668c46a290d1372eb5c83
+      internalID: 1509555391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_38
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 0
+        width: 86
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf868c50a4383ca45b22fba1623c416c
+      internalID: 468084690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_39
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 64
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efbaae537f2155944a6b1606145238f5
+      internalID: -180805276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_40
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 64
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2b497c95519e4846914ecedb06acd93
+      internalID: 854877932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_41
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 0
+        width: 36
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df10f9274cf682c48b46238f3ea7dad2
+      internalID: -1452375378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_42
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 0
+        width: 26
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ff1e271f6da03a4dba20e158ea03991
+      internalID: -3245598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_Furniture.1_43
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 16
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de1373236c894c7428e4770339a63dab
+      internalID: 749681438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -89,7 +1037,51 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Tutorial_Furniture.1_26: 2136205937
+      Tutorial_Furniture.1_0: 370336281
+      Tutorial_Furniture.1_21: -406489855
+      Tutorial_Furniture.1_9: -519799403
+      Tutorial_Furniture.1_18: -1812312319
+      Tutorial_Furniture.1_2: 1238352034
+      Tutorial_Furniture.1_40: 854877932
+      Tutorial_Furniture.1_27: -1951305409
+      Tutorial_Furniture.1_25: -1735582063
+      Tutorial_Furniture.1_14: 1308429506
+      Tutorial_Furniture.1_11: 642091396
+      Tutorial_Furniture.1_41: -1452375378
+      Tutorial_Furniture.1_35: -272330066
+      Tutorial_Furniture.1_5: 553633819
+      Tutorial_Furniture.1_6: -446570784
+      Tutorial_Furniture.1_17: 1780526276
+      Tutorial_Furniture.1_20: 1892261953
+      Tutorial_Furniture.1_8: 805195439
+      Tutorial_Furniture.1_36: 1846907750
+      Tutorial_Furniture.1_13: -1539531561
+      Tutorial_Furniture.1_24: 1717987065
+      Tutorial_Furniture.1_30: 340303355
+      Tutorial_Furniture.1_32: -249219612
+      Tutorial_Furniture.1_19: 935754923
+      Tutorial_Furniture.1_22: 1345970946
+      Tutorial_Furniture.1_4: 2100235514
+      Tutorial_Furniture.1_16: 921252344
+      Tutorial_Furniture.1_33: -1345673404
+      Tutorial_Furniture.1_23: -2096588700
+      Tutorial_Furniture.1_12: 54426097
+      Tutorial_Furniture.1_1: 2030056192
+      Tutorial_Furniture.1_10: -606754728
+      Tutorial_Furniture.1_3: 1803345738
+      Tutorial_Furniture.1_29: 799318960
+      Tutorial_Furniture.1_38: 468084690
+      Tutorial_Furniture.1_39: -180805276
+      Tutorial_Furniture.1_43: 749681438
+      Tutorial_Furniture.1_34: 1292259518
+      Tutorial_Furniture.1_31: -1940859345
+      Tutorial_Furniture.1_15: 1583550585
+      Tutorial_Furniture.1_28: -1085680222
+      Tutorial_Furniture.1_7: -1502978611
+      Tutorial_Furniture.1_37: 1509555391
+      Tutorial_Furniture.1_42: -3245598
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

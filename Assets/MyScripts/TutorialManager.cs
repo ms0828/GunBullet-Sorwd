@@ -17,7 +17,7 @@ public class TutorialManager : MonoBehaviour
 
     public enum tutorialStage{left,right,jump,conversation,downAttack,upAttack,thrust,shoot};
     public tutorialStage currentStage;
-
+    
     public bool[] clearStaus = new bool[8];
 
 

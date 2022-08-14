@@ -17,9 +17,13 @@ public class CameraController : MonoBehaviour
 
     void Awake() 
     {
-        if(SceneManager.GetActiveScene().name == "TutorialScene")
+        if(SceneManager.GetActiveScene().name.Equals("TutorialScene"))
         {
             player = GameObject.Find("TutorialPlayer");
+        }
+        else if(SceneManager.GetActiveScene().name.Equals("PlayerHome"))
+        {
+            player = GameObject.Find("HomePlayer");
         }
         else
         {
@@ -39,7 +43,7 @@ public class CameraController : MonoBehaviour
     {
         if(player != null)      //카메라의 위치를 플레이어 위치로
         {
-            targetPosition.Set(player.transform.position.x, player.transform.position.y + 2.0f,transform.position.z);
+            targetPosition.Set(player.transform.position.x, player.transform.position.y,transform.position.z);
             transform.position = targetPosition;
         }
     }

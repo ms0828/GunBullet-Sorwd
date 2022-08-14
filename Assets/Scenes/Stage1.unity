@@ -1740,7 +1740,7 @@ GameObject:
   - component: {fileID: 937471048}
   - component: {fileID: 937471050}
   m_Layer: 0
-  m_Name: mapBoundary
+  m_Name: MapBoundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
