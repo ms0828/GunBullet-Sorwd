@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 public class PlayerUICanvas : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class PlayerUICanvas : MonoBehaviour
     
 
     //-------대화 박스 관련--------
+
+    public ConversationObject conversationInfo;
     public GameObject dialogBox;
     public Text speakerText;
     public Text contentText;
@@ -28,11 +32,26 @@ public class PlayerUICanvas : MonoBehaviour
 
     
 
+    //--------타임라인---------
+    public GameObject timeline;    //매 스테이지 마다 있는 타임라인 부모 오브젝트 (비활성화된 타임라인 find 위해 사용)
+    public PlayableDirector playTimeline;      //진행할 타임라인 담아서 사용
+
     void Awake()
     {
-        dialogBox = transform.Find("DialogBox").gameObject;
-        speakerText = dialogBox.transform.Find("SpeakerText").GetComponent<Text>();
-        contentText = dialogBox.transform.Find("ContentText").GetComponent<Text>();
+        if(dialogBox == null)
+        {
+            dialogBox = transform.Find("DialogBox").gameObject;
+        }
+        if(speakerText == null)
+        {
+            speakerText = dialogBox.transform.Find("SpeakerText").GetComponent<Text>();
+        }
+        if(contentText == null)
+        {
+            contentText = dialogBox.transform.Find("ContentText").GetComponent<Text>();
+        }
+
+        timeline = GameObject.Find("Timelines");
 
     }
 
@@ -62,11 +81,12 @@ public class PlayerUICanvas : MonoBehaviour
     }
 
 
-    public void StartDialog(string _speaker, string[] _content)
+    public void StartDialog(ConversationObject _conversationInfo)
     {
+        conversationInfo = _conversationInfo;
         dialogBox.SetActive(true);
-        speaker = _speaker;
-        content = _content;
+        speaker = conversationInfo.speaker;
+        content = conversationInfo.content;
 
         maxPage = content.Length - 1;
         curPage = 0;
@@ -114,6 +134,23 @@ public class PlayerUICanvas : MonoBehaviour
         content = null;
 
         dialogBox.SetActive(false);
+
+
+        //-------특정 대화 종료 이벤트--------
+        if(conversationInfo.eventIndex == (int)ConversationObject.objectEvent.tutorialClear)
+        {   
+            SceneManager.LoadScene("PlayerHome");
+        }
+        else if(conversationInfo.eventIndex == (int)ConversationObject.objectEvent.table)
+        {
+            playTimeline = null;
+            playTimeline = timeline.transform.Find("TableTimeline").GetComponent<PlayableDirector>();
+            playTimeline.gameObject.SetActive(true);
+            playTimeline.Play();
+        }
+
+
+        conversationInfo = null;
     }
 
     public IEnumerator PrintDialogPage()
@@ -129,6 +166,12 @@ public class PlayerUICanvas : MonoBehaviour
         }
 
         isPrintingDialog = false;
+    }
+
+
+    public void ExitTimeline()
+    {
+        playTimeline.gameObject.SetActive(false);
     }
 
 

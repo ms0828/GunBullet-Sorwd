@@ -27,7 +27,7 @@ public class TutorialManager : MonoBehaviour
     public Text attackIndicationText;
 
     //----------몬스터 대화--------
-    private string[] monsterDialog = new string[3];
+    public ConversationObject monsterConversation;
 
     void Awake()
     {
@@ -39,10 +39,8 @@ public class TutorialManager : MonoBehaviour
             attackIndicationText = tutorialCanvas.transform.Find("AttackIndicationText").GetComponent<Text>();
 
 
-        monsterDialog[0] = ".......";
-        monsterDialog[1] = "sdaffsda";
-        monsterDialog[2] = "qqqqqqqq";
-    
+        monsterConversation = GameObject.Find("Monster").transform.Find("TutorialMonsterConversation").GetComponent<TutorialMonsterConversation>();
+        
     }
 
     void Start()
@@ -205,7 +203,7 @@ public class TutorialManager : MonoBehaviour
 
     public void PrintMonsterDialog()
     {
-        playerUi.StartDialog("monster", monsterDialog);
+        playerUi.StartDialog(monsterConversation);
 
         Invoke("DownAttackIndication", 3f);
     }
@@ -219,10 +217,4 @@ public class TutorialManager : MonoBehaviour
     }
 
 
-    public IEnumerator ClearTutorial1()
-    {
-        yield return new WaitForSeconds(3.0f);
-
-        SceneManager.LoadScene("PlayerHome");
-    }
 }

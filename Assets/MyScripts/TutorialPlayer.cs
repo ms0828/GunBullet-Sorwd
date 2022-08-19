@@ -81,7 +81,8 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
     //-------대화 관련------
     public ConversationObject conversationInfo;
 
-   
+    public ConversationObject startConversation;
+
     public void Awake()
     {
         playerUi = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUICanvas>();
@@ -89,6 +90,11 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
         behaviorAudio = transform.Find("BehaviorAudio").GetComponent<AudioSource>();
 
         mapBoundary = GameObject.Find("MapBoundary").GetComponent<BoxCollider2D>();
+
+        if(startConversation == null)
+        {
+            startConversation = transform.Find("StartConversation").GetComponent<TutorialStartConversation>();
+        }
     }
 
     public void Start()
@@ -103,6 +109,9 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
         playerUi.SetPlayerBulletCount(currentBulletCnt);
 
         SetLimits();    //움직임 영역 제한 설정
+
+
+        playerUi.StartDialog(startConversation);
     }
 
     public void Update()
@@ -136,7 +145,7 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
         //-----플레이어 대화------
         if(playerUi.dialogBox.activeSelf == true)
         {
-            if(Input.GetKeyDown(KeyCode.G) && playerUi.isPrintingDialog == false)
+            if(Input.anyKeyDown && playerUi.isPrintingDialog == false)
             {
                 playerUi.NextDialog();
             }
@@ -209,12 +218,14 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
 
             if(conversationInfo != null)        //인터페이스 가능한 오브젝트가 대화 가능 오브젝트이면
             {
-                playerUi.StartDialog(conversationInfo.speaker, conversationInfo.content);
+                playerUi.StartDialog(conversationInfo);
 
+                /*
                 if(conversationInfo.eventName.Equals("Tutorial1Clear"))
                 {
                     StartCoroutine(tm.ClearTutorial1());
                 }
+                */
             }
             
             

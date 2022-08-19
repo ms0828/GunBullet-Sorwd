@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEngine.Playables;
 
 
 [System.Serializable]
@@ -27,6 +28,10 @@ public class GameManager : MonoBehaviour
     //-----유저 데이터-----
     public UserData userData;
     public int currentStage;
+
+
+    //------타임라인------
+    public PlayableDirector timeLine;
 
 
     void Awake()
@@ -68,5 +73,7 @@ public class GameManager : MonoBehaviour
         string jdata = JsonConvert.SerializeObject(userData);
         File.WriteAllText(Application.dataPath + "/DataBase/UserData.txt",jdata);
     }
+
+
 
 }

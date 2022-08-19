@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, ITakeDamage
 {
-    public PlayerUICanvas playerUICanvas;
+    public StageManager sm;
+
+    public PlayerUICanvas playerUi;
 
     public Rigidbody2D rb;
     public Animator am;
@@ -57,14 +59,50 @@ public class Player : MonoBehaviour, ITakeDamage
     //---------사운드 관련----------
     public AudioSource attackAudio;
     public AudioSource behaviorAudio;
+
+
+    
+    //--------인터페이스 관련--------
+    public bool isInterface = false;
+    public ConversationObject conversationInfo;
+    public IInterfaceObject interfaceInfo;
+    public IndicationKey indicationKey;
+
+
    
     public void Awake()
     {
-        playerUICanvas = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUICanvas>();
-        attackAudio = transform.Find("AttackAudio").GetComponent<AudioSource>();
-        behaviorAudio = transform.Find("BehaviorAudio").GetComponent<AudioSource>();
+        if(sm == null)
+        {
+            sm = GameObject.Find("StageManager").GetComponent<StageManager>();
+        }
 
-        mapBoundary = GameObject.Find("MapBoundary").GetComponent<BoxCollider2D>();
+        if(playerUi == null)
+        {
+            playerUi = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUICanvas>();
+        }
+        
+        if(attackAudio == null)
+        {
+            attackAudio = transform.Find("AttackAudio").GetComponent<AudioSource>();
+        }
+
+        if(behaviorAudio == null)
+        {
+            behaviorAudio = transform.Find("BehaviorAudio").GetComponent<AudioSource>();
+        }
+        
+
+        if(mapBoundary == null)
+        {
+            mapBoundary = GameObject.Find("MapBoundary").GetComponent<BoxCollider2D>();
+        }
+
+        if(indicationKey == null)
+        {
+            indicationKey = transform.Find("IndicationKey").GetComponent<IndicationKey>();
+        }
+        
     }
 
     public void Start()
@@ -75,8 +113,8 @@ public class Player : MonoBehaviour, ITakeDamage
         jumpPower = 5.0f;
         currentBulletCnt = 3;
 
-        playerUICanvas.SetPlayerHpBar(currentHp);
-        playerUICanvas.SetPlayerBulletCount(currentBulletCnt);
+        playerUi.SetPlayerHpBar(currentHp);
+        playerUi.SetPlayerBulletCount(currentBulletCnt);
 
         SetLimits();    //움직임 영역 제한 설정
     }
@@ -111,6 +149,18 @@ public class Player : MonoBehaviour, ITakeDamage
 
             return;
         }
+
+
+        //-----플레이어 대화------
+        if(playerUi.dialogBox.activeSelf == true)
+        {
+            if(Input.anyKeyDown && playerUi.isPrintingDialog == false)
+            {
+                playerUi.NextDialog();
+            }
+               
+            return;
+        }
         
 
         //---------플레이어 좌우 움직임-----------
@@ -137,6 +187,25 @@ public class Player : MonoBehaviour, ITakeDamage
             am.SetBool("Run",false);
         }
 
+
+
+
+        //---------인터페이스(대화) 관련-------
+
+        if(isInterface == true && Input.GetKeyDown(KeyCode.G))
+        {
+            if(conversationInfo != null)        //인터페이스 가능한 오브젝트가 대화 가능 오브젝트이면
+            {
+                playerUi.StartDialog(conversationInfo);
+            }
+            else if(interfaceInfo != null)
+            {
+                indicationKey.gameObject.SetActive(false);
+                interfaceInfo.Interface();
+            }
+        }
+
+        
 
 
         //----------플레이어 점프----
@@ -241,7 +310,7 @@ public class Player : MonoBehaviour, ITakeDamage
         }
         
         currentBulletCnt--;
-        playerUICanvas.SetPlayerBulletCount(currentBulletCnt);
+        playerUi.SetPlayerBulletCount(currentBulletCnt);
 
         if(currentBulletCnt <= 0)
         {
@@ -257,7 +326,7 @@ public class Player : MonoBehaviour, ITakeDamage
 
         SoundManager.instance.PlayerSfxSound(attackAudio,"PlayerReload", 1f);
         currentBulletCnt = 3;
-        playerUICanvas.SetPlayerBulletCount(currentBulletCnt);
+        playerUi.SetPlayerBulletCount(currentBulletCnt);
     }
 
 
@@ -274,7 +343,7 @@ public class Player : MonoBehaviour, ITakeDamage
 
 
 
-
+    /*
     void OnTriggerStay2D(Collider2D other) 
     {
         if(other.gameObject.tag.Equals("Portal"))   //포탈
@@ -286,8 +355,51 @@ public class Player : MonoBehaviour, ITakeDamage
                 SceneManager.LoadScene(GameManager.instance.currentStage);
             }
         }
+    }*/
+
+    void OnTriggerEnter2D(Collider2D other) 
+    {
+        //----대화 관련 상태----
+        if(other.gameObject.tag.Equals("ConversationObject"))
+        {
+            isInterface = true;
+
+            conversationInfo = other.GetComponent<ConversationObject>();
+            indicationKey.gameObject.SetActive(true);
+            indicationKey.SetKeyInterface();
+            
+        }
+
+
+        if(other.gameObject.tag.Equals("InterfaceObject"))
+        {
+            isInterface = true;
+            
+            interfaceInfo = other.GetComponent<IInterfaceObject>();
+            indicationKey.gameObject.SetActive(true);
+            indicationKey.SetKeyInterface();
+        }
+
     }
 
+
+    void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.gameObject.tag.Equals("InterfaceObject"))
+        {
+            isInterface = false;
+            interfaceInfo = null;
+            indicationKey.gameObject.SetActive(false);
+        }   
+
+
+        if(other.gameObject.tag.Equals("ConversationObject"))
+        {
+            isInterface = false;
+            conversationInfo = null;
+            indicationKey.gameObject.SetActive(false);
+        }
+    }
 
 
     public void TakeDamage(Transform attacker, int damage)
@@ -310,7 +422,7 @@ public class Player : MonoBehaviour, ITakeDamage
 
         
         currentHp = currentHp - damage;
-        playerUICanvas.SetPlayerHpBar(currentHp);
+        playerUi.SetPlayerHpBar(currentHp);
 
         if(currentHp > 0)      //히트
         {

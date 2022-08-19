@@ -11,9 +11,8 @@ public class PlayerHomeManager : MonoBehaviour
 
     public PlayerUICanvas playerUi;
 
-    private string speaker;
-    private string[] content;
-
+    
+    private ConversationObject startConversation;
 
 
     //------타임라인 관련------
@@ -35,16 +34,12 @@ public class PlayerHomeManager : MonoBehaviour
             Debug.Log("타임라인이 할당되지 않음(에러)");
         }
 
-        content = new string[2];
-        speaker = "Player";
-        content[0] = "또 이 꿈인가";
-        content[1] = ".....";
-
+        startConversation = transform.Find("StartConversation").GetComponent<TutorialStartConversation>();
     }
 
     void Start()
     {
-        playerUi.StartDialog(speaker,content);
+        playerUi.StartDialog(startConversation);
     }
 
 

@@ -7,13 +7,10 @@ public class Corpse : ConversationObject
     void Awake()
     {
         content = new string[1];
-    }
-
-    void Start()
-    {
         speaker = "시체";
         content[0] = ".....";
     }
+
     
 
 }

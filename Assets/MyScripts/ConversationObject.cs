@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class ConversationObject : MonoBehaviour
 {
-    public string eventName;
+    public int eventIndex = 0;
     public string speaker;
     public string[] content;
+
+    public enum objectEvent{tutorialClear = 1, table};
+
+
 }

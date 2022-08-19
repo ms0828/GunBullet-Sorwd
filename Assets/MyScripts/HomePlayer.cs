@@ -63,7 +63,9 @@ public class HomePlayer : MonoBehaviour
     public ConversationObject conversationInfo;
     public IInterfaceObject interfaceInfo;
 
-   
+    public ConversationObject homeStartConversation;
+
+
     public void Awake()
     {   
         if(hm == null)
@@ -83,6 +85,9 @@ public class HomePlayer : MonoBehaviour
         behaviorAudio = transform.Find("BehaviorAudio").GetComponent<AudioSource>();
 
         mapBoundary = GameObject.Find("MapBoundary").GetComponent<BoxCollider2D>();
+
+
+        homeStartConversation = transform.Find("HomeStartConversation").GetComponent<ConversationObject>();
     }
 
 
@@ -98,6 +103,8 @@ public class HomePlayer : MonoBehaviour
         playerUi.SetPlayerBulletCount(currentBulletCnt);
 
         SetLimits();    //움직임 영역 제한 설정
+
+        playerUi.StartDialog(homeStartConversation);
     }
 
 
@@ -131,7 +138,7 @@ public class HomePlayer : MonoBehaviour
         //-----플레이어 대화------
         if(playerUi.dialogBox.activeSelf == true)
         {
-            if(Input.GetKeyDown(KeyCode.G) && playerUi.isPrintingDialog == false)
+            if(Input.anyKeyDown && playerUi.isPrintingDialog == false)
             {
                 playerUi.NextDialog();
             }
@@ -195,7 +202,7 @@ public class HomePlayer : MonoBehaviour
         {
             if(conversationInfo != null)        //인터페이스 가능한 오브젝트가 대화 가능 오브젝트이면
             {
-                playerUi.StartDialog(conversationInfo.speaker, conversationInfo.content);
+                playerUi.StartDialog(conversationInfo);
             }
             else if(interfaceInfo != null)
             {
