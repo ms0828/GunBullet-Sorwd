@@ -5,12 +5,33 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public GameObject gKey;
+    public Animator am;
 
-    private void OnTriggerEnter2D(Collider2D other) // 플레이어가 가까이 오면
+
+    public bool isTriggerEnter = false;
+
+    void Start() 
     {
+        am = GetComponent<Animator>();
+    }
+
+    void Update() 
+    {
+        if (Input.GetKeyDown(KeyCode.G) && isTriggerEnter == true) // G키를 누르면
+        {
+            am.Play("DoorOpen", 0, 0); // 문이 열림
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other) // 플레이어가 가까이 오면
+    { 
         if(other.gameObject.name.Equals("Player")) 
         {
-            gKey.SetActive(true); // G키 이미지를 띄움
+            if (this.gameObject.tag.Equals("Stage1")) // 스테이지 1에서는
+            {
+                gKey.SetActive(true); // G키 이미지를 띄움
+            }
+
+            isTriggerEnter = true;
         }
     }
 
@@ -18,7 +39,14 @@ public class Door : MonoBehaviour
     {
         if(other.gameObject.name.Equals("Player")) 
         {
-            gKey.SetActive(false); // G키 이미지 삭제
+            if (this.gameObject.tag.Equals("Stage1"))
+            {
+                gKey.SetActive(false); // G키 이미지 삭제
+            }
+
+            isTriggerEnter = false;
+
+            am.Play("DoorClose", 0, 0); // 문이 닫힘
         }
     }
 }

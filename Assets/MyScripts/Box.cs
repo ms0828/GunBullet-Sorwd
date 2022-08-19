@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class Box : MonoBehaviour
 {    
+    public GameObject box;
     public GameObject gKey;
+
+    bool isTriggerEnter = false;
 
     void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.G)) // G키를 누르면
+        if (Input.GetKeyDown(KeyCode.G) && isTriggerEnter == true) // G키를 누르면
         {
-            Destroy(gameObject); // 박스가 사라짐
+            Destroy(box); // 박스가 사라짐
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other) // 플레이어가 가까이 오면
     {
-        if(other.gameObject.name.Equals("Player")) 
+        if(other.gameObject.name.Equals("Player") && this.gameObject.tag.Equals("Stage1")) 
         {
             gKey.SetActive(true); // G키 이미지를 띄움
+
+            isTriggerEnter = true;
         }
     }
 
@@ -26,7 +31,9 @@ public class Box : MonoBehaviour
     {
         if(other.gameObject.name.Equals("Player")) 
         {
-            gKey.SetActive(false); // G키 이미지 삭제
+            gKey.SetActive(false); // G키 이미지 삭제      
+
+            isTriggerEnter = false;
         }
     }
 }
