@@ -26,7 +26,7 @@ public abstract class Enemy : MonoBehaviour    //적 추상클래스 (적은 이
 
 
     //-----플레이어 캐싱-----
-    public Player player;      //최초 잡기 시전 때, collider를 통해 캐싱해서 사용  (연산 줄이기 위해)
+    public Player player;
     public int playerLayer;
 
     public void Awake()     //기본 컴포넌트 가져오기

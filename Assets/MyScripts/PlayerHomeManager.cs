@@ -34,7 +34,7 @@ public class PlayerHomeManager : MonoBehaviour
             Debug.Log("타임라인이 할당되지 않음(에러)");
         }
 
-        startConversation = transform.Find("StartConversation").GetComponent<TutorialStartConversation>();
+        startConversation = transform.Find("HomeStartConversation").GetComponent<TutorialStartConversation>();
     }
 
     void Start()

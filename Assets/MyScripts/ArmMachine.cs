@@ -190,6 +190,7 @@ public class ArmMachine : Enemy, ITakeDamage
         else
             rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), aimDistance, LayerMask.GetMask("Player"));
         
+        
 
         if(rayHit.collider != null && isSnipingCoolTime == false)     //현재 바라보는 방향 일직선에서 플레이어가 감지되면
         {

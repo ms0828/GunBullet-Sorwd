@@ -184,8 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7c7a337441aad42ad042103dcaefc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sm: {fileID: 0}
   playerUi: {fileID: 0}
+  sr: {fileID: 3120414944801458191}
   rb: {fileID: 3120414944801458226}
   am: {fileID: 3120414944801458227}
   hitBox: {fileID: 244913098}
@@ -207,6 +207,9 @@ MonoBehaviour:
   isInterface: 0
   conversationInfo: {fileID: 0}
   indicationKey: {fileID: 0}
+  isHitDelay: 0
+  normalColor: {r: 0, g: 0, b: 0, a: 0}
+  hitColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!95 &3120414944801458227
 Animator:
   serializedVersion: 4

@@ -5,10 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, ITakeDamage
 {
-    public StageManager sm;
-
     public PlayerUICanvas playerUi;
 
+    public SpriteRenderer sr;
     public Rigidbody2D rb;
     public Animator am;
 
@@ -69,14 +68,16 @@ public class Player : MonoBehaviour, ITakeDamage
     public IndicationKey indicationKey;
 
 
+    //------피격 딜레이------
+    public WaitForSeconds hitDelayTime = new WaitForSeconds(0.2f);
+    public bool isHitDelay = false;
+
+    public Color normalColor;
+    public Color hitColor;
    
     public void Awake()
     {
-        if(sm == null)
-        {
-            sm = GameObject.Find("StageManager").GetComponent<StageManager>();
-        }
-
+      
         if(playerUi == null)
         {
             playerUi = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUICanvas>();
@@ -115,6 +116,9 @@ public class Player : MonoBehaviour, ITakeDamage
 
         playerUi.SetPlayerHpBar(currentHp);
         playerUi.SetPlayerBulletCount(currentBulletCnt);
+
+        normalColor = new Color(1f,1f,1f,1f);
+        hitColor = new Color(1f,1f,1f,0.7f);
 
         SetLimits();    //움직임 영역 제한 설정
     }
@@ -259,39 +263,42 @@ public class Player : MonoBehaviour, ITakeDamage
     {
         SoundManager.instance.PlayerSfxSound(attackAudio,"PlayerDownAttack");
         Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,1 << LayerMask.NameToLayer("Enemy"));
-        
+        isAttack = false;
+
         if(collider != null)    //적이 있으면
         {   
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
             collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 15);     //대상의 TakeDamage 함수 실행
         }
-        isAttack = false;
+        
     }
 
     void UpAttack()
     {
         SoundManager.instance.PlayerSfxSound(attackAudio,"PlayerUpAttack");
         Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,1 << LayerMask.NameToLayer("Enemy"));
-        
+        isAttack = false;
+
         if(collider != null)    //적이 있으면
         {   
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
             collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);     //대상의 TakeDamage 함수 실행
         }
-        isAttack = false;
+        
     }
 
     void ThrustAttack()
     {
         SoundManager.instance.PlayerSfxSound(attackAudio,"PlayerThrustAttack");
         Collider2D collider = Physics2D.OverlapBox(hitBox.position,hitBox.localScale,0,1 << LayerMask.NameToLayer("Enemy"));
+        isAttack = false;
         
         if(collider != null)    //적이 있으면
         {   
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
             collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);     //대상의 TakeDamage 함수 실행
         }
-        isAttack = false;
+        
     }
 
 
@@ -405,12 +412,6 @@ public class Player : MonoBehaviour, ITakeDamage
     public void TakeDamage(Transform attacker, int damage)
     {
 
-        if(Random.Range(0,2) == 0)
-            SoundManager.instance.PlayerSfxSound(behaviorAudio,"PlayerHit1");
-        else
-            SoundManager.instance.PlayerSfxSound(behaviorAudio,"PlayerHit2");
-        
-
         if(isHolding == true)
         {
             isHolding = false;      //피격 시, 홀딩 해제
@@ -419,7 +420,19 @@ public class Player : MonoBehaviour, ITakeDamage
         if(isAttack == true)
             isAttack = false;
 
+        
 
+        if(isHitDelay == true)      //피격시 2초간 무적상태
+        {
+            return;
+        }
+
+
+        if(Random.Range(0,2) == 0)
+            SoundManager.instance.PlayerSfxSound(behaviorAudio,"PlayerHit1");
+        else
+            SoundManager.instance.PlayerSfxSound(behaviorAudio,"PlayerHit2");
+        
         
         currentHp = currentHp - damage;
         playerUi.SetPlayerHpBar(currentHp);
@@ -427,6 +440,8 @@ public class Player : MonoBehaviour, ITakeDamage
         if(currentHp > 0)      //히트
         {
             am.SetTrigger("Hit");
+
+            StartCoroutine("HitDelay");
 
             //넉백
             if(transform.position.x - attacker.position.x > 0)  //대상이 왼쪽에서 공격했다면
@@ -456,33 +471,96 @@ public class Player : MonoBehaviour, ITakeDamage
     }
 
 
-    public IEnumerator Holding(HeadMachine attacker)   //HeadMachine이 잡기 공격을 했을 때 실행되는 함수
+    public IEnumerator Holding(Enemy attacker)   //HeadMachine이 잡기 공격을 했을 때 실행되는 함수
     {
         isHolding = true;
         am.SetBool("Holding",true);
         holdingGauge = 0;
 
-        for(int i=0; i<20; i++)
+        
+        if(attacker is HeadMachine)
         {
-            if(holdingGauge >= 100 || isHolding == false || attacker.isGrab == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
+            HeadMachine headMachine = (HeadMachine)attacker;
+
+
+            for(int i=0; i<20; i++)
             {
-                am.SetBool("Holding",false);
-                isHolding = false;
+                if(holdingGauge >= 100 || isHolding == false || headMachine.isGrab == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
+                {
+                    am.SetBool("Holding",false);
+                    isHolding = false;
 
-                if(holdingGauge >= 100)
-                    attacker.TakeDamage(this.transform, 0);        //게이지 채워서 탈출 성공하면 적 밀쳐냄
+                    if(holdingGauge >= 100)
+                        headMachine.TakeDamage(this.transform, 0);        //게이지 채워서 탈출 성공하면 적 밀쳐냄
 
-                yield break;
+                    yield break;
+                }
+
+                holdingGauge -= 10;
+                if(holdingGauge <= 0)
+                    holdingGauge = 0;
+
+
+                yield return new WaitForSeconds(0.2f);
             }
-
-            holdingGauge -= 10;
-            if(holdingGauge <= 0)
-                holdingGauge = 0;
+        }
 
 
-            yield return new WaitForSeconds(0.2f);
+
+        if(attacker is BossMonster)
+        {
+            BossMonster bossMonster = (BossMonster)attacker;
+
+            for(int i=0; i<20; i++)
+            {
+                if(holdingGauge >= 100 || isHolding == false || bossMonster.isGrab == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
+                {
+                    am.SetBool("Holding",false);
+                    isHolding = false;
+
+                    if(holdingGauge >= 100)
+                        bossMonster.TakeDamage(this.transform, 0);        //게이지 채워서 탈출 성공하면 적 밀쳐냄
+
+                    yield break;
+                }
+
+                holdingGauge -= 10;
+                if(holdingGauge <= 0)
+                    holdingGauge = 0;
+
+
+                yield return new WaitForSeconds(0.2f);
+            }
         }
         
+    }
+
+
+
+
+    IEnumerator HitDelay()
+    {
+        isHitDelay = true;
+
+        int j = 0;
+
+        for(int i=0; i<10; i++)
+        {
+            if(j==0)
+            {
+                sr.color = hitColor;
+                j = 1;
+            }
+            else
+            {
+                sr.color = normalColor;
+                j = 0;
+            }
+            
+            yield return hitDelayTime;
+        }
+        
+        isHitDelay = false;
     }
 
 
