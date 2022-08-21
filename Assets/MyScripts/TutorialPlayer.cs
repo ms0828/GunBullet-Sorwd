@@ -84,6 +84,9 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
 
     public ConversationObject startConversation;
 
+
+    public IndicationKey indicationKey;
+
     public void Awake()
     {
         playerUi = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUICanvas>();
@@ -221,13 +224,6 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
             if(conversationInfo != null)        //인터페이스 가능한 오브젝트가 대화 가능 오브젝트이면
             {
                 playerUi.StartDialog(conversationInfo);
-
-                /*
-                if(conversationInfo.eventName.Equals("Tutorial1Clear"))
-                {
-                    StartCoroutine(tm.ClearTutorial1());
-                }
-                */
             }
             
             
@@ -285,13 +281,6 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
             isShoot = true;
             am.SetTrigger("ShootAttack");
 
-            /*
-            if(tm.clearStaus[(int)TutorialManager.tutorialStage.shoot] == false && clearCheck == false)
-            {
-                tm.ClearCurrentTutorial(tm.currentStage);
-                clearCheck = true;  //한 번만 실행되도록 만든 임시 bool 변수
-            }
-            */
         }
        
 
@@ -394,17 +383,17 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
         if(other.gameObject.tag.Equals("ConversationObject"))
         {
             isInterface = true;
-
             conversationInfo = other.GetComponent<ConversationObject>();
-            tm.SetKeyTutorial(TutorialManager.tutorialStage.conversation);
+            indicationKey.gameObject.SetActive(true);
+            indicationKey.SetKeyInterface();
         }
 
 
         if(other.gameObject.tag.Equals("InterfaceObject"))
         {
             isInterface = true;
-            
-            tm.SetKeyTutorial(TutorialManager.tutorialStage.conversation);
+            indicationKey.gameObject.SetActive(true);
+            indicationKey.SetKeyInterface();
         }
 
 
@@ -437,7 +426,7 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
             }
         }
         
-        if(other.gameObject.name == "DollyCam_Location")
+        if(other.gameObject.name == "DollyCam_Location" && tm.clearStaus[(int)TutorialManager.tutorialStage.conversation] == true)
         {
             if(isPlayTimeline == false)
             {
@@ -456,6 +445,7 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
         {
             isInterface = false;
             tm.keyTutorial.gameObject.SetActive(false);
+            indicationKey.gameObject.SetActive(false);
         }   
 
 
@@ -463,6 +453,7 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
         {
             isInterface = false;
             conversationInfo = null;
+            indicationKey.gameObject.SetActive(false);
         }
     }
 

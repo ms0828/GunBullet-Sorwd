@@ -64,26 +64,35 @@ public class TutorialManager : MonoBehaviour
             {
                 keyTutorial.gameObject.SetActive(true);
                 keyTutorial.am.SetTrigger("A");
-                
+                attackIndicationText.gameObject.SetActive(true);
+                attackIndicationText.text = "";
+                attackIndicationText.text = "A로 좌측 이동";
                 break;
             }
             case tutorialStage.right:
             {
                 keyTutorial.gameObject.SetActive(true);
                 keyTutorial.am.SetTrigger("D");
-                
+                attackIndicationText.gameObject.SetActive(true);
+                attackIndicationText.text = "";
+                attackIndicationText.text = "D로 우측 이동";
                 break;
             }
             case tutorialStage.jump:
             {
                 keyTutorial.gameObject.SetActive(true);
                 keyTutorial.am.SetTrigger("Space");
+                attackIndicationText.gameObject.SetActive(true);
+                attackIndicationText.text = "";
+                attackIndicationText.text = "Space bar로 점프";
                 break;
             }
             case tutorialStage.conversation:
             {
-                keyTutorial.gameObject.SetActive(true);
-                keyTutorial.am.SetTrigger("G");
+                keyTutorial.gameObject.SetActive(false);
+                attackIndicationText.gameObject.SetActive(true);
+                attackIndicationText.text = "";
+                attackIndicationText.text = "G를 눌러 시체를 살펴보세요 (상호작용 키)";
                 break;
             }
             case tutorialStage.downAttack:
@@ -91,7 +100,7 @@ public class TutorialManager : MonoBehaviour
                 keyTutorial.gameObject.SetActive(false);
                 attackIndicationText.gameObject.SetActive(true);
                 attackIndicationText.text = "";
-                attackIndicationText.text = "L_Button";
+                attackIndicationText.text = "왼쪽 클릭으로 하단 베기";
                 break;
             }
             case tutorialStage.upAttack:
@@ -99,7 +108,7 @@ public class TutorialManager : MonoBehaviour
                 keyTutorial.gameObject.SetActive(false);
                 attackIndicationText.gameObject.SetActive(true);
                 attackIndicationText.text = "";
-                attackIndicationText.text = "W + L_Button";
+                attackIndicationText.text = "W + 왼쪽클릭으로 상단 베기";
                 break;
             }
             case tutorialStage.thrust:
@@ -107,7 +116,7 @@ public class TutorialManager : MonoBehaviour
                 keyTutorial.gameObject.SetActive(false);
                 attackIndicationText.gameObject.SetActive(true);
                 attackIndicationText.text = "";
-                attackIndicationText.text = "E + L_Button";
+                attackIndicationText.text = "E + 왼쪽클릭으로 찌르기";
                 break;
             }
             case tutorialStage.shoot:
@@ -115,7 +124,7 @@ public class TutorialManager : MonoBehaviour
                 keyTutorial.gameObject.SetActive(false);
                 attackIndicationText.gameObject.SetActive(true);
                 attackIndicationText.text = "";
-                attackIndicationText.text = "R_Button";
+                attackIndicationText.text = "우클릭으로 포격 발사";
                 break;
             }
         }
@@ -152,8 +161,9 @@ public class TutorialManager : MonoBehaviour
             {
                 clearStaus[(int)_currentStage] = true;
                 currentStage = (tutorialStage)((int)_currentStage + 1);
-                keyTutorial.gameObject.SetActive(false);
 
+                attackIndicationText.gameObject.SetActive(false);
+                
                 break;
             }
             case tutorialStage.downAttack:
@@ -200,8 +210,7 @@ public class TutorialManager : MonoBehaviour
 
         player.clearCheck = false;      //check변수 초기화 (다음 튜토리얼로 넘어가기 위한)
 
-        if(currentStage != tutorialStage.conversation)
-            SetKeyTutorial(currentStage);
+        SetKeyTutorial(currentStage);
     }
 
 
@@ -216,9 +225,7 @@ public class TutorialManager : MonoBehaviour
     public void DownAttackIndication()
     {
         player.clearCheck = false;
-        attackIndicationText.gameObject.SetActive(true);
-        attackIndicationText.text = "";
-        attackIndicationText.text = "L_Button";
+        SetKeyTutorial(currentStage);
     }
 
 

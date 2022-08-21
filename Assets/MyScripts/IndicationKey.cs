@@ -15,7 +15,11 @@ public class IndicationKey : MonoBehaviour
 
         if(player == null)
         {
-            if(SceneManager.GetActiveScene().name.Equals("PlayerHome"))
+            if(SceneManager.GetActiveScene().name.Equals("TutorialScene"))
+            {
+                player = GameObject.Find("TutorialPlayer");
+            }
+            else if(SceneManager.GetActiveScene().name.Equals("PlayerHome"))
             {
                 player = GameObject.Find("HomePlayer");
             }

@@ -7,10 +7,9 @@ public class TutorialStartConversation : ConversationObject
    
     void Awake()
     {
-        content = new string[2];
+        content = new string[1];
         speaker = "Player";
-        content[0] = "여긴어디(test)";
-        content[1] = "나는누구(test)";
+        content[0] = ".....";
     }
 
 

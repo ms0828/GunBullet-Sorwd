@@ -7,6 +7,8 @@ public class BossMonster : Enemy, ITakeDamage
     //-------필요한 기본 할당 변수------
     public PlayerUICanvas playerUi;
 
+    public BossUI bossUi;
+
     public GameObject table;
     
 
@@ -97,10 +99,10 @@ public class BossMonster : Enemy, ITakeDamage
     void Start()
     {
         SetLimits();    //움직임 영역 제한 설정
+        bossUi.gameObject.SetActive(true);
 
-
-        maxHp = 600;
-        currentHp = 10;
+        maxHp = 500;
+        currentHp = 500;
         speed = 1.3f;
         trackingDistance = 8f;
         aimDistance = 6f;
@@ -566,11 +568,13 @@ public class BossMonster : Enemy, ITakeDamage
             isAiming = false;
 
         
-         
+        currentHp = currentHp - damage;
+        bossUi.SetBossHpBar(currentHp);
 
-        if(currentHp - damage > 0)      //히트
+
+        if(currentHp > 0)      //히트
         {
-            currentHp = currentHp - damage;
+            
             am.SetTrigger("Hit");
 
             //넉백
@@ -597,6 +601,7 @@ public class BossMonster : Enemy, ITakeDamage
                 table.GetComponent<TableEnding>().enabled = true;
                 table.GetComponent<BoxCollider2D>().enabled = true;
 
+                bossUi.gameObject.SetActive(false);
                 Destroy(gameObject, 2f);        //2초 후 사라짐
             }
         }

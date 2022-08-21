@@ -275,7 +275,7 @@ public class Player : MonoBehaviour, ITakeDamage
         if(collider != null)    //적이 있으면
         {   
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
-            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 15);     //대상의 TakeDamage 함수 실행
+            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);     //대상의 TakeDamage 함수 실행
         }
         
     }
