@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6007868907611942268}
   - component: {fileID: 6007868907611942269}
   - component: {fileID: 6007868907611942018}
-  - component: {fileID: 6007868907611942019}
+  - component: {fileID: 3746507779170039911}
   m_Layer: 3
   m_Name: UpDown
   m_TagString: ShortJumpZone
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.23}
   m_EdgeRadius: 0
---- !u!114 &6007868907611942019
+--- !u!114 &3746507779170039911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,6 +121,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6007868907611942016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac9f745c392dd9e45bd6365e05c4abd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f6a97f815e29de4fbb49e8790e90f19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

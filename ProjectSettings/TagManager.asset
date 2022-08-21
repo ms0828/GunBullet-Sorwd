@@ -13,6 +13,9 @@ TagManager:
   - GKey
   - InterfaceObject
   - ConversationObject
+  - Stage1
+  - Stage2
+  - Basement
   layers:
   - Default
   - TransparentFX
