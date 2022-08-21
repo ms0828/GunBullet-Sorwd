@@ -195,6 +195,7 @@ MonoBehaviour:
   jumpPower: 5
   isDead: 0
   isHolding: 0
+  isJumpCoolTime: 0
   playerDirection: 1
   muzzlePos: {fileID: 3120414946345827154}
   bulletPrefeb: {fileID: 7118730206389760424, guid: 516ebef030a650f4b88da5a069322987, type: 3}

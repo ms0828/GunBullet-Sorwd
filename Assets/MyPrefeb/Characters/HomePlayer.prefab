@@ -529,6 +529,7 @@ MonoBehaviour:
   indicationKey: {fileID: 0}
   conversationInfo: {fileID: 0}
   homeStartConversation: {fileID: 0}
+  isJumpCoolTime: 0
 --- !u!81 &1811459644918231727
 AudioListener:
   m_ObjectHideFlags: 0

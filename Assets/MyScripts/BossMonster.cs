@@ -55,7 +55,7 @@ public class BossMonster : Enemy, ITakeDamage
 
     //------쿨타임 코루틴 캐싱------
     public WaitForSeconds attackCoolTime = new WaitForSeconds(5.0f);
-    public WaitForSeconds grabCoolTime = new WaitForSeconds(5.0f);
+    public WaitForSeconds grabCoolTime = new WaitForSeconds(3.0f);
     public WaitForSeconds shootCoolTime = new WaitForSeconds(7.0f);
     public WaitForSeconds crushCoolTime = new WaitForSeconds(7.0f);
 
@@ -100,7 +100,7 @@ public class BossMonster : Enemy, ITakeDamage
 
 
         maxHp = 600;
-        currentHp = 600;
+        currentHp = 10;
         speed = 1.3f;
         trackingDistance = 8f;
         aimDistance = 6f;
@@ -120,10 +120,13 @@ public class BossMonster : Enemy, ITakeDamage
         if(isDead)
             return;
 
+        if(playerUi.isPlayTimeline == true)
+            return;
+        
         Move();
         ObservePlayer();
 
-        TestDrawRay();        //사거리 테스트 용
+        //TestDrawRay();        //사거리 테스트 용
     }
 
 
@@ -272,7 +275,6 @@ public class BossMonster : Enemy, ITakeDamage
             am.SetBool("Grab", true);
             StartCoroutine(GrabCoolTime());     //잡기 쿨타임
             
-
             return;
         }
 

@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   playerUi: {fileID: 0}
+  chapterTimeline: {fileID: 0}
   homeTimeline: {fileID: 0}
 --- !u!114 &3413696332137705996
 MonoBehaviour:
@@ -63,12 +64,27 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: 87c2c3ca5dc0e6b409fa40afe34bcb99, type: 2}
+    - {fileID: 11400000, guid: a5d06e6a59498e548807a5ab5f96f806, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3413696332137705999}
           m_TargetAssemblyTypeName: PlayerHomeManager, Assembly-CSharp
           m_MethodName: EndHomeTimeLine
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3413696332137705999}
+          m_TargetAssemblyTypeName: PlayerHomeManager, Assembly-CSharp
+          m_MethodName: EndHomeChapterTimeLine
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

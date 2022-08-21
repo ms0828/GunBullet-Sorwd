@@ -145,6 +145,10 @@ public class Player : MonoBehaviour, ITakeDamage
 
     public void PlayerControll()
     {
+        if(playerUi.isPlayTimeline == true)
+            return;
+
+        
         
         if(isHolding)       //홀딩 상태면 컨트롤 불가
         {

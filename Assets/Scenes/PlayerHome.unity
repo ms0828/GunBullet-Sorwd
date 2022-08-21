@@ -1722,7 +1722,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1843,7 +1843,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 4
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -3161,46 +3161,6 @@ PrefabInstance:
     - target: {fileID: 3413696332137705985, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
       propertyPath: m_Name
       value: PlayerHomeManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413696332137705996, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
-      propertyPath: m_Events.m_Events.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413696332137705996, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
-      propertyPath: m_Events.m_Signals.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413696332137705996, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
-      propertyPath: m_Events.m_Signals.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: a5d06e6a59498e548807a5ab5f96f806, type: 2}
-    - target: {fileID: 3413696332137705996, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
-      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413696332137705996, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
-      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413696332137705996, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
-      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 147807721}
-    - target: {fileID: 3413696332137705996, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
-      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413696332137705996, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
-      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EndHomeChapterTimeLine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413696332137705996, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
-      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerHomeManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413696332137705996, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
-      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3413696332137705998, guid: cf0e8f5f78723444f86b7746d840746d, type: 3}
       propertyPath: m_RootOrder

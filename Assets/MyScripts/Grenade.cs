@@ -28,7 +28,7 @@ public class Grenade : MonoBehaviour
 
         rb.AddForce(new Vector2(5f * direction, 3f), ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
 
-        Invoke("Explosion", 3f);
+        Invoke("Explosion", 2f);
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
@@ -44,7 +44,7 @@ public class Grenade : MonoBehaviour
         SoundManager.instance.EnemySfxSound(attackAudio,"HeadMachineGrenade");
 
         am.SetTrigger("Explosion");
-        transform.localScale = explosionScale;
+        //transform.localScale = explosionScale;
         Destroy(gameObject, 0.5f);
 
         Collider2D collider = Physics2D.OverlapBox(explosionHitBox.position, explosionHitBox.localScale,0, 1 << LayerMask.NameToLayer("Player"));

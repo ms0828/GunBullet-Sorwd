@@ -36,6 +36,8 @@ public class PlayerUICanvas : MonoBehaviour
     public GameObject timeline;    //매 스테이지 마다 있는 타임라인 부모 오브젝트 (비활성화된 타임라인 find 위해 사용)
     public PlayableDirector playTimeline;      //진행할 타임라인 담아서 사용
 
+    public bool isPlayTimeline = false;
+
     void Awake()
     {
         if(blackScreen == null)
@@ -57,6 +59,24 @@ public class PlayerUICanvas : MonoBehaviour
 
         timeline = GameObject.Find("Timelines");
 
+    }
+
+    void Start()
+    {
+        if(SceneManager.GetActiveScene().name.Equals("Stage1"))
+        {
+            playTimeline = timeline.transform.Find("Stage1StartTimeline").GetComponent<PlayableDirector>();
+            playTimeline.gameObject.SetActive(true);
+            playTimeline.Play();
+            isPlayTimeline = true;
+        }
+        else if(SceneManager.GetActiveScene().name.Equals("Stage2"))
+        {
+            playTimeline = timeline.transform.Find("Stage2StartTimeline").GetComponent<PlayableDirector>();
+            playTimeline.gameObject.SetActive(true);
+            playTimeline.Play();
+            isPlayTimeline = true;
+        }
     }
 
     public void SetPlayerHpBar(int currentHp)
@@ -152,10 +172,18 @@ public class PlayerUICanvas : MonoBehaviour
             playTimeline = timeline.transform.Find("TableTimeline").GetComponent<PlayableDirector>();
             playTimeline.gameObject.SetActive(true);
             playTimeline.Play();
+            isPlayTimeline = true;
+            Player player = GameObject.Find("Player").GetComponent<Player>();
+            player.am.SetBool("Run",false);
+            player.am.SetBool("Jump",false);
         }
         else if(conversationInfo.eventIndex == (int)ConversationObject.objectEvent.ending)
         {
-            Debug.Log("엔딩 타임라인 추가 예정");
+            playTimeline = null;
+            playTimeline = timeline.transform.Find("GoExitTimeline").GetComponent<PlayableDirector>();
+            playTimeline.gameObject.SetActive(true);
+            playTimeline.Play();
+            isPlayTimeline = true;
         }
 
 
@@ -183,6 +211,8 @@ public class PlayerUICanvas : MonoBehaviour
     public void ExitTimeline()
     {
         playTimeline.gameObject.SetActive(false);
+        playTimeline = null;
+        isPlayTimeline = false;
     }
 
 
@@ -198,5 +228,6 @@ public class PlayerUICanvas : MonoBehaviour
 
         SceneManager.LoadScene(sceneName);
     }
+
 
 }

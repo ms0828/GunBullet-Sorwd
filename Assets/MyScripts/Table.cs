@@ -6,9 +6,9 @@ public class Table : ConversationObject
 {
     void Awake()
     {
-        speaker = "비밀문서";
+        speaker = "Player";
         content = new string[1];
-        content[0] = "~~~";
+        content[0] = "비밀문서.. 여기있나";
     
         eventIndex = (int)ConversationObject.objectEvent.table;
     }
