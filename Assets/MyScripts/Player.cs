@@ -23,6 +23,8 @@ public class Player : MonoBehaviour, ITakeDamage
     //-----상태 관련-----
     public bool isDead = false;
     public bool isHolding = false;
+    public bool isJumpCoolTime = false;
+    public WaitForSeconds jumpDelayTime = new WaitForSeconds(0.5f);
 
 
 
@@ -225,8 +227,9 @@ public class Player : MonoBehaviour, ITakeDamage
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            if(!IsJump())       //현재 공중에 있지 않으면 (땅에 닿아있으면)
+            if(!IsJump() && isJumpCoolTime == false)       //현재 공중에 있지 않으면 (땅에 닿아있으면)
             {
+                StartCoroutine(JumpCoolTime());
                 SoundManager.instance.PlayerSfxSound(behaviorAudio,"PlayerJump");
                 rb.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
             }
@@ -340,7 +343,7 @@ public class Player : MonoBehaviour, ITakeDamage
     bool IsJump()       //캐릭터가 공중에 떠있는지 확인하는 함수
     {
         Vector2 currentVec = transform.position;
-        RaycastHit2D rayHit = Physics2D.Raycast(currentVec,Vector2.down,1f,LayerMask.GetMask("Block"));
+        RaycastHit2D rayHit = Physics2D.Raycast(currentVec,Vector2.down,0.6f,LayerMask.GetMask("Block"));
 
         if(rayHit.collider == null)
             return true;
@@ -561,6 +564,16 @@ public class Player : MonoBehaviour, ITakeDamage
         }
         
         isHitDelay = false;
+    }
+
+
+    IEnumerator JumpCoolTime()
+    {
+        isJumpCoolTime = true;
+
+        yield return jumpDelayTime;
+
+        isJumpCoolTime = false;
     }
 
 

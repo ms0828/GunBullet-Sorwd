@@ -1164,6 +1164,7 @@ GameObject:
   - component: {fileID: 1376938918}
   - component: {fileID: 1376938917}
   - component: {fileID: 1376938919}
+  - component: {fileID: 1376938921}
   - component: {fileID: 1376938920}
   m_Layer: 0
   m_Name: Stage3_Table
@@ -1280,6 +1281,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.63931155, y: 0.84}
   m_EdgeRadius: 0
+--- !u!114 &1376938921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376938916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ff996fbb7b40c4885907e0186dbfa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventIndex: 0
+  speaker: 
+  content: []
 --- !u!1 &1395150675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,6 +2531,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4420709075045974655, guid: d54158efde209e84b8a7deaecdf05d97, type: 3}
+      propertyPath: table
+      value: 
+      objectReference: {fileID: 1376938916}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d54158efde209e84b8a7deaecdf05d97, type: 3}
 --- !u!1001 &8954485606953124607

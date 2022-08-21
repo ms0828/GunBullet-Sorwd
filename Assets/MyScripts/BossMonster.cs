@@ -6,6 +6,8 @@ public class BossMonster : Enemy, ITakeDamage
 {
     //-------필요한 기본 할당 변수------
     public PlayerUICanvas playerUi;
+
+    public GameObject table;
     
 
     //----움직임 제한----
@@ -84,6 +86,11 @@ public class BossMonster : Enemy, ITakeDamage
         {
             mapBoundary = GameObject.Find("MapBoundary").GetComponent<BoxCollider2D>();
         }
+
+        if(table == null)
+        {
+            table = GameObject.Find("Stage3_Table");
+        }
     }
 
 
@@ -92,8 +99,8 @@ public class BossMonster : Enemy, ITakeDamage
         SetLimits();    //움직임 영역 제한 설정
 
 
-        maxHp = 1000;
-        currentHp = 1000;
+        maxHp = 600;
+        currentHp = 600;
         speed = 1.3f;
         trackingDistance = 8f;
         aimDistance = 6f;
@@ -102,6 +109,9 @@ public class BossMonster : Enemy, ITakeDamage
         mask = LayerMask.GetMask("Player") | LayerMask.GetMask("Block");
 
         Invoke("SetMoveDirection", 0.5f);
+
+        Destroy(table.GetComponent<Table>());
+        table.GetComponent<BoxCollider2D>().enabled = false;
     }
 
 
@@ -581,7 +591,10 @@ public class BossMonster : Enemy, ITakeDamage
                 currentHp = 0;
                 isDead = true;
                 //am.SetTrigger("Dead");
-    
+
+                table.GetComponent<TableEnding>().enabled = true;
+                table.GetComponent<BoxCollider2D>().enabled = true;
+
                 Destroy(gameObject, 2f);        //2초 후 사라짐
             }
         }

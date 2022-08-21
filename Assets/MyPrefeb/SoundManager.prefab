@@ -311,6 +311,8 @@ MonoBehaviour:
   sfxAudioClips:
   - {fileID: 8300000, guid: b0cc2dab7fa7f114ca0cf012d47a7b20, type: 3}
   - {fileID: 8300000, guid: 075cc9ff3ba8e264ab65ee345f8809a2, type: 3}
+  - {fileID: 8300000, guid: 4d847803fab012144998573498614931, type: 3}
+  - {fileID: 8300000, guid: 8e693c93938d619449e077ee1ecdfcca, type: 3}
   playerAudioClips:
   - {fileID: 8300000, guid: 57c76e11071bda04d8f5404e464e91b5, type: 3}
   - {fileID: 8300000, guid: 8bd4e34fe74c0de45b40f67b5566592c, type: 3}

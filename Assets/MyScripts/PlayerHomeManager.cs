@@ -14,6 +14,8 @@ public class PlayerHomeManager : MonoBehaviour
     
     private ConversationObject startConversation;
 
+    public PlayableDirector chapterTimeline;
+
 
     //------타임라인 관련------
     [SerializeField]
@@ -34,12 +36,12 @@ public class PlayerHomeManager : MonoBehaviour
             Debug.Log("타임라인이 할당되지 않음(에러)");
         }
 
-        startConversation = transform.Find("HomeStartConversation").GetComponent<TutorialStartConversation>();
     }
 
     void Start()
     {
-        playerUi.StartDialog(startConversation);
+        chapterTimeline.gameObject.SetActive(true);
+        chapterTimeline.Play();
     }
 
 
@@ -58,6 +60,12 @@ public class PlayerHomeManager : MonoBehaviour
         SceneManager.LoadScene("Stage1");
     }
 
+
+    public void EndHomeChapterTimeLine()
+    {
+        chapterTimeline.gameObject.SetActive(false);
+        
+    }
 
 
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -29,6 +30,9 @@ public class TutorialManager : MonoBehaviour
     //----------몬스터 대화--------
     public ConversationObject monsterConversation;
 
+
+    public PlayableDirector chapterTimeline;
+
     void Awake()
     {
         playerUi = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUICanvas>();
@@ -46,8 +50,9 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         currentStage = tutorialStage.left;
-
-        SetKeyTutorial(currentStage);
+        
+        chapterTimeline.gameObject.SetActive(true);
+        chapterTimeline.Play();
     }
 
 
@@ -216,5 +221,11 @@ public class TutorialManager : MonoBehaviour
         attackIndicationText.text = "L_Button";
     }
 
+
+    public void EndChapterTimeline()
+    {
+        chapterTimeline.gameObject.SetActive(false);
+        SetKeyTutorial(currentStage);
+    }
 
 }

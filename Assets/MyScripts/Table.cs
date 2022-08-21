@@ -8,8 +8,13 @@ public class Table : ConversationObject
     {
         speaker = "비밀문서";
         content = new string[1];
-        content[0] = "~~~~~";
+        content[0] = "~~~";
     
         eventIndex = (int)ConversationObject.objectEvent.table;
+    }
+
+    void Start()
+    {
+        gameObject.GetComponent<TableEnding>().enabled = false;
     }
 }

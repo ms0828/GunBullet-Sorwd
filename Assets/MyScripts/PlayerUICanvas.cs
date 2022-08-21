@@ -7,7 +7,7 @@ using UnityEngine.Playables;
 
 public class PlayerUICanvas : MonoBehaviour
 {
-
+    public Image blackScreen;
     public GameObject[] hpBar;
     public GameObject[] bulletCount;
     
@@ -29,7 +29,7 @@ public class PlayerUICanvas : MonoBehaviour
 
     Coroutine dialogCoroutine;
     WaitForSeconds dialogTempo = new WaitForSeconds(0.1f);
-
+    WaitForSeconds changeTempo = new WaitForSeconds(0.01f);
     
 
     //--------타임라인---------
@@ -38,6 +38,10 @@ public class PlayerUICanvas : MonoBehaviour
 
     void Awake()
     {
+        if(blackScreen == null)
+        {
+            blackScreen = transform.Find("BlackScreen").GetComponent<Image>();
+        }
         if(dialogBox == null)
         {
             dialogBox = transform.Find("DialogBox").gameObject;
@@ -139,7 +143,8 @@ public class PlayerUICanvas : MonoBehaviour
         //-------특정 대화 종료 이벤트--------
         if(conversationInfo.eventIndex == (int)ConversationObject.objectEvent.tutorialClear)
         {   
-            SceneManager.LoadScene("PlayerHome");
+            StartCoroutine(ChangeNextScene("PlayerHome"));
+            
         }
         else if(conversationInfo.eventIndex == (int)ConversationObject.objectEvent.table)
         {
@@ -147,6 +152,10 @@ public class PlayerUICanvas : MonoBehaviour
             playTimeline = timeline.transform.Find("TableTimeline").GetComponent<PlayableDirector>();
             playTimeline.gameObject.SetActive(true);
             playTimeline.Play();
+        }
+        else if(conversationInfo.eventIndex == (int)ConversationObject.objectEvent.ending)
+        {
+            Debug.Log("엔딩 타임라인 추가 예정");
         }
 
 
@@ -157,6 +166,8 @@ public class PlayerUICanvas : MonoBehaviour
     {
         isPrintingDialog = true;
         contentText.text = "";
+
+        SoundManager.instance.SfxSound("Typing1");
 
         for(int i=0; i<content[curPage].Length; i++)
         {   
@@ -174,5 +185,18 @@ public class PlayerUICanvas : MonoBehaviour
         playTimeline.gameObject.SetActive(false);
     }
 
+
+    public IEnumerator ChangeNextScene(string sceneName)
+    {
+        blackScreen.gameObject.SetActive(true);
+
+        for(int i=0; i<255; i++)
+        {
+            blackScreen.color = new Color(0, 0, 0, i/255f);
+            yield return changeTempo;
+        }
+
+        SceneManager.LoadScene(sceneName);
+    }
 
 }

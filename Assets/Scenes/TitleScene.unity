@@ -339,6 +339,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6326502709338893196, guid: 4dcc2942681598e43b93c172066bf3ad, type: 3}
+      propertyPath: sfxAudioClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326502709338893196, guid: 4dcc2942681598e43b93c172066bf3ad, type: 3}
+      propertyPath: sfxAudioClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4d847803fab012144998573498614931, type: 3}
+    - target: {fileID: 6326502709338893196, guid: 4dcc2942681598e43b93c172066bf3ad, type: 3}
+      propertyPath: sfxAudioClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8e693c93938d619449e077ee1ecdfcca, type: 3}
     - target: {fileID: 6326502709338893202, guid: 4dcc2942681598e43b93c172066bf3ad, type: 3}
       propertyPath: m_Name
       value: SoundManager

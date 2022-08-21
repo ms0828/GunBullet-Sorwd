@@ -66,6 +66,10 @@ public class HomePlayer : MonoBehaviour
     public ConversationObject homeStartConversation;
 
 
+    //-------점프 딜레이-------
+    public bool isJumpCoolTime = false;
+    public WaitForSeconds jumpDelayTime = new WaitForSeconds(0.5f);
+
     public void Awake()
     {   
         if(hm == null)
@@ -126,7 +130,7 @@ public class HomePlayer : MonoBehaviour
     public void PlayerControll()
     {
 
-        if(hm.homeTimeline.gameObject.activeSelf == true) 
+        if(hm.chapterTimeline.gameObject.activeSelf == true ||hm.homeTimeline.gameObject.activeSelf == true) 
         {
             am.SetBool("Run",false);
             am.SetBool("Jump",false);
@@ -186,8 +190,9 @@ public class HomePlayer : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            if(!IsJump())       //현재 공중에 있지 않으면 (땅에 닿아있으면)
+            if(!IsJump() && isJumpCoolTime == false)       //현재 공중에 있지 않으면 (땅에 닿아있으면)
             {
+                StartCoroutine(JumpCoolTime());
                 SoundManager.instance.PlayerSfxSound(behaviorAudio,"PlayerJump");
                 rb.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);       //(impulse => 순간적으로 힘을 준다)
             }
@@ -316,7 +321,7 @@ public class HomePlayer : MonoBehaviour
     bool IsJump()       //캐릭터가 공중에 떠있는지 확인하는 함수
     {
         Vector2 currentVec = transform.position;
-        RaycastHit2D rayHit = Physics2D.Raycast(currentVec,Vector2.down,1f,LayerMask.GetMask("Block"));
+        RaycastHit2D rayHit = Physics2D.Raycast(currentVec,Vector2.down,0.6f,LayerMask.GetMask("Block"));
 
         if(rayHit.collider == null)
             return true;
@@ -371,7 +376,14 @@ public class HomePlayer : MonoBehaviour
 
 
 
+    IEnumerator JumpCoolTime()
+    {
+        isJumpCoolTime = true;
 
+        yield return jumpDelayTime;
+
+        isJumpCoolTime = false;
+    }
 
 
 

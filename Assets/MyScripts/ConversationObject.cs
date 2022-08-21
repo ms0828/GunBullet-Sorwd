@@ -8,7 +8,7 @@ public class ConversationObject : MonoBehaviour
     public string speaker;
     public string[] content;
 
-    public enum objectEvent{tutorialClear = 1, table};
+    public enum objectEvent{tutorialClear = 1, table, ending};
 
 
 }
