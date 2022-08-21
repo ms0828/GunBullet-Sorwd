@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, ITakeDamage
     //-----상태 관련-----
     public bool isDead = false;
     public bool isHolding = false;
+    public bool isGetLife = false;
 
 
 
@@ -479,6 +480,7 @@ public class Player : MonoBehaviour, ITakeDamage
 
         
         if(attacker is HeadMachine)
+<<<<<<< Updated upstream
         {
             HeadMachine headMachine = (HeadMachine)attacker;
 
@@ -514,11 +516,21 @@ public class Player : MonoBehaviour, ITakeDamage
             for(int i=0; i<20; i++)
             {
                 if(holdingGauge >= 100 || isHolding == false || bossMonster.isGrab == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
+=======
+        {
+            HeadMachine headMachine = (HeadMachine)attacker;
+
+
+            for(int i=0; i<20; i++)
+            {
+                if(holdingGauge >= 100 || isHolding == false || headMachine.isGrab == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
+>>>>>>> Stashed changes
                 {
                     am.SetBool("Holding",false);
                     isHolding = false;
 
                     if(holdingGauge >= 100)
+<<<<<<< Updated upstream
                         bossMonster.TakeDamage(this.transform, 0);        //게이지 채워서 탈출 성공하면 적 밀쳐냄
 
                     yield break;
@@ -533,6 +545,77 @@ public class Player : MonoBehaviour, ITakeDamage
             }
         }
         
+    }
+
+
+=======
+                        headMachine.TakeDamage(this.transform, 0);        //게이지 채워서 탈출 성공하면 적 밀쳐냄
+
+                    yield break;
+                }
+
+                holdingGauge -= 10;
+                if(holdingGauge <= 0)
+                    holdingGauge = 0;
+
+
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+
+
+
+        if(attacker is BossMonster)
+        {
+            BossMonster bossMonster = (BossMonster)attacker;
+
+            for(int i=0; i<20; i++)
+            {
+                if(holdingGauge >= 100 || isHolding == false || bossMonster.isGrab == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
+                {
+                    am.SetBool("Holding",false);
+                    isHolding = false;
+
+                    if(holdingGauge >= 100)
+                        bossMonster.TakeDamage(this.transform, 0);        //게이지 채워서 탈출 성공하면 적 밀쳐냄
+
+                    yield break;
+                }
+>>>>>>> Stashed changes
+
+                holdingGauge -= 10;
+                if(holdingGauge <= 0)
+                    holdingGauge = 0;
+
+<<<<<<< Updated upstream
+    IEnumerator HitDelay()
+    {
+        isHitDelay = true;
+
+        int j = 0;
+
+        for(int i=0; i<10; i++)
+        {
+            if(j==0)
+            {
+                sr.color = hitColor;
+                j = 1;
+            }
+            else
+            {
+                sr.color = normalColor;
+                j = 0;
+            }
+            
+            yield return hitDelayTime;
+=======
+
+                yield return new WaitForSeconds(0.2f);
+            }
+>>>>>>> Stashed changes
+        }
+        
+        isHitDelay = false;
     }
 
 
@@ -579,6 +662,5 @@ public class Player : MonoBehaviour, ITakeDamage
         minY = mapBoundary.transform.position.y - mapBoundary.bounds.size.y * 0.5f;
         maxY = mapBoundary.transform.position.y + mapBoundary.bounds.size.y * 0.5f;
     }
-
 
 }

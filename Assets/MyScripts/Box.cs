@@ -6,8 +6,15 @@ public class Box : MonoBehaviour
 {    
     public GameObject box;
     public GameObject gKey;
+    public Player player;
+    public int life = 30;
 
-    bool isTriggerEnter = false;
+    public bool isTriggerEnter = false;
+
+    void Awake()
+    {
+        player = GameObject.Find("Player").GetComponent<Player>();
+    }
 
     void Update() 
     {
@@ -19,9 +26,12 @@ public class Box : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) // 플레이어가 가까이 오면
     {
-        if(other.gameObject.name.Equals("Player") && this.gameObject.tag.Equals("Stage1")) 
+        if(other.gameObject.name.Equals("Player")) 
         {
-            gKey.SetActive(true); // G키 이미지를 띄움
+            if (this.gameObject.tag.Equals("Stage1"))
+            {
+                gKey.SetActive(true); // G키 이미지를 띄움
+            }
 
             isTriggerEnter = true;
         }

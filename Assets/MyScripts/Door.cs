@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Door : MonoBehaviour
             am.Play("DoorOpen", 0, 0); // 문이 열림
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other) // 플레이어가 가까이 오면
     { 
         if(other.gameObject.name.Equals("Player")) 

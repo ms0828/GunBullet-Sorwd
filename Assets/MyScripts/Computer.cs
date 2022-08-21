@@ -1,16 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Computer : MonoBehaviour
 {
-    bool isTriggerEnter = false;
-
+    public bool isTriggerEnter = false;
+    public bool isNoLimit = false;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.G) && isTriggerEnter == true) // G키를 누르면
         {
-            Debug.Log("Computer");
+            isNoLimit = true;
+        }
+
+        if (isNoLimit == true)
+        {
+            ReturnTimer(true);
+        }
+        else
+        {
+            ReturnTimer(false);
         }
     }
 
@@ -20,5 +30,10 @@ public class Computer : MonoBehaviour
         {
             isTriggerEnter = true;
         }
+    }
+
+    public bool ReturnTimer(bool value)
+    {
+        return value;
     }
 }

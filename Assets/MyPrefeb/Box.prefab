@@ -104,7 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57673992fe022bc4aad4268d5d04d78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  box: {fileID: 5802450239510594845}
   gKey: {fileID: 0}
+  life: -30
+  isTriggerEnter: 0
 --- !u!222 &1750091020471888728
 CanvasRenderer:
   m_ObjectHideFlags: 0
