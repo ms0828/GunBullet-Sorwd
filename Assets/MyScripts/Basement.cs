@@ -41,12 +41,12 @@ public class Basement : MonoBehaviour
 
         if (this.gameObject.tag.Equals("Stage2"))
         {
-            SceneManager.LoadScene("Basement");
+            SceneManager.LoadScene("Basement", LoadSceneMode.Additive);
         }
 
         if (this.gameObject.tag.Equals("Basement"))
         {
-            SceneManager.LoadScene("Stage2");
+            SceneManager.LoadScene("Stage2", LoadSceneMode.Additive);
         }
     }
 }
