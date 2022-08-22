@@ -4628,6 +4628,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialStartTimeline
       objectReference: {fileID: 0}
+    - target: {fileID: 4906803398652989770, guid: 0d6ec28ac9b747548a52bebe77263dfa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d6ec28ac9b747548a52bebe77263dfa, type: 3}
 --- !u!1001 &5726485167018743421
@@ -4724,6 +4728,10 @@ PrefabInstance:
     - target: {fileID: 5726485165930164261, guid: 193dd84bae9caa041bef4b80ca07f386, type: 3}
       propertyPath: m_Name
       value: StratSceneCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726485166685776883, guid: 193dd84bae9caa041bef4b80ca07f386, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 193dd84bae9caa041bef4b80ca07f386, type: 3}

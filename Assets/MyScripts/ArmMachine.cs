@@ -45,8 +45,8 @@ public class ArmMachine : Enemy, ITakeDamage
 
     void Start()
     {
-        maxHp = 150;
-        currentHp = 150;
+        maxHp = 200;
+        currentHp = 200;
         speed = 1f;
         trackingDistance = 8f;
 
@@ -396,8 +396,10 @@ public class ArmMachine : Enemy, ITakeDamage
                 currentHp = 0;
                 isDead = true;
                 //am.SetTrigger("Dead");
-    
-                Destroy(gameObject, 2f);        //2초 후 사라짐
+
+                GetComponent<Collider2D>().enabled = false;
+                Destroy(GetComponent<Rigidbody2D>());
+                Destroy(gameObject, 1f);        //2초 후 사라짐
             }
         }
     }

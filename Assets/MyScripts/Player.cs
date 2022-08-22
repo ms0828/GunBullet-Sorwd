@@ -77,6 +77,14 @@ public class Player : MonoBehaviour, ITakeDamage
     public Color normalColor;
     public Color hitColor;
    
+
+    //--------공격 콤보 관련---------
+    public WaitForSeconds nextAttackDelay = new WaitForSeconds(0.2f);
+    int currentAttack = 0;
+    bool isNextAttack = false;
+
+
+
     public void Awake()
     {
       
@@ -115,6 +123,8 @@ public class Player : MonoBehaviour, ITakeDamage
         speed = 5.0f;
         jumpPower = 5.0f;
         currentBulletCnt = 3;
+        currentAttack = 0;
+
 
         playerUi.SetPlayerHpBar(currentHp);
         playerUi.SetPlayerBulletCount(currentBulletCnt);
@@ -255,7 +265,27 @@ public class Player : MonoBehaviour, ITakeDamage
         else if(Input.GetMouseButtonDown(0) && isAttack == false)
         {
             isAttack = true;
-            am.SetTrigger("DownAttack");
+
+            if(currentAttack == 0)
+            {
+                am.SetTrigger("DownAttack");
+                currentAttack = 1;
+                isNextAttack = true;
+                StartCoroutine(NextAttack());
+            }
+            else if(currentAttack == 1)
+            {
+                am.SetTrigger("UpAttack");
+                currentAttack = 2;
+                isNextAttack = true;
+                StartCoroutine(NextAttack());
+            }
+            else if(currentAttack == 2)
+            {
+                am.SetTrigger("ThrustAttack");
+                currentAttack = 0;
+            }
+            
         }
         else if(Input.GetMouseButtonDown(1) && currentBulletCnt > 0 && isAttack == false)
         {   
@@ -277,6 +307,8 @@ public class Player : MonoBehaviour, ITakeDamage
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
             collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 50);     //대상의 TakeDamage 함수 실행
         }
+
+        isNextAttack = false;
         
     }
 
@@ -292,6 +324,7 @@ public class Player : MonoBehaviour, ITakeDamage
             collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 50);     //대상의 TakeDamage 함수 실행
         }
         
+        isNextAttack = false;
     }
 
     void ThrustAttack()
@@ -610,6 +643,19 @@ public class Player : MonoBehaviour, ITakeDamage
         isJumpCoolTime = false;
     }
 
+    
+    IEnumerator NextAttack()
+    {
+        for(int i=0; i<20; i++)
+        {
+            if(i > 10 && isNextAttack == true)
+            {
+                yield break;
+            }
+            yield return nextAttackDelay;
+        }
+        currentAttack = 0;
+    }
 
     //-------히트박스 나타내기-------(인게임에서는 안보임) (히트박스 크기 조절하기 위해 만든 함수)
     private void OnDrawGizmos()     

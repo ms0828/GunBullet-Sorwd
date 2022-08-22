@@ -43,8 +43,8 @@ public class HeadMachine : Enemy, ITakeDamage
 
     void Start()
     {
-        maxHp = 200;
-        currentHp = 200;
+        maxHp = 250;
+        currentHp = 250;
         speed = 1f;
         trackingDistance = 8f;
 
@@ -292,7 +292,7 @@ public class HeadMachine : Enemy, ITakeDamage
         {
             Collider2D collider = Physics2D.OverlapBox(grabScope.position,grabScope.localScale,0,playerLayer);
             
-            if(collider == null || player.isHolding == false)    //범위 내 플레이어가 없으면 잡기 종료
+            if(collider == null || player.isHolding == false || isDead == true)    //범위 내 플레이어가 없으면 잡기 종료
             {
                 isGrab = false;
                 am.SetBool("Grab", false);
@@ -319,6 +319,9 @@ public class HeadMachine : Enemy, ITakeDamage
     
     public void ThrowGrenade()
     {   
+        if(isDead == true)
+            return;
+
 
         Grenade grenade = Instantiate(grenadePrefeb, throwPos.position, throwPos.rotation).GetComponent<Grenade>();
         if(this.transform.localScale.x > 0)    //오른쪽 보고 있으면
@@ -415,8 +418,9 @@ public class HeadMachine : Enemy, ITakeDamage
                 currentHp = 0;
                 isDead = true;
                 //am.SetTrigger("Dead");
-    
-                Destroy(gameObject, 2f);        //2초 후 사라짐
+                GetComponent<Collider2D>().enabled = false;
+                Destroy(GetComponent<Rigidbody2D>());
+                Destroy(gameObject, 1f);        //2초 후 사라짐
             }
         }
     }
