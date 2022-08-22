@@ -10159,10 +10159,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Elevator
       objectReference: {fileID: 0}
-    - target: {fileID: 5425025881922045182, guid: 19a614debecfc5247bbf7b4b81fd5b9b, type: 3}
-      propertyPath: m_TagString
-      value: Stage1
-      objectReference: {fileID: 0}
     - target: {fileID: 5425025881922045183, guid: 19a614debecfc5247bbf7b4b81fd5b9b, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -3,36 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Elevator : MonoBehaviour
+public class Elevator : MonoBehaviour, IInterfaceObject
 {
     public GameObject player;
     public Animator am;
-    public bool isElevator = false;
-
-    void Update()
+ 
+    void Awake() 
     {
-        if(Input.GetKeyDown(KeyCode.G) && isElevator == true)
-        {
-            if (this.tag.Equals("Stage1") && CardKey.isCardKey == true)
-            {
-                StartCoroutine("LoadScene");
-                isElevator = false;
-            }
-            
-            if (this.tag.Equals("Stage2"))
-            {
-                StartCoroutine("LoadScene");
-                isElevator = false;
-            }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other) 
-    {
-        if(other.gameObject.name.Equals("Player")) 
-        {
-            isElevator = true;
-        }
+        player = GameObject.Find("Player");
     }
 
     private IEnumerator LoadScene()
@@ -43,13 +21,28 @@ public class Elevator : MonoBehaviour
         am.Play("ElevatorUp", 0, 0);
         yield return new WaitForSeconds (2f);
             
-        if (this.tag.Equals("Stage1"))
+        if(SceneManager.GetActiveScene().name.Equals("Stage1"))
         {
+            GameManager.instance.SaveUserData(4);
             SceneManager.LoadScene("Stage2");
         }
-        if (this.tag.Equals("Stage2"))
+            
+        if(SceneManager.GetActiveScene().name.Equals("Stage2"))
         {
+            GameManager.instance.SaveUserData(5);
             SceneManager.LoadScene("Stage3");
+        }
+    }
+
+    public void Interface()
+    {
+        if(SceneManager.GetActiveScene().name.Equals("Stage1") && CardKey.isCardKey == true)
+        {
+            StartCoroutine(LoadScene());
+        }
+        else if(SceneManager.GetActiveScene().name.Equals("Stage2"))
+        {
+            StartCoroutine(LoadScene());
         }
     }
 }
