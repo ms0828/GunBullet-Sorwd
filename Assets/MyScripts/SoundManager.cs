@@ -19,6 +19,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private AudioClip TutorialAudioClip;
     [SerializeField]
+    private AudioClip PlayerHomeAudioClip;
+    [SerializeField]
     private AudioClip StageAudioClip;
     [SerializeField]
     private AudioClip Stage3AudioClip;
@@ -112,9 +114,14 @@ public class SoundManager : MonoBehaviour
             bgmPlayer.clip = TitleAudioClip;
             bgmPlayer.Play();
         }
-        else if(SceneManager.GetActiveScene().name == "TutorialScene" || SceneManager.GetActiveScene().name == "PlayerHome")
+        else if(SceneManager.GetActiveScene().name == "TutorialScene")
         {
             bgmPlayer.clip = TutorialAudioClip;
+            bgmPlayer.Play();
+        }
+        else if(SceneManager.GetActiveScene().name == "PlayerHome")
+        {
+            bgmPlayer.clip = PlayerHomeAudioClip;
             bgmPlayer.Play();
         }
         else if(SceneManager.GetActiveScene().name == "Stage1" || SceneManager.GetActiveScene().name == "Stage2")

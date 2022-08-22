@@ -922,63 +922,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &722826357
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1003.6685
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 560.7401
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7.3027134
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924149, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9171098109370924151, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
-      propertyPath: m_Name
-      value: BgmPlayer
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 033d7a788180d0d49866432abe3a2342, type: 3}
 --- !u!1001 &887694396
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3001,6 +2944,10 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[4].value
       value: 
       objectReference: {fileID: 1981677766}
+    - target: {fileID: 5409468461433163630, guid: 17f3065fef20f044084718651209965b, type: 3}
+      propertyPath: m_SceneBindings.Array.data[5].value
+      value: 
+      objectReference: {fileID: 9171098110059481090}
     - target: {fileID: 5409468461433163631, guid: 17f3065fef20f044084718651209965b, type: 3}
       propertyPath: m_Name
       value: TableTimeline
@@ -3234,3 +3181,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a519a4db55b8f914fbc55c76aac6c64a, type: 3}
+--- !u!4 &9171098110059481088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171098110059481090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1003.6685, y: 560.7401, z: 7.3027134}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9171098110059481090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9171098110059481088}
+  - component: {fileID: 9171098110059481091}
+  m_Layer: 0
+  m_Name: BgmPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &9171098110059481091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171098110059481090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac07c3962a27124d8be11c8d912a6e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

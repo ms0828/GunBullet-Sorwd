@@ -308,6 +308,7 @@ MonoBehaviour:
   masterVolumeBgm: 1
   TitleAudioClip: {fileID: 8300000, guid: 106cdf9336b70664db25b407d8e06066, type: 3}
   TutorialAudioClip: {fileID: 8300000, guid: 6f2c68290b94c4c44a832ff99e7f1181, type: 3}
+  PlayerHomeAudioClip: {fileID: 8300000, guid: 5dcec20df2f631a45abf124fe600fd49, type: 3}
   StageAudioClip: {fileID: 8300000, guid: 25e57d62a37ac48479ebae20c68cd221, type: 3}
   Stage3AudioClip: {fileID: 8300000, guid: 9fa63aea26c738043afecb626a077ce1, type: 3}
   sfxAudioClips:
