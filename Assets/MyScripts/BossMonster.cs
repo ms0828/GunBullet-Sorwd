@@ -98,8 +98,8 @@ public class BossMonster : Enemy, ITakeDamage
         SetLimits();    //움직임 영역 제한 설정
         bossUi.gameObject.SetActive(true);
 
-        maxHp = 600;
-        currentHp = 600;
+        maxHp = 800;
+        currentHp = 800;
         speed = 1.3f;
         trackingDistance = 8f;
         aimDistance = 6f;
@@ -595,7 +595,7 @@ public class BossMonster : Enemy, ITakeDamage
 
                 currentHp = 0;
                 isDead = true;
-                //am.SetTrigger("Dead");
+                am.SetBool("Dead",true);
 
                 table.GetComponent<TableEnding>().enabled = true;
                 table.GetComponent<BoxCollider2D>().enabled = true;
