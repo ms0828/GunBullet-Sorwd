@@ -57,12 +57,12 @@ public class GameManager : MonoBehaviour
         
         //데이터 만든 후, 저장
         string jdata = JsonConvert.SerializeObject(userData);
-        File.WriteAllText(Application.dataPath + "/DataBase/UserData.txt",jdata);
+        File.WriteAllText(Application.dataPath + "/UserData.txt",jdata);
     }
 
     public void LoadUserData()
     {
-        string jdata = File.ReadAllText(Application.dataPath + "/DataBase/UserData.txt");
+        string jdata = File.ReadAllText(Application.dataPath + "/UserData.txt");
         userData = JsonConvert.DeserializeObject<UserData>(jdata);
         currentStage = userData.stage;
     }
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         currentStage = stage;
         userData.stage = currentStage;
         string jdata = JsonConvert.SerializeObject(userData);
-        File.WriteAllText(Application.dataPath + "/DataBase/UserData.txt",jdata);
+        File.WriteAllText(Application.dataPath + "/UserData.txt",jdata);
     }
 
 
