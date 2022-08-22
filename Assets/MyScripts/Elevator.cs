@@ -13,14 +13,26 @@ public class Elevator : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.G) && isElevator == true)
         {
-            StartCoroutine("LoadScene");
-            isElevator = false;
+            if (this.tag.Equals("Stage1") && CardKey.isCardKey == true)
+            {
+                StartCoroutine("LoadScene");
+                isElevator = false;
+            }
+            
+            if (this.tag.Equals("Stage2"))
+            {
+                StartCoroutine("LoadScene");
+                isElevator = false;
+            }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        isElevator = true;
+        if(other.gameObject.name.Equals("Player")) 
+        {
+            isElevator = true;
+        }
     }
 
     private IEnumerator LoadScene()

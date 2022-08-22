@@ -16,6 +16,7 @@ public class ArmMachine : Enemy, ITakeDamage
     public bool isKnifeCoolTime = false;
     public bool isSnipingCoolTime = false;
     public bool isAiming = false;
+    public static bool isCardExist = false;
 
 
     //------필요 Object or Transform------
@@ -23,6 +24,7 @@ public class ArmMachine : Enemy, ITakeDamage
     public GameObject aimLaser;
     public GameObject bulletPrefeb;
     public Transform knifeScope;    //칼 공격 범위
+    public GameObject cardKey;
 
 
     //------쿨타임 코루틴 캐싱------
@@ -395,12 +397,18 @@ public class ArmMachine : Enemy, ITakeDamage
 
                 currentHp = 0;
                 isDead = true;
+
+                if (this.name.Equals("ArmMachine (3)"))
+                {
+                    cardKey.transform.position = gameObject.transform.position;
+                    isCardExist = true;
+                    cardKey.SetActive(true);
+                }
                 //am.SetTrigger("Dead");
     
                 Destroy(gameObject, 2f);        //2초 후 사라짐
             }
         }
     }
-
     
 }
