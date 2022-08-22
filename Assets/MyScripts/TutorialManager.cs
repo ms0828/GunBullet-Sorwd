@@ -33,6 +33,9 @@ public class TutorialManager : MonoBehaviour
 
     public PlayableDirector chapterTimeline;
 
+
+    public GameObject interfaceWall;
+
     void Awake()
     {
         playerUi = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUICanvas>();
@@ -161,7 +164,7 @@ public class TutorialManager : MonoBehaviour
             {
                 clearStaus[(int)_currentStage] = true;
                 currentStage = (tutorialStage)((int)_currentStage + 1);
-
+                interfaceWall.SetActive(false);
                 attackIndicationText.gameObject.SetActive(false);
                 
                 break;

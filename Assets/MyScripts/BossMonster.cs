@@ -561,7 +561,10 @@ public class BossMonster : Enemy, ITakeDamage
 
         //조준 도중에 맞으면 조준 상태 해제
         if(isAiming == true)
+        {
             isAiming = false;
+        }
+            
 
         
         currentHp = currentHp - damage;

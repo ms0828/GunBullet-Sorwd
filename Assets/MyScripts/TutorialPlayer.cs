@@ -432,6 +432,8 @@ public class TutorialPlayer : MonoBehaviour, ITakeDamage
             {
                 monsterTimeline.gameObject.SetActive(true);
                 monsterTimeline.Play();
+                am.SetBool("Run",false);
+                am.SetBool("Jump",false);
                 isPlayTimeline = true;
             }
             
