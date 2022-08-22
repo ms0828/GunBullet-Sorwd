@@ -11,7 +11,7 @@ public class BossUI : MonoBehaviour
     public void SetBossHpBar(int currentHp)
     {
         
-        int currentHpBarIndex = (int)(currentHp * 0.04);
+        int currentHpBarIndex = (int)(currentHp / 30);
 
         for(int i = 0; i < 20; i++)
         {   

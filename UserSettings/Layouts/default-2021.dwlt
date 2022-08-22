@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 0
     width: 298.6667
     height: 587.3333
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 110
+  controlID: 98
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 111
+  controlID: 107
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 112
+  controlID: 108
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -269,8 +269,8 @@ MonoBehaviour:
     y: 0
     width: 746
     height: 357.33334
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -477,9 +477,9 @@ MonoBehaviour:
       e32: 0
       e33: 1
   m_PreviewAnimator: {fileID: 0}
-  m_AnimatorController: {fileID: 9100000, guid: f583a53d5b60b654db0876c44fa4eaf8, type: 2}
+  m_AnimatorController: {fileID: 9100000, guid: 310919959ed42cb409dd9b7ee6b1ca81, type: 2}
   m_BreadCrumbs:
-  - m_Target: {fileID: -847781290646458324, guid: f583a53d5b60b654db0876c44fa4eaf8, type: 2}
+  - m_Target: {fileID: 2087342538623473422, guid: 310919959ed42cb409dd9b7ee6b1ca81, type: 2}
     m_ScrollPosition: {x: 0, y: 0}
   stateMachineGraph: {fileID: 0}
   stateMachineGraphGUI: {fileID: 0}
@@ -522,10 +522,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 224.66666}
+      scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: fe6effffd473ffffee73fffffc75ffffaa87ffffec87ffff688dffff9c94ffff5a99ffffec9ffffff8a5ffff3eacffff94b6ffff52bbffff6cc1ffff30c4ffff7ac4ffffd2c5ffff34d7ffff98d7ffff80d8ffffc0dcffff44e7ffff68f2ffffaaf2ffff02f4ffff3cf8ffff10fbffff2a9b0000babe0000eabf000062c0000082c000002acb0000fae20000
+      m_ExpandedIDs: 0045ffff544cffff9851ffffb458ffffb25dfffff862ffff526affffea7bffff0c82ffff2286ffff248fffff8c9dffffa2a5ffffd6aaffffe2b1ffffecb4ffff38bcffff72c3ffff38c8ffff02d0ffff74d2ffff14d3ffff82d5fffff0d9ffff0cdaffff5aeeffffd8f1ffffeaf3ffff54f7ffffaef9ffff10fbffff3ec00000cac60000f6cb000006ce0000d0ce000028e60000befa000016260100de260100de2a0100f22c0100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -631,22 +631,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/MyScripts
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/MyScripts
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\muset\Documents\GitHub\Gun-bullet-Sword
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 207}
-    m_SelectedIDs: 08680000
-    m_LastClickedID: 26632
-    m_ExpandedIDs: 00000000ca670000cc670000ce670000d0670000d2670000d4670000d6670000d8670000da670000dc670000de670000e0670000e2670000e4670000e8670000
+    scrollPos: {x: 0, y: 251.00003}
+    m_SelectedIDs: 86650000
+    m_LastClickedID: 25990
+    m_ExpandedIDs: 00000000386500003a6500003c6500003e65000040650000426500004465000046650000486500004a6500004c6500004e65000050650000526500005465000074650000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -674,7 +674,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ca670000cc670000ce670000d0670000d2670000d4670000d6670000d8670000da670000dc670000de670000e0670000e2670000e4670000e6670000e8670000
+    m_ExpandedIDs: 00000000386500003a6500003c6500003e65000040650000426500004465000046650000486500004a6500004c6500004e650000506500005265000054650000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1069,9 +1069,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1220.1683, y: 563.48145, z: -2.0394661}
+    m_Target: {x: 52.731514, y: 1.2244022, z: -0.21006843}
     speed: 2
-    m_Value: {x: 1237.1014, y: 565.2475, z: -2.522527}
+    m_Value: {x: 52.731514, y: 1.2244022, z: -0.21006843}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1122,9 +1122,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1025.1641
+    m_Target: 26.941511
     speed: 2
-    m_Value: 1073.4702
+    m_Value: 26.941511
   m_Ortho:
     m_Target: 1
     speed: 2

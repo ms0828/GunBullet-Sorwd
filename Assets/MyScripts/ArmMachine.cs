@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ArmMachine : Enemy, ITakeDamage
 {
     //-------스탯 관련-------
-    public int knifePower = 10;
+    public int knifePower = 5;
     public int shootPower = 50;
     public float aimDistance = 7f;
 
@@ -48,6 +48,9 @@ public class ArmMachine : Enemy, ITakeDamage
         maxHp = 150;
         currentHp = 150;
         speed = 1f;
+        trackingDistance = 8f;
+
+        mask = LayerMask.GetMask("Player") | LayerMask.GetMask("Block");
 
         Invoke("SetMoveDirection", 0.5f);
     }
@@ -78,6 +81,7 @@ public class ArmMachine : Enemy, ITakeDamage
         nextMove *= -1;
     }
 
+    /*
     //플레이어 추적 이동을 트리거로 구현
     void OnTriggerEnter2D(Collider2D other) 
     {
@@ -111,6 +115,58 @@ public class ArmMachine : Enemy, ITakeDamage
                 //StartCoroutine("GoBack");   //1초 후 반대 방향으로 감
             }
             Invoke("SetMoveDirection",3f);      //3초후 랜덤 방향 다시 설정
+        }
+    }
+    */
+    void OnTriggerStay2D(Collider2D other)      //캐릭터 위치 추적
+    {
+
+        if(other.gameObject.tag.Equals("Player"))
+        {
+            RaycastHit2D rayHit;
+
+            if(other.transform.position.x - transform.position.x > 0)   //캐릭터가 오른쪽에 있다면
+            {
+                rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(1, 0), trackingDistance, mask);
+            }
+            else
+            {
+                rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), trackingDistance, mask);
+            }
+
+
+            if(rayHit.collider != null && rayHit.collider.CompareTag(playerTag))   //플레이어가 감지되면
+            {
+                CancelInvoke("SetMoveDirection");       //랜덤 방향 설정 취소하고
+
+                if(other.transform.position.x - transform.position.x > 0)   //캐릭터가 오른쪽에 있다면
+                {
+                    nextMove = 1;
+                }
+                else
+                {
+                    nextMove = -1;
+                }
+            }
+            else        //플레이어가 감지 되지 않으면 (벽에 막히거나, 플레이어가 인식 범위를 벗어나면)
+            {   
+                if(IsInvoking("SetMoveDirection") == false)
+                {
+                    Invoke("SetMoveDirection",2f);      //3초후 랜덤 방향 다시 설정
+                }
+            }
+        }
+
+    }
+
+    void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.gameObject.tag.Equals("Player"))   //플레이어가 인식 범위에서 벗어나면
+        {
+            if(IsInvoking("SetMoveDirection") == false)
+            {
+                Invoke("SetMoveDirection",3f);      //3초후 랜덤 방향 다시 설정
+            }
         }
     }
     //-----------------------------------------------
@@ -186,13 +242,13 @@ public class ArmMachine : Enemy, ITakeDamage
         //-----적이 멀리있으면 원거리 저격 조준------
         RaycastHit2D rayHit;
         if(transform.localScale.x > 0)
-            rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(1, 0), aimDistance, LayerMask.GetMask("Player"));
+            rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(1, 0), aimDistance, mask);
         else
-            rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), aimDistance, LayerMask.GetMask("Player"));
+            rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), aimDistance, mask);
         
         
 
-        if(rayHit.collider != null && isSnipingCoolTime == false)     //현재 바라보는 방향 일직선에서 플레이어가 감지되면
+        if(rayHit.collider != null && rayHit.collider.CompareTag(playerTag) && isSnipingCoolTime == false)     //현재 바라보는 방향 일직선에서 플레이어가 감지되면
         {
             isAiming = true;
             am.SetBool("Aim", true);        //조준 애니메이션

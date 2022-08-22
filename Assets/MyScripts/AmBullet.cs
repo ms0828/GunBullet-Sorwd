@@ -32,6 +32,12 @@ public class AmBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
+        if(other.gameObject.tag.Equals("Ground"))
+        {
+            Destroy(gameObject);
+        }
+
+        
         if(other.gameObject.tag.Equals("Player"))
         {
             other.gameObject.GetComponent<ITakeDamage>().TakeDamage(this.transform, 50);

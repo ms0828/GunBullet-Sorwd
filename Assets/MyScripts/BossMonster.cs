@@ -19,7 +19,6 @@ public class BossMonster : Enemy, ITakeDamage
 
 
     //--------스탯 관련 변수-------
-    public float trackingDistance;
     public float aimDistance;
     public float crushDistance;
 
@@ -51,8 +50,6 @@ public class BossMonster : Enemy, ITakeDamage
 
 
     //-----플레이어 캐싱 관련------
-    private string playerTag = "Player";
-    LayerMask mask;
 
 
     //------쿨타임 코루틴 캐싱------
@@ -101,8 +98,8 @@ public class BossMonster : Enemy, ITakeDamage
         SetLimits();    //움직임 영역 제한 설정
         bossUi.gameObject.SetActive(true);
 
-        maxHp = 500;
-        currentHp = 500;
+        maxHp = 600;
+        currentHp = 600;
         speed = 1.3f;
         trackingDistance = 8f;
         aimDistance = 6f;
@@ -303,9 +300,6 @@ public class BossMonster : Enemy, ITakeDamage
 
             return;
         }
-
-
-
 
 
 
@@ -615,11 +609,11 @@ public class BossMonster : Enemy, ITakeDamage
     IEnumerator AttackCoolTime()
     {
         isAttackCoolTime = true;
-        Debug.Log("공격 기본 쿨타임 on");
+
         yield return attackCoolTime;
 
         isAttackCoolTime = false;
-        Debug.Log("공격 기본 쿨타임 off");
+  
     }
 
     IEnumerator GrabCoolTime()
@@ -676,14 +670,14 @@ public class BossMonster : Enemy, ITakeDamage
     {
         if(transform.localScale.x > 0)  //왼쪽 보고 있을 때
         {
-            Debug.DrawRay(muzzlePos.position,Vector2.left * trackingDistance, Color.yellow);
-            Debug.DrawRay(muzzlePos.position,Vector2.left * aimDistance, Color.red);
+            //Debug.DrawRay(muzzlePos.position,Vector2.left * trackingDistance, Color.yellow);
+            //Debug.DrawRay(muzzlePos.position,Vector2.left * aimDistance, Color.red);
             Debug.DrawRay(muzzlePos.position,Vector2.left * crushDistance, Color.blue);
         }
         else
         {
-            Debug.DrawRay(muzzlePos.position,Vector2.right * trackingDistance, Color.yellow);
-            Debug.DrawRay(muzzlePos.position,Vector2.right * aimDistance, Color.red);
+            //Debug.DrawRay(muzzlePos.position,Vector2.right * trackingDistance, Color.yellow);
+            //Debug.DrawRay(muzzlePos.position,Vector2.right * aimDistance, Color.red);
             Debug.DrawRay(muzzlePos.position,Vector2.right * crushDistance, Color.blue);
         }
         

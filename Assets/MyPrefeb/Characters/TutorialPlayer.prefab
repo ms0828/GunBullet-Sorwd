@@ -282,7 +282,7 @@ MonoBehaviour:
   isShoot: 0
   conversationInfo: {fileID: 0}
   startConversation: {fileID: 0}
-  indicationKey: {fileID: 0}
+  indicationKey: {fileID: 3021531603903489866}
 --- !u!81 &5390351151909199959
 AudioListener:
   m_ObjectHideFlags: 0
@@ -640,3 +640,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3021531603338275088, guid: f8ab81cc674fa6549bc64e5b07a3b29e, type: 3}
   m_PrefabInstance: {fileID: 785419864}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3021531603903489866 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3021531603338275090, guid: f8ab81cc674fa6549bc64e5b07a3b29e, type: 3}
+  m_PrefabInstance: {fileID: 785419864}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d59f5d1359b1e34cb56d617fc5ebc2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -9,6 +9,8 @@ public abstract class Enemy : MonoBehaviour    //적 추상클래스 (적은 이
     public int currentHp;
     public float speed;
 
+    public float trackingDistance;
+
     //-----기본 컴포넌트-----
     public Animator am;            // 에니메이터
     public Rigidbody2D rb;         // Rigidbody
@@ -28,6 +30,9 @@ public abstract class Enemy : MonoBehaviour    //적 추상클래스 (적은 이
     //-----플레이어 캐싱-----
     public Player player;
     public int playerLayer;
+    public LayerMask mask;
+
+    public string playerTag = "Player";
 
     public void Awake()     //기본 컴포넌트 가져오기
     {

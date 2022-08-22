@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
-
 public class PlayerUICanvas : MonoBehaviour
 {
+    public GameObject deadImage;
     public Image blackScreen;
     public GameObject[] hpBar;
     public GameObject[] bulletCount;
@@ -229,5 +229,17 @@ public class PlayerUICanvas : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+
+    //---------사망 UI------------
+    public void GoTitleButton()
+    {
+        GameManager.instance.SaveUserData();
+        SceneManager.LoadScene("TitleScene");
+    }
+
+    public void RetryButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
 }
