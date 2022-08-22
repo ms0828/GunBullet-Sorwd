@@ -17,6 +17,6 @@ public class ExitPortal : MonoBehaviour, IInterfaceObject
 
     public void Ending()
     {
-        Application.Quit();
+        SceneManager.LoadScene("TitleScene");
     }
 }
