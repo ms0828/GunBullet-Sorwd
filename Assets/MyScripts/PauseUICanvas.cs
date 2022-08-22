@@ -18,7 +18,7 @@ public class PauseUICanvas : MonoBehaviour
     public void GoTitleButton()
     {
         Time.timeScale = 1;
-        GameManager.instance.SaveUserData();
+        GameManager.instance.SaveUserData(GameManager.instance.currentStage);
         SceneManager.LoadScene("TitleScene");
     }
 

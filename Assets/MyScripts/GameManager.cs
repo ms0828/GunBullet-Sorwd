@@ -67,8 +67,9 @@ public class GameManager : MonoBehaviour
         currentStage = userData.stage;
     }
 
-    public void SaveUserData()
+    public void SaveUserData(int stage)
     {
+        currentStage = stage;
         userData.stage = currentStage;
         string jdata = JsonConvert.SerializeObject(userData);
         File.WriteAllText(Application.dataPath + "/DataBase/UserData.txt",jdata);

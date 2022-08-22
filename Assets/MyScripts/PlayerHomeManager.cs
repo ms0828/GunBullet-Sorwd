@@ -57,6 +57,7 @@ public class PlayerHomeManager : MonoBehaviour
         homeTimeline.Stop();
         homeTimeline.gameObject.SetActive(false);
         
+        GameManager.instance.SaveUserData(3);
         SceneManager.LoadScene("Stage1");
     }
 

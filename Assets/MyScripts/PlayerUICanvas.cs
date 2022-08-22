@@ -255,7 +255,7 @@ public class PlayerUICanvas : MonoBehaviour
     //---------사망 UI------------
     public void GoTitleButton()
     {
-        GameManager.instance.SaveUserData();
+        GameManager.instance.SaveUserData(GameManager.instance.currentStage);
         SceneManager.LoadScene("TitleScene");
     }
 
