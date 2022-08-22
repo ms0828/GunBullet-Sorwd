@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   box: {fileID: 5802450239510594845}
   gKey: {fileID: 0}
-  life: -30
+  player: {fileID: 0}
   isTriggerEnter: 0
 --- !u!222 &1750091020471888728
 CanvasRenderer:

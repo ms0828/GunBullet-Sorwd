@@ -7,14 +7,8 @@ public class Box : MonoBehaviour
     public GameObject box;
     public GameObject gKey;
     public Player player;
-    public int life = 30;
 
     public bool isTriggerEnter = false;
-
-    void Awake()
-    {
-        player = GameObject.Find("Player").GetComponent<Player>();
-    }
 
     void Update() 
     {
