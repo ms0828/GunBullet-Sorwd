@@ -16,7 +16,7 @@ public class Basement : MonoBehaviour
 
     void Update()
     {
-         if (Input.GetKeyDown(KeyCode.G) && isTriggerEnter == true) // G키를 누르면
+        if (Input.GetKeyDown(KeyCode.G) && isTriggerEnter == true) // G키를 누르면
         {
             StartCoroutine (LoadScene());
         }

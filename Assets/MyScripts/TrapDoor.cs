@@ -52,26 +52,23 @@ public class TrapDoor : MonoBehaviour
 
     IEnumerator EnemyAppear()
     {  
-        if (timer > 1)
+        if (timer < 1)
         {
             am.Play("DoorOpen", 0, 0);
         }
         
         if (timer > 2)
         {
-            Debug.Log("0");
             enemy1.SetActive(true);
         }
 
         if (timer > 3)
         {
-            Debug.Log("1");
             enemy2.SetActive(true);
         }
 
         if (timer > 4)
         {
-            Debug.Log("2");
             enemy3.SetActive(true);
         }
 

@@ -251,11 +251,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8719028369661480149, guid: ff54f1706e3407f4b9eb2c5a1df9733f, type: 3}
   m_PrefabInstance: {fileID: 8719028369690132469}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &60512585 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 60512585, guid: f4d1e67200cbe1c4fa3de017a71f2be2, type: 3}
-  m_PrefabInstance: {fileID: 1578681344}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &71205285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3329,7 +3324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1515217884330075244, guid: 9da19bd6e1885cd4084bdc8d14036da7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -66.112366
+      value: -69.1
       objectReference: {fileID: 0}
     - target: {fileID: 1515217884330075244, guid: 9da19bd6e1885cd4084bdc8d14036da7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3369,7 +3364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7520310153596399928, guid: 9da19bd6e1885cd4084bdc8d14036da7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.1
+      value: -0.71
       objectReference: {fileID: 0}
     - target: {fileID: 7520310153596399928, guid: 9da19bd6e1885cd4084bdc8d14036da7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5410,7 +5405,7 @@ PrefabInstance:
     - target: {fileID: 3746507779170039911, guid: f4d1e67200cbe1c4fa3de017a71f2be2, type: 3}
       propertyPath: desPos
       value: 
-      objectReference: {fileID: 60512585}
+      objectReference: {fileID: 0}
     - target: {fileID: 6007868907611942016, guid: f4d1e67200cbe1c4fa3de017a71f2be2, type: 3}
       propertyPath: m_Name
       value: UpDown

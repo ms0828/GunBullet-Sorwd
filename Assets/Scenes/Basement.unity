@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 963791471}
   m_Layer: 3
   m_Name: Tilemap
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1801,7 +1801,7 @@ GameObject:
   - component: {fileID: 1441103134}
   - component: {fileID: 1441103133}
   - component: {fileID: 1441103132}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1955,11 +1955,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3120414944801458188, guid: 5b8a2d74e60373b45a138dd9e0c68312, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.8
+      value: -6.77
       objectReference: {fileID: 0}
     - target: {fileID: 3120414944801458188, guid: 5b8a2d74e60373b45a138dd9e0c68312, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.46
+      value: -2.27
       objectReference: {fileID: 0}
     - target: {fileID: 3120414944801458188, guid: 5b8a2d74e60373b45a138dd9e0c68312, type: 3}
       propertyPath: m_LocalPosition.z
