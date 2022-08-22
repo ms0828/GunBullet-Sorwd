@@ -19,7 +19,7 @@ public class Elevator : MonoBehaviour
                 isElevator = false;
             }
             
-            if (this.tag.Equals("Stage2"))
+            if (this.tag.Equals("Stage2") && Computer.noLimit == true)
             {
                 StartCoroutine("LoadScene");
                 isElevator = false;
