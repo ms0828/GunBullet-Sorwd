@@ -98,13 +98,15 @@ public class UpDown : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Enemy"))
         {
+            rbEnemy = other.collider.GetComponent<Rigidbody2D>();
+
             if (enemyDistance.x > 0)
             {
-                rbEnemy.AddForce(new Vector2(-2.5f,0), ForceMode2D.Impulse);
+                rbEnemy.AddForce(new Vector2(3f,0), ForceMode2D.Impulse);
             }
             else
             {
-                rbEnemy.AddForce(new Vector2(2.5f,0), ForceMode2D.Impulse);
+                rbEnemy.AddForce(new Vector2(3f,0), ForceMode2D.Impulse);
             } 
         }
     }

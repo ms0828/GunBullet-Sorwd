@@ -233,12 +233,12 @@ public class BossMonster : Enemy, ITakeDamage
         else if(nextMove == -1)   //왼쪽으로 갈 때
         {
             am.SetBool("Run",true);
-            transform.localScale = rightDirection;  //-----이미지 방향 처리-----
+            transform.localScale = leftDirection;  //-----이미지 방향 처리-----
         }
         else     //오른쪽으로 갈 때
         {
             am.SetBool("Run",true);
-            transform.localScale = leftDirection;  //-----이미지 방향 처리-----
+            transform.localScale = rightDirection;  //-----이미지 방향 처리-----
         }
 
 
@@ -286,10 +286,10 @@ public class BossMonster : Enemy, ITakeDamage
 
         //-------돌진 공격-------
         RaycastHit2D rayHit1;
-        if(transform.localScale.x > 0)  //왼쪽 보고 있을 때
-            rayHit1 = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), crushDistance, mask);
-        else
+        if(transform.localScale.x > 0)  //오른쪽 보고 있을 때
             rayHit1 = Physics2D.Raycast(muzzlePos.position, new Vector2(1, 0), crushDistance, mask);
+        else
+            rayHit1 = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), crushDistance, mask);
 
         if(rayHit1.collider != null && rayHit1.collider.CompareTag(playerTag) && isCrushCoolTime == false && isAttackCoolTime == false)     //현재 바라보는 방향 일직선에서 플레이어가 감지되면
         {
@@ -308,10 +308,10 @@ public class BossMonster : Enemy, ITakeDamage
 
         //-----적이 멀리있으면 원거리 저격 조준------
         RaycastHit2D rayHit2;
-        if(transform.localScale.x > 0)  //왼쪽 보고 있을 때
-            rayHit2 = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), aimDistance, mask);
-        else
+        if(transform.localScale.x > 0)  //오른쪽 보고 있을 때
             rayHit2 = Physics2D.Raycast(muzzlePos.position, new Vector2(1, 0), aimDistance, mask);
+        else
+            rayHit2 = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), aimDistance, mask);
         
         
 
@@ -432,16 +432,16 @@ public class BossMonster : Enemy, ITakeDamage
     {
         SoundManager.instance.EnemySfxSound(attackAudio,"Boss_Crush");
 
-        for(int i=0; i<15; i++)
+        for(int i=0; i<20; i++)
         {
-            if(transform.localScale.x > 0)  //왼쪽 볼 때
+            if(transform.localScale.x > 0)  //오른쪽 볼 때
             {
-                transform.Translate(new Vector2(-1 * 0.3f ,0));
+                transform.Translate(new Vector2(1 * 0.3f ,0));
                 GiveCrushDamage();
             }
             else
             {
-                transform.Translate(new Vector2(1 * 0.3f ,0));
+                transform.Translate(new Vector2(-1 * 0.3f ,0));
                 GiveCrushDamage();
             }
             
@@ -475,9 +475,9 @@ public class BossMonster : Enemy, ITakeDamage
             //플레이어가 공격 범위 안에 있는지 0.3초 단위로 반복 검사
             RaycastHit2D rayHit;
             if(transform.localScale.x > 0)
-                rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), aimDistance, mask);
-            else
                 rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(1, 0), aimDistance, mask);
+            else
+                rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), aimDistance, mask);
         
             
             if(isAiming == false || rayHit.collider == null || !rayHit.collider.CompareTag(playerTag))        //피격 시 isAiming => false  -> 조준 해제
@@ -512,13 +512,13 @@ public class BossMonster : Enemy, ITakeDamage
         
         //------임시로 ArmMachine 총알 사용 
         AmBullet bullet = Instantiate(bulletPrefeb, muzzlePos.position, muzzlePos.rotation).GetComponent<AmBullet>();
-        if(transform.localScale.x > 0)    //왼쪽 보고 있으면
+        if(transform.localScale.x > 0)    //오른쪽 보고 있으면
         {
-            bullet.SetBullet(leftDirection);
+            bullet.SetBullet(rightDirection);
         }
         else    //왼쪽 보고 있으면
         {
-            bullet.SetBullet(rightDirection);
+            bullet.SetBullet(leftDirection);
         }
     }
 
@@ -662,25 +662,25 @@ public class BossMonster : Enemy, ITakeDamage
     private void OnDrawGizmos()     
     {                               
         Gizmos.color = Color.red;
-       // Gizmos.DrawWireCube(grabScope.position,grabScope.localScale);
-        Gizmos.DrawWireCube(crushHitBox.position,crushHitBox.localScale);
+        Gizmos.DrawWireCube(grabScope.position,grabScope.localScale);
+        //Gizmos.DrawWireCube(crushHitBox.position,crushHitBox.localScale);
     }
 
 
 
     void TestDrawRay()
     {
-        if(transform.localScale.x > 0)  //왼쪽 보고 있을 때
+        if(transform.localScale.x > 0)  //오른쪽 보고 있을 때
         {
             //Debug.DrawRay(muzzlePos.position,Vector2.left * trackingDistance, Color.yellow);
             //Debug.DrawRay(muzzlePos.position,Vector2.left * aimDistance, Color.red);
-            Debug.DrawRay(muzzlePos.position,Vector2.left * crushDistance, Color.blue);
+            Debug.DrawRay(muzzlePos.position,Vector2.right * crushDistance, Color.blue);
         }
         else
         {
             //Debug.DrawRay(muzzlePos.position,Vector2.right * trackingDistance, Color.yellow);
             //Debug.DrawRay(muzzlePos.position,Vector2.right * aimDistance, Color.red);
-            Debug.DrawRay(muzzlePos.position,Vector2.right * crushDistance, Color.blue);
+            Debug.DrawRay(muzzlePos.position,Vector2.left * crushDistance, Color.blue);
         }
         
     }
