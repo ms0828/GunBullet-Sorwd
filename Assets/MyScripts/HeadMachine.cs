@@ -7,7 +7,7 @@ public class HeadMachine : Enemy, ITakeDamage
 
     //------스탯 관련------
     public int grabAttackPower = 50;
-
+    public float grenadeDistance = 4f;
 
     //------상태 관련 bool-------
     public bool isGrab = false;
@@ -20,6 +20,7 @@ public class HeadMachine : Enemy, ITakeDamage
     public Transform throwScope;
     public GameObject grenadePrefeb;
     public Transform grabScope;    //잡기 범위
+    public Transform muzzlePos;
 
 
     //------쿨타임 코루틴 캐싱------
@@ -42,9 +43,12 @@ public class HeadMachine : Enemy, ITakeDamage
 
     void Start()
     {
-        maxHp = 250;
-        currentHp = 250;
+        maxHp = 200;
+        currentHp = 200;
         speed = 1f;
+        trackingDistance = 8f;
+
+        mask = LayerMask.GetMask("Player") | LayerMask.GetMask("Block");
 
         Invoke("SetMoveDirection", 0.5f);
     }
@@ -77,6 +81,9 @@ public class HeadMachine : Enemy, ITakeDamage
         nextMove *= -1;
     }
 
+
+
+    /*
     //플레이어 추적 이동을 트리거로 구현
     void OnTriggerEnter2D(Collider2D other) 
     {
@@ -110,6 +117,58 @@ public class HeadMachine : Enemy, ITakeDamage
                 //StartCoroutine("GoBack");   //1초 후 반대 방향으로 감
             }
             Invoke("SetMoveDirection",3f);      //3초후 랜덤 방향 다시 설정
+        }
+    }*/
+
+    void OnTriggerStay2D(Collider2D other)      //캐릭터 위치 추적
+    {
+
+        if(other.gameObject.tag.Equals("Player"))
+        {
+            RaycastHit2D rayHit;
+
+            if(other.transform.position.x - transform.position.x > 0)   //캐릭터가 오른쪽에 있다면
+            {
+                rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(1, 0), trackingDistance, mask);
+            }
+            else
+            {
+                rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), trackingDistance, mask);
+            }
+
+
+            if(rayHit.collider != null && rayHit.collider.CompareTag(playerTag))   //플레이어가 감지되면
+            {
+                CancelInvoke("SetMoveDirection");       //랜덤 방향 설정 취소하고
+
+                if(other.transform.position.x - transform.position.x > 0)   //캐릭터가 오른쪽에 있다면
+                {
+                    nextMove = 1;
+                }
+                else
+                {
+                    nextMove = -1;
+                }
+            }
+            else        //플레이어가 감지 되지 않으면 (벽에 막히거나, 플레이어가 인식 범위를 벗어나면)
+            {   
+                if(IsInvoking("SetMoveDirection") == false)
+                {
+                    Invoke("SetMoveDirection",2f);      //3초후 랜덤 방향 다시 설정
+                }
+            }
+        }
+
+    }
+
+    void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.gameObject.tag.Equals("Player"))   //플레이어가 인식 범위에서 벗어나면
+        {
+            if(IsInvoking("SetMoveDirection") == false)
+            {
+                Invoke("SetMoveDirection",3f);      //3초후 랜덤 방향 다시 설정
+            }
         }
     }
     //-----------------------------------------------
@@ -172,10 +231,12 @@ public class HeadMachine : Enemy, ITakeDamage
             isGrab = true;
             am.SetBool("Grab", true);
             StartCoroutine(GrabCoolTime());     //잡기 쿨타임
+            return;
         }
 
         
         //-----원거리 공격(수류탄 투척)------
+        /*
         Collider2D collider2 = Physics2D.OverlapBox(throwScope.position,throwScope.localScale,0,playerLayer);
         
         if(collider2 != null && isThrowCoolTime == false && isGrab == false)    //플레이어가 있으면
@@ -183,7 +244,19 @@ public class HeadMachine : Enemy, ITakeDamage
             am.SetTrigger("Throw");
             StartCoroutine(ThrowCoolTime());    //투척 쿨타임
         }
+        */
+
+        RaycastHit2D rayHit;
+        if(transform.localScale.x > 0)  //오른쪽 보고 있을 때
+            rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(1, 0), grenadeDistance, mask);
+        else
+            rayHit = Physics2D.Raycast(muzzlePos.position, new Vector2(-1, 0), grenadeDistance, mask);
         
+        if(rayHit.collider != null && rayHit.collider.CompareTag(playerTag) && isThrowCoolTime == false && isGrab == false)     //현재 바라보는 방향 일직선에서 플레이어가 감지되면
+        {
+            am.SetTrigger("Throw");
+            StartCoroutine(ThrowCoolTime());    //투척 쿨타임
+        }
     }
 
 

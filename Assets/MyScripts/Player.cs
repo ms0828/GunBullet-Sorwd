@@ -275,7 +275,7 @@ public class Player : MonoBehaviour, ITakeDamage
         if(collider != null)    //적이 있으면
         {   
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
-            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);     //대상의 TakeDamage 함수 실행
+            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 50);     //대상의 TakeDamage 함수 실행
         }
         
     }
@@ -289,7 +289,7 @@ public class Player : MonoBehaviour, ITakeDamage
         if(collider != null)    //적이 있으면
         {   
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
-            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);     //대상의 TakeDamage 함수 실행
+            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 50);     //대상의 TakeDamage 함수 실행
         }
         
     }
@@ -303,7 +303,7 @@ public class Player : MonoBehaviour, ITakeDamage
         if(collider != null)    //적이 있으면
         {   
             //ITakeDamage 인터페이스를 가진 대상으로 인터페이스 함수(TakeDamage) 실행
-            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 20);     //대상의 TakeDamage 함수 실행
+            collider.GetComponent<ITakeDamage>().TakeDamage(this.transform, 50);     //대상의 TakeDamage 함수 실행
         }
         
     }
@@ -423,6 +423,7 @@ public class Player : MonoBehaviour, ITakeDamage
         {
             isHolding = false;      //피격 시, 홀딩 해제
             am.SetBool("Holding",false);
+            indicationKey.gameObject.SetActive(false);
         }
         if(isAttack == true)
             isAttack = false;
@@ -472,6 +473,7 @@ public class Player : MonoBehaviour, ITakeDamage
                 isDead = true;
                 //am.SetTrigger("Dead");
 
+                playerUi.deadImage.SetActive(true);
                 Destroy(gameObject, 2f);        //2초 후 사라짐
             }
         }
@@ -484,14 +486,27 @@ public class Player : MonoBehaviour, ITakeDamage
         am.SetBool("Holding",true);
         holdingGauge = 0;
 
+        indicationKey.gameObject.SetActive(true);
+        int j = 0;
         
         if(attacker is HeadMachine)
         {
             HeadMachine headMachine = (HeadMachine)attacker;
 
-
+            
             for(int i=0; i<20; i++)
             {
+                if(j==0)
+                {
+                    indicationKey.am.SetTrigger("A");
+                    j = 1;
+                }
+                else
+                {
+                    indicationKey.am.SetTrigger("D");
+                    j = 0;
+                }
+                
                 if(holdingGauge >= 100 || isHolding == false || headMachine.isGrab == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
                 {
                     am.SetBool("Holding",false);
@@ -500,6 +515,7 @@ public class Player : MonoBehaviour, ITakeDamage
                     if(holdingGauge >= 100)
                         headMachine.TakeDamage(this.transform, 0);        //게이지 채워서 탈출 성공하면 적 밀쳐냄
 
+                    indicationKey.gameObject.SetActive(false);
                     yield break;
                 }
 
@@ -520,6 +536,19 @@ public class Player : MonoBehaviour, ITakeDamage
 
             for(int i=0; i<20; i++)
             {
+
+                if(j==0)
+                {
+                    indicationKey.am.SetTrigger("A");
+                    j = 1;
+                }
+                else
+                {
+                    indicationKey.am.SetTrigger("D");
+                    j = 0;
+                }
+
+
                 if(holdingGauge >= 100 || isHolding == false || bossMonster.isGrab == false)       //게이지 다채우거나, 잡는 적이 피격 시 홀딩해제
                 {
                     am.SetBool("Holding",false);
@@ -528,6 +557,7 @@ public class Player : MonoBehaviour, ITakeDamage
                     if(holdingGauge >= 100)
                         bossMonster.TakeDamage(this.transform, 0);        //게이지 채워서 탈출 성공하면 적 밀쳐냄
 
+                    indicationKey.gameObject.SetActive(false);
                     yield break;
                 }
 

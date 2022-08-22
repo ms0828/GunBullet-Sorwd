@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
-
 public class PlayerUICanvas : MonoBehaviour
 {
+    public GameObject deadImage;
     public Image blackScreen;
     public GameObject[] hpBar;
     public GameObject[] bulletCount;
@@ -18,6 +18,8 @@ public class PlayerUICanvas : MonoBehaviour
     public GameObject dialogBox;
     public Text speakerText;
     public Text contentText;
+    public Image speakerImage;
+    public Sprite playerImage;
 
     public string speaker;
     public string[] content;
@@ -55,6 +57,10 @@ public class PlayerUICanvas : MonoBehaviour
         if(contentText == null)
         {
             contentText = dialogBox.transform.Find("ContentText").GetComponent<Text>();
+        }
+        if(speakerImage == null)
+        {
+            speakerImage = dialogBox.transform.Find("SpeakerImage").GetComponent<Image>();
         }
 
         timeline = GameObject.Find("Timelines");
@@ -112,6 +118,15 @@ public class PlayerUICanvas : MonoBehaviour
         speaker = conversationInfo.speaker;
         content = conversationInfo.content;
 
+        if(_conversationInfo.speakerImage != null)
+        {
+            speakerImage.sprite = _conversationInfo.speakerImage;
+        }
+        else
+        {
+            speakerImage.sprite = playerImage;
+        }
+
         maxPage = content.Length - 1;
         curPage = 0;
 
@@ -165,6 +180,13 @@ public class PlayerUICanvas : MonoBehaviour
         {   
             StartCoroutine(ChangeNextScene("PlayerHome"));
             
+        }
+        else if(conversationInfo.eventIndex == (int)ConversationObject.objectEvent.elevator)
+        {
+            playTimeline = null;
+            playTimeline = timeline.transform.Find("HomeTimeline").GetComponent<PlayableDirector>();
+            playTimeline.gameObject.SetActive(true);
+            playTimeline.Play();
         }
         else if(conversationInfo.eventIndex == (int)ConversationObject.objectEvent.table)
         {
@@ -229,5 +251,17 @@ public class PlayerUICanvas : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+
+    //---------사망 UI------------
+    public void GoTitleButton()
+    {
+        GameManager.instance.SaveUserData();
+        SceneManager.LoadScene("TitleScene");
+    }
+
+    public void RetryButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
 }

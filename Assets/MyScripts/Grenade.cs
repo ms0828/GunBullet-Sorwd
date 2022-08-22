@@ -33,6 +33,10 @@ public class Grenade : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
+        if(other.gameObject.tag.Equals("Ground"))
+        {
+            Explosion();
+        }
         if(other.gameObject.tag.Equals("Player"))
         {
             Explosion();

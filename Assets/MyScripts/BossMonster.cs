@@ -19,7 +19,6 @@ public class BossMonster : Enemy, ITakeDamage
 
 
     //--------스탯 관련 변수-------
-    public float trackingDistance;
     public float aimDistance;
     public float crushDistance;
 
@@ -51,8 +50,6 @@ public class BossMonster : Enemy, ITakeDamage
 
 
     //-----플레이어 캐싱 관련------
-    private string playerTag = "Player";
-    LayerMask mask;
 
 
     //------쿨타임 코루틴 캐싱------
@@ -101,8 +98,8 @@ public class BossMonster : Enemy, ITakeDamage
         SetLimits();    //움직임 영역 제한 설정
         bossUi.gameObject.SetActive(true);
 
-        maxHp = 500;
-        currentHp = 500;
+        maxHp = 600;
+        currentHp = 600;
         speed = 1.3f;
         trackingDistance = 8f;
         aimDistance = 6f;
@@ -114,6 +111,8 @@ public class BossMonster : Enemy, ITakeDamage
 
         Destroy(table.GetComponent<Table>());
         table.GetComponent<BoxCollider2D>().enabled = false;
+
+        SoundManager.instance.EnemySfxSound(behaviorAudio,"Boss_Appearance");
     }
 
 
@@ -307,9 +306,6 @@ public class BossMonster : Enemy, ITakeDamage
 
 
 
-
-
-
         //-----적이 멀리있으면 원거리 저격 조준------
         RaycastHit2D rayHit2;
         if(transform.localScale.x > 0)  //왼쪽 보고 있을 때
@@ -399,7 +395,7 @@ public class BossMonster : Enemy, ITakeDamage
 
     public void GiveGrabDamage()       //잡기 공격 에니메이션에서 실행됨
     {
-        //SoundManager.instance.EnemySfxSound(attackAudio,"HeadMachineShoot");
+        SoundManager.instance.EnemySfxSound(attackAudio,"Boss_GrabAttack");
 
         Collider2D collider = Physics2D.OverlapBox(grabScope.position,grabScope.localScale,0,playerLayer);
         
@@ -434,7 +430,8 @@ public class BossMonster : Enemy, ITakeDamage
 
     IEnumerator Crushing()
     {
-        
+        SoundManager.instance.EnemySfxSound(attackAudio,"Boss_Crush");
+
         for(int i=0; i<15; i++)
         {
             if(transform.localScale.x > 0)  //왼쪽 볼 때
@@ -458,8 +455,7 @@ public class BossMonster : Enemy, ITakeDamage
 
     public void GiveCrushDamage()       //돌진 공격 데미지 주는 함수
     {
-        //SoundManager.instance.EnemySfxSound(attackAudio,"HeadMachineShoot");
-
+    
         Collider2D collider = Physics2D.OverlapBox(crushHitBox.position,crushHitBox.localScale,0,playerLayer);
         
         if(collider != null)    //플레이어가 있으면
@@ -492,7 +488,7 @@ public class BossMonster : Enemy, ITakeDamage
                 yield break;
             }
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.1f);
         }
 
         if(isAiming == true)  //발사
@@ -512,7 +508,7 @@ public class BossMonster : Enemy, ITakeDamage
 
     void Shoot()        //조준 후, 발사 Shoot 에니메이션에서 발동 (에니메이션 이벤트 함수)
     {
-        //SoundManager.instance.EnemySfxSound(attackAudio,"ArmMachineShoot");
+        SoundManager.instance.EnemySfxSound(attackAudio,"Boss_Laser",1f);
         
         //------임시로 ArmMachine 총알 사용 
         AmBullet bullet = Instantiate(bulletPrefeb, muzzlePos.position, muzzlePos.rotation).GetComponent<AmBullet>();
@@ -592,7 +588,7 @@ public class BossMonster : Enemy, ITakeDamage
         {
             if(!isDead)     //이미 죽은 상태에서 피격 방지
             {
-                //SoundManager.instance.EnemySfxSound(behaviorAudio,"HeadMachineDie");
+                SoundManager.instance.EnemySfxSound(behaviorAudio,"Boss_Dead");
 
                 currentHp = 0;
                 isDead = true;
@@ -615,11 +611,11 @@ public class BossMonster : Enemy, ITakeDamage
     IEnumerator AttackCoolTime()
     {
         isAttackCoolTime = true;
-        Debug.Log("공격 기본 쿨타임 on");
+
         yield return attackCoolTime;
 
         isAttackCoolTime = false;
-        Debug.Log("공격 기본 쿨타임 off");
+  
     }
 
     IEnumerator GrabCoolTime()
@@ -676,14 +672,14 @@ public class BossMonster : Enemy, ITakeDamage
     {
         if(transform.localScale.x > 0)  //왼쪽 보고 있을 때
         {
-            Debug.DrawRay(muzzlePos.position,Vector2.left * trackingDistance, Color.yellow);
-            Debug.DrawRay(muzzlePos.position,Vector2.left * aimDistance, Color.red);
+            //Debug.DrawRay(muzzlePos.position,Vector2.left * trackingDistance, Color.yellow);
+            //Debug.DrawRay(muzzlePos.position,Vector2.left * aimDistance, Color.red);
             Debug.DrawRay(muzzlePos.position,Vector2.left * crushDistance, Color.blue);
         }
         else
         {
-            Debug.DrawRay(muzzlePos.position,Vector2.right * trackingDistance, Color.yellow);
-            Debug.DrawRay(muzzlePos.position,Vector2.right * aimDistance, Color.red);
+            //Debug.DrawRay(muzzlePos.position,Vector2.right * trackingDistance, Color.yellow);
+            //Debug.DrawRay(muzzlePos.position,Vector2.right * aimDistance, Color.red);
             Debug.DrawRay(muzzlePos.position,Vector2.right * crushDistance, Color.blue);
         }
         
