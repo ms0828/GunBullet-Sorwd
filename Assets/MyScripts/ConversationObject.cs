@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ConversationObject : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class ConversationObject : MonoBehaviour
     public string speaker;
     public string[] content;
 
-    public enum objectEvent{tutorialClear = 1, table, ending};
+    public Sprite speakerImage;
+
+    public enum objectEvent{tutorialClear = 1, table, ending, elevator};
 
 
 }

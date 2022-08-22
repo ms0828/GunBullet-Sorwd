@@ -18,6 +18,11 @@ public class SoundManager : MonoBehaviour
     private AudioClip TitleAudioClip;
     [SerializeField]
     private AudioClip TutorialAudioClip;
+    [SerializeField]
+    private AudioClip StageAudioClip;
+    [SerializeField]
+    private AudioClip Stage3AudioClip;
+
 
     [SerializeField]
     private AudioClip[] sfxAudioClips;      //기본 효과음 오디오 클립
@@ -107,14 +112,20 @@ public class SoundManager : MonoBehaviour
             bgmPlayer.clip = TitleAudioClip;
             bgmPlayer.Play();
         }
-        else if(SceneManager.GetActiveScene().name == "TutorialScene")
+        else if(SceneManager.GetActiveScene().name == "TutorialScene" || SceneManager.GetActiveScene().name == "PlayerHome")
         {
             bgmPlayer.clip = TutorialAudioClip;
             bgmPlayer.Play();
         }
-        else
+        else if(SceneManager.GetActiveScene().name == "Stage1" || SceneManager.GetActiveScene().name == "Stage2")
         {
-            Debug.Log("해당 스테이지 bgm이 없습니다");
+            bgmPlayer.clip = StageAudioClip;
+            bgmPlayer.Play();
+        }
+        else if(SceneManager.GetActiveScene().name == "Stage3")
+        {
+            bgmPlayer.clip = Stage3AudioClip;
+            bgmPlayer.Play();
         }
 
     }

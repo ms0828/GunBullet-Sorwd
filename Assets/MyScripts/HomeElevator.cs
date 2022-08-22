@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HomeElevator : MonoBehaviour, IInterfaceObject
+public class HomeElevator : ConversationObject
 {
-    public PlayerHomeManager pm;
 
     void Awake()
     {
-        if(pm == null)
-        {
-            pm = GameObject.Find("PlayerHomeManager").GetComponent<PlayerHomeManager>();
-        }
-    }   
-    public void Interface()
-    {
-        pm.StartHomeTimeLine();
+        speaker = "Player";
+        content = new string[1];
+        content[0] = "오늘도 빨리 끝내야겠군...";
+        eventIndex = (int)ConversationObject.objectEvent.elevator;
+
     }
+
+ 
 }

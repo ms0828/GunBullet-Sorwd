@@ -47,6 +47,7 @@ MonoBehaviour:
   eventIndex: 0
   speaker: 
   content: []
+  speakerImage: {fileID: 0}
 --- !u!1 &2127468006339461949
 GameObject:
   m_ObjectHideFlags: 0

@@ -308,6 +308,8 @@ MonoBehaviour:
   masterVolumeBgm: 1
   TitleAudioClip: {fileID: 8300000, guid: 106cdf9336b70664db25b407d8e06066, type: 3}
   TutorialAudioClip: {fileID: 8300000, guid: 6f2c68290b94c4c44a832ff99e7f1181, type: 3}
+  StageAudioClip: {fileID: 8300000, guid: 25e57d62a37ac48479ebae20c68cd221, type: 3}
+  Stage3AudioClip: {fileID: 8300000, guid: 9fa63aea26c738043afecb626a077ce1, type: 3}
   sfxAudioClips:
   - {fileID: 8300000, guid: b0cc2dab7fa7f114ca0cf012d47a7b20, type: 3}
   - {fileID: 8300000, guid: 075cc9ff3ba8e264ab65ee345f8809a2, type: 3}
@@ -334,3 +336,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9107a12ba6cdb6649aef517d64994273, type: 3}
   - {fileID: 8300000, guid: ade6c9680b9c3444abfeec14423db279, type: 3}
   - {fileID: 8300000, guid: b873654abbbc0bf46943e4a720b28643, type: 3}
+  - {fileID: 8300000, guid: 34ed613bfcde4834a9f1953d01532a8e, type: 3}
+  - {fileID: 8300000, guid: 9d2524dfd21bedb428acac8cb0a1ad72, type: 3}
+  - {fileID: 8300000, guid: 476f28555e8dbf6449649f6fe6afdaff, type: 3}
+  - {fileID: 8300000, guid: 999fbd1d16ccfd24997f1149a72e8e47, type: 3}
+  - {fileID: 8300000, guid: 056eae19ee9a6d94f9dec1d1a1afe9a5, type: 3}

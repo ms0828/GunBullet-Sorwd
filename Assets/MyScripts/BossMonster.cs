@@ -111,6 +111,8 @@ public class BossMonster : Enemy, ITakeDamage
 
         Destroy(table.GetComponent<Table>());
         table.GetComponent<BoxCollider2D>().enabled = false;
+
+        SoundManager.instance.EnemySfxSound(behaviorAudio,"Boss_Appearance");
     }
 
 
@@ -393,7 +395,7 @@ public class BossMonster : Enemy, ITakeDamage
 
     public void GiveGrabDamage()       //잡기 공격 에니메이션에서 실행됨
     {
-        //SoundManager.instance.EnemySfxSound(attackAudio,"HeadMachineShoot");
+        SoundManager.instance.EnemySfxSound(attackAudio,"Boss_GrabAttack");
 
         Collider2D collider = Physics2D.OverlapBox(grabScope.position,grabScope.localScale,0,playerLayer);
         
@@ -428,7 +430,8 @@ public class BossMonster : Enemy, ITakeDamage
 
     IEnumerator Crushing()
     {
-        
+        SoundManager.instance.EnemySfxSound(attackAudio,"Boss_Crush");
+
         for(int i=0; i<15; i++)
         {
             if(transform.localScale.x > 0)  //왼쪽 볼 때
@@ -452,8 +455,7 @@ public class BossMonster : Enemy, ITakeDamage
 
     public void GiveCrushDamage()       //돌진 공격 데미지 주는 함수
     {
-        //SoundManager.instance.EnemySfxSound(attackAudio,"HeadMachineShoot");
-
+    
         Collider2D collider = Physics2D.OverlapBox(crushHitBox.position,crushHitBox.localScale,0,playerLayer);
         
         if(collider != null)    //플레이어가 있으면
@@ -486,7 +488,7 @@ public class BossMonster : Enemy, ITakeDamage
                 yield break;
             }
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.1f);
         }
 
         if(isAiming == true)  //발사
@@ -506,7 +508,7 @@ public class BossMonster : Enemy, ITakeDamage
 
     void Shoot()        //조준 후, 발사 Shoot 에니메이션에서 발동 (에니메이션 이벤트 함수)
     {
-        //SoundManager.instance.EnemySfxSound(attackAudio,"ArmMachineShoot");
+        SoundManager.instance.EnemySfxSound(attackAudio,"Boss_Laser",1f);
         
         //------임시로 ArmMachine 총알 사용 
         AmBullet bullet = Instantiate(bulletPrefeb, muzzlePos.position, muzzlePos.rotation).GetComponent<AmBullet>();
@@ -586,7 +588,7 @@ public class BossMonster : Enemy, ITakeDamage
         {
             if(!isDead)     //이미 죽은 상태에서 피격 방지
             {
-                //SoundManager.instance.EnemySfxSound(behaviorAudio,"HeadMachineDie");
+                SoundManager.instance.EnemySfxSound(behaviorAudio,"Boss_Dead");
 
                 currentHp = 0;
                 isDead = true;

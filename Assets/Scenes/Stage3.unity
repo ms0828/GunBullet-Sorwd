@@ -1412,6 +1412,7 @@ MonoBehaviour:
   eventIndex: 0
   speaker: 
   content: []
+  speakerImage: {fileID: 0}
 --- !u!61 &1376938920
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1453,6 +1454,7 @@ MonoBehaviour:
   eventIndex: 0
   speaker: 
   content: []
+  speakerImage: {fileID: 0}
 --- !u!1 &1395150675
 GameObject:
   m_ObjectHideFlags: 0
