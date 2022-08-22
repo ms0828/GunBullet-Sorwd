@@ -62,12 +62,4 @@ public class CCTV : MonoBehaviour
             isNone = false;
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D other) // 범위 안에 플레이어가 감지되면
-    {
-        if (other.gameObject.name.Equals("Player"))
-        {
-            Debug.Log("Player");
-        }
-    }
 }

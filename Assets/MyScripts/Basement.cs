@@ -5,23 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class Basement : MonoBehaviour
 {
+    public GameObject box;
     public Animator am;
+    
+    float timer = 0;
 
     public bool isTriggerEnter = false;
+    public bool isOpen = false;
 
-    void Start()
+    void Start() 
     {
         am = GetComponent<Animator>();
     }
 
-    void Update()
+    void Update() 
     {
         if (Input.GetKeyDown(KeyCode.G) && isTriggerEnter == true) // G키를 누르면
         {
-            StartCoroutine (LoadScene());
+            isOpen = true;
+        }
+
+        if (isOpen == true)
+        {
+            timer += Time.deltaTime;
+            
+            StartCoroutine(BoxAppear());
         }
     }
-
     private void OnTriggerEnter2D(Collider2D other) // 플레이어가 가까이 오면
     { 
         if(other.gameObject.name.Equals("Player")) 
@@ -30,23 +40,31 @@ public class Basement : MonoBehaviour
         }
     }
 
-    private IEnumerator LoadScene()
+    private void OnTriggerExit2D(Collider2D other) // 플레이어가 멀어지면
     {
-        Debug.Log("1");
-
-        am.enabled = true;
-        am.Play("DoorOpen", 0, 0);
-
-        yield return new WaitForSeconds (1f);
-
-        if (this.gameObject.tag.Equals("Stage2"))
+        if(other.gameObject.name.Equals("Player")) 
         {
-            SceneManager.LoadScene("Basement", LoadSceneMode.Additive);
+            isTriggerEnter = false;
+        }
+    }
+
+    IEnumerator BoxAppear()
+    {  
+        if (timer < 1)
+        {
+            am.Play("DoorOpen", 0, 0);
+        }
+        
+        if (timer > 2)
+        {
+            box.SetActive(true);
+        }
+        if (timer > 3)
+        {
+            timer = 0;
+            isOpen = false;
         }
 
-        if (this.gameObject.tag.Equals("Basement"))
-        {
-            SceneManager.LoadScene("Stage2", LoadSceneMode.Additive);
-        }
+        yield return null;
     }
 }
